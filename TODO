@@ -1,0 +1,25 @@
+* Create complete .iso
+* Power management
+* wicd network management
+* UFW
+* elinks
+* vimprobable
+* review packages (policykit-desktop-privileges?)
+* xombrero
+* zathura
+* xterm
+* samba
+* privoxy/squid3
+* base Lubuntu-core install
+* base niminal install
+* vim
+* mutt
+* st
+* spectrwm
+* apply patches to spectrwm, st, dmenu, pianobar, and sqsh
+* security
+* stability
+* documentation
+* website
+* graphics
+* tighten up defaults
