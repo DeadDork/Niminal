@@ -1,25 +1,25 @@
-* Create complete .iso
-* Power management
-* wicd network management
-* UFW
-* elinks
-* vimprobable
+* Create complete .iso (UCK?)
+* Power management (for now I am going to just use xfce4-power-manager, but I would like to transition to conky + power management scripts.)
+* wicd network management (for now I am going to use network-manager-gnome, but I would like to transition to conky + wicd.)
+* UFW (config patch)
+* elinks (config patch)
+* vimprobable (config patch)
+* samba (just patch the config)
 * review packages (policykit-desktop-privileges?)
-* xombrero
-* zathura
-* xterm
-* samba
-* privoxy/squid3
-* base Lubuntu-core install
-* base niminal install
-* vim
-* mutt
-* st
-* spectrwm
-* apply patches to spectrwm, st, dmenu, pianobar, and sqsh
-* security
-* stability
+* xombrero (config patch)
+* zathura (config patch)
+* privoxy/squid3 (config patch)
+* solely base niminal install (will need to revise default file settings, etc.)
+* vim (config patch)
+* mutt (config patch)
+* st (config patch)
+* awesome (config patch)
+* security (paranoia check)
+* stability (paranoia check)
+* sync Niminal instals while still in alpha development
 * documentation
 * website
 * graphics
 * tighten up defaults
+* beta development
+* production
