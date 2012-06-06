@@ -1,0 +1,9 @@
+set useragent=Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.11) Gecko/20101013 Ubuntu/10.04 (lucid) Firefox/3.6.11
+:map v=:set caret=true
+:map <C-v>=:set caret=false
+map <C-P>=:set proxy=true
+map <C-p>=:set proxy=false
+set proxy=true
+set scripts=false
+set java=false
+set plugins=false
