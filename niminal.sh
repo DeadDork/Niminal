@@ -1,162 +1,278 @@
 #!/bin/bash
 
-# 0.1.x notes:
-# The 0.1.x version series took a minimal ubuntu install, and added to it preferred packages. This seems like a good idea for a minimal Linux distro based on Ubuntu, at least in theory, but in practice the final product was quite shoddy. For one, I was never confident that it was secure and stable. Second, it was quite ugly. Third, the UI left a lot to be desired.
+# Directory location of custom configs files.
+custom_figs="$(pwd)/configs"
 
-# 0.2.x notes:
-# In the 0.2.x version series, I cherry-picked Lubuntu packages to create a base install I could have some confidence in, then added to it a few choice packages. This series was plagued by problems, too: 1) Spectrwm proved to be a flop 2) while I had high confidence when using Lubuntu, when I logged in to Spectrwm I was never quite as sanguine.
-
-# 0.3.x notes:
-# I had hoped to fork the 0.3.x series, such that my custom base Lubuntu install would be configured to have the best of Awesome & Lubuntu. However, this turned out to entail a huge undertaking, so I'm going to leave that to the 0.4.x series (which I'll work on in conjunction with Cnaan over the next couple of months). Instead, the 0.3.x series will take my custom Lubuntu install, and I'll simply mod from within Lubuntu (e.g. changing to the Awesome WM from OpenBox via LXSession). I expect to use this series for the next 2 - 3 months.
+# Run this instead of installing from the .iso. Doesn't necessarily need a minimal Ubuntu base install, but it's recommended.
 
 # Initial commands.
 sudo apt-get clean
 sudo apt-get update
 sudo apt-get upgrade
-sudo apt-get install aptitude
 
-# Install just ackage and depends.
+# Install just packages and their depends.
+
+# Libraries, tools and other non-interactables.
 sudo apt-get --no-install-recommends -y install\
-	lubuntu-core\
 	acpi-support\
+	alsa-base\
+	alsa-utils\
+	aspell\
+	aspell-de\
+	aspell-en\
+	aspell-es\
+	aspell-fr\
+	aspell-he\
+	anacron\
 	avahi-daemon\
 	bluez\
 	bluez-alsa\
 	bluez-cups\
+	bluez-utils\
+	ca-certificates\
+	cabal-install\
+	conky\
 	cups\
 	cups-bsd\
 	cups-client\
-	kerneloops-daemon\
-	laptop-detect\
-	libnss-mdns\
-	pcmciautils\
-	policy-kit-desktop-privileges\
-	desktop-file-utils\
+	cvs\
+	dbus-x11\
+	elinks-doc\
+	encfs\
+	foomatic-db-compressed-ppds\
+	foomatic-filters\
+	freetds-common\
+	gawk\
+	gdb\
+	genisoimage\
+	ghc\
+	git\
+	gnash\
+	gnome-keyring\
+	gnupg2\
+	gnupg-doc\
+	gstreamer0.10-pulseaudio\
 	gvfs-backends\
 	gvfs-fuse\
-	vim-gtk\
-	vim-latexsuite\
-	rxvt-unicode-lite\
-	pm-utils\
-	update-notifier\
-	wvdial\
-	x11-utils\
-	xdg-user-dirs\
-	audacious\
-	audacious-plugins\
-	apport-gtk\
-	blueman\
-	chromium-browser\
-	gnome-keyring\
-	gnome-mplayer\
-	gawk\
-	libreoffice-calc\
-	libreoffice-writer\
-	gpicview\
-	gucharmap\
-	guvcview\
-	ibus\
+	inputattach\
+	kerneloops-daemon\
+	laptop-detect\
+	libao-dev\
+	libc6-dev\
+	libfaad-dev\
+	libgcrypt11-dev\
+	libgnutls-dev\
+	libgtk2.0-dev\
+	libjson0-dev\
+	libmad0-dev\
+	libnss-mdns\
+	libpam-ck-connector\
+	libsasl2-modules\
+	libsoup2.4-dev\
+	libwebkitgtk-dev\
+	libxp6\
+	lightdm\
+	lightdm-gtk-greeter\
 	linux-headers-generic\
-	lxrandr\
-	lxsession-edit\
-	modemmanager\
-	network-manager-gnome\
+	lubuntu-restricted-extras\
+	mercurial\
+	mixmaster\
+	mpd\
 	ntp\
-	scrot\
-	system-config-printer-gnome\
-	transmission\
-	usb-modeswitch\
-	xfce4-power-manager\
-	cmus\
+	nvidia-common\
+	nvi-doc\
+	openprinting-ppds\
+	pcmciautils\
 	perl-doc\
-	xscreensaver-gl\
-	xscreensaver-gl-extra\
-	xfonts-terminus\
-	rdesktop\
-	zathura\
-	xclip\
-	feh\
-	texlive-common\
-	gimp\
-	seahorse\
-	encfs\
+	pm-utils\
+	policy-kit-desktop-privileges\
+	privoxy\
+	pulseaudio\
+	pulseaudio-module-x11\
+	readline-common\
+	rfkill\
 	samba\
 	samba-common\
-	xscreensaver\
+	squid3\
+	ubuntu-extras-keyring\
+	unzip\
+	url-view\
+	usb-modeswitch\
 	wireless-tools\
 	wpasupplicant\
-	gdb\
-	unclutter\
-	privoxy\
-	squid3\
-	git\
-	mercurial\
-	cvs\
-	r-recommended\
-	molly-guard\
-	openssh-server\
-	pulseaudio\
-	gstreamer0.10-pulseaudio\
-	pulseaudio-module-x11\
-	parcellite\
-	libwebkitgtk-dev\
-	libgtk2.0-dev\
-	libsoup2.4-dev\
-	libc6-dev\
-	libao-dev\
-	libgnutls-dev\
-	libgcrypt11-dev\
-	libjson0-dev\
-	libfaad-dev\
-	libmad0-dev\
-	mutt\
-	freetds-common\
-	rlwrap\
-	awesome\
-	awesome-extra\
-	zip\
-	unzip\
-	elinks\
-	elinks-doc\
-	xarchiver\
-	gnash\
-	xli\
-	conky\
-	xfe
+	wvdial\
+	x11-utils\
+	xclip\
+	xfonts-terminus\
+	xkb-data\
+	xorg\
+	zip
 
-# Only install the depends.
+# Shells, GUI's and other interactables.
+sudo apt-get --no-install-recommends -y install\
+	apport-gtk\
+	bc\
+	cmus\
+	elinks\
+	feh\
+	gmrun\
+	guake\
+	ghostscript-x\
+	keynav\
+	mpc\
+	mplayer\
+	mutt\
+	network-manager-gnome\
+	nvi\
+	openssh-server\
+	parcellite\
+	radare2\
+	rdesktop\
+	rxvt-unicode-256color\
+	r-recommended\
+	scrot\
+	system-config-printer-gnome\
+	xfce4-power-manager\
+	xscreensaver\
+	xscreensaver-gl\
+	xscreensaver-gl-extra\
+	unclutter\
+	vim-latexsuite\
+	vim-gtk\
+	xarchiver\
+	xfe\
+	xli\
+	zathura
+
+# Extra programs that are not minimal, but that I regularly use.
+sudo apt-get --no-install-recommends -y install\
+	abiword\
+	chromium-browser\
+	gnumeric\
+	gimp\
+	libreoffice-calc\
+	libreoffice-writer
+
+# Only install the depends (for installing from sources further down).
 sudo apt-get --no-install-recommends build-dep\
-	xxxterm\
+	dzen2\
+	sqsh\
 	suckless-tools\
-	sqsh
+	xmonad\
+	libghc-xmonad-contrib-dev\
+	libghc-xmonad-dev\
+	xxxterm
 
 # Create directories.
-if [ ! -d "${HOME}"/Programming/programming_projects ]; then
-	mkdir -p "${HOME}"/Programming/programming_projects
-fi
-if [ ! -d "${HOME}"/Programming/programming_experiments ]; then
-	mkdir "${HOME}"/Programming/programming_experiments/{BASH,awk,sed,SQL,hex,HTML,LaTeX,R,perl,python,sqsh}
+if [ ! -d "${HOME}"/Programming/{programming_projects,programming_experiments} ]; then
+	mkdir -p "${HOME}"/Programming/{programming_projects,programming_experiments/{BASH,awk,sed,SQL,hex,HTML,LaTeX,R,perl,python,sqsh}}
 fi
 if [ ! -d "${HOME}"/[Dd]ownloads ]; then
-	mkdir "${HOME}"/Downloads
+	mkdir -p "${HOME}"/Downloads/{open_source,chromium,xombrero,elinks,vimprobable}
 fi
 if [ ! -d "${HOME}"/[Dd]ocuments ]; then
-	mkdir "${HOME}"/Documents
-fi
-if [ ! -d "${HOME}"/Documents/[Mm]anuals ]; then
 	mkdir "${HOME}"/Documents/manuals
 fi
 
-# Install various projects. These various projects need to be compiled and set by hand.
-cd "${HOME}"/Programming/programming_projects
+# Installs various open-source projects. Many of these use a niminal patch, which could break future releases. If that happens, the broken source will revert to the master branch--i.e. away from the niminal branch--and recompile the vanilla.
+
+cd "${HOME}"/Downloads/open_source
+
+# dmenu
+if [ ! -d dmenu ]; then
+	hg clone http://hg.suckless.org/dmenu/
+else
+	cd dmenu
+	hg pull
+	cd ..
+fi
+cd dmenu
+if [ -e /usr/local/bin/dmenu ]; then # In case it is already installed. Reinstalling doubles the man files, etc. Big PITA. Easier to uninstall, then reinstall.
+	sudo make uninstall
+fi
+make clean
+sudo make install
+cd ..
+
+# pianobar
+if [ ! -d pianobar ]; then
+	git clone git://github.com/PromyLOPh/pianobar.git
+else
+	cd pianobar
+	git pull
+	cd ..
+fi
+cd pianobar
+if [ -e /usr/local/bin/pianobar ]; then # In case it is already installed. Reinstalling doubles the man files, etc. Big PITA. Easier to uninstall, then reinstall.
+	sudo make uninstall
+fi
+make clean
+sudo make install
+cd ..
+
+# SQSH
+if [ ! -d sqsh ]; then
+	cvs -d:pserver:anonymous@sqsh.cvs.sourceforge.net:/cvsroot/sqsh login
+	cvs -z3 -d:pserver:anonymous@sqsh.cvs.sourceforge.net:/cvsroot/sqsh co -P sqsh
+else
+	cd sqsh
+	cvs update -d
+	cd ..
+fi
+cd sqsh
+if [ -e /usr/local/bin/sqsh ]; then # In case it is already installed. Reinstalling doubles the man files, etc. Big PITA. Easier to uninstall, then reinstall.
+	sudo make uninstall
+fi
+SYBASE="/user/local"
+export SYBASE
+./configure --with-readline --with-x
+make clean
+sudo make install
+cd ..
+
+# Vimprobable
+if [ ! -d vimprobable ]; then
+	git clone git://git.code.sf.net/p/vimprobable/code
+	mv code vimprobable
+else
+	cd vimprobable
+	git pull
+	cd ..
+fi
+cd vimproable
+if [ -e /usr/local/bin/vimproable ]; then # In case it is already installed. Reinstalling doubles the man files, etc. Big PITA. Easier to uninstall, then reinstall.
+	sudo make uninstall
+fi
+git apply --check "${custom_figs}"/vimprobable/0001-Niminal-Vimprobable-configuration.patch
+if [ $? = 0 ]; then
+	git apply "${custom_figs}"/vimprobable/0001-Niminal-Vimprobable-configuration.patch
+fi
+make clean
+sudo make install
+cd ..
+
+# Xmonad
+# Xombrero
+
+
+# Xombrero -- light-weight browser.
 if [ ! -d xombrero ]; then
-	git clone git://opensource.conformal.com/xombrero.git
+	git clone git://opensource.conformal.com/xombrero
+else
+	cd xombrero
+	git pull origin
+	cd ..
 fi
-if [ ! -d spectrwm ]; then
-	git clone git://opensource.conformal.com/spectrwm.git
-fi
-if [ ! -d stterm ]; then
+cd xombrero/linux
+make clean
+sudo make install
+cd ../..
+
+# st -- simple terminal.
+if [ ! -d st ]; then
 	hg clone http://hg.suckless.org/st
+else
+	cd st
 fi
 if [ ! -d dmenu ]; then
 	hg clone http://hg.suckless.org/dmenu
@@ -164,6 +280,8 @@ fi
 if [ ! -d pianobar ]; then
 	git clone git://github.com/PromyLOPh/pianobar.git
 fi
+
+# Vimprobable -- ultra light-weigth browser.
 if [ ! -d vimprobable ]; then
 	git clone git://git.code.sf.net/p/vimprobable/code
 	mv code vimprobable
