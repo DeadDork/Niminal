@@ -1,25 +1,24 @@
-* Create complete .iso (UCK?)
-* Power management (for now I am going to just use xfce4-power-manager, but I would like to transition to conky + power management scripts.)
-* wicd network management (for now I am going to use network-manager-gnome, but I would like to transition to conky + wicd.)
+For now:
+* Power management (I've ultimately decided to stick to xfce4-power-manager. I need to set up a default config file for vanilla Niminal, as well as test whether I need acpid [seems extraneous...])
+* Network management (for this, too, I've decided to stick with the gui-er option, namely network-manager-gnome. Wicd might be great and all, but I like the gnome-keyring integration, as well as better hardware support, etc.)
 * UFW (config patch)
 * elinks (config patch)
 * vimprobable (config patch)
-* samba (just patch the config)
+* samba (config patch)
 * review packages (policykit-desktop-privileges?)
 * xombrero (config patch)
-* zathura (config patch)
-* privoxy/squid3 (config patch)
-* solely base niminal install (will need to revise default file settings, etc.)
-* vim (config patch)
+* privoxy/squid3/tor (config patch)
+* vim/vim-tiny/gvim (config patch)
 * mutt (config patch)
 * st (config patch)
-* awesome (config patch)
+* xmonad (config patch)
 * security (paranoia check)
 * stability (paranoia check)
-* sync Niminal instals while still in alpha development
-* documentation
-* website
+* test this mofo out!
+
+In the fuuuuuuture:
 * graphics
+* Create complete .iso (UCK?)
+* documentation
 * tighten up defaults
-* beta development
-* production
+* website (forum, patches, wiki, flyspray, etc.)
