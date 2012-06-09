@@ -1,0 +1,89 @@
+Niminal
+=======
+
+An Ubuntu fork that fits my (minimal?) needs perfectly.
+
+-=-=-=-=Motivation=-=-=-=-
+
+I really like Linux: it's open-source, its lets me do what I want, it's fast, it's powerful, it's well-supported, etc.
+
+I also really like Ubuntu: it's pretty secure (though it's no Tin Hat Linux), it's stable (though not quite as stable as Debian), it's got a fantastic community (though not as great as... Wait, it's actually pretty great!), a great package repository, it's easy to use, IT JUST WORKS, etc.
+
+Unfortunately, Ubuntu is pretty bloated (it is most certainly no Arch)...
+
+In the past, I would install Ubuntu, and then remove every package that I didn't want. However, that's a bit of pain in the butt to do. Over the years, doing this again and again across all of the computers I use simply became too much for me. A pain in the butt is not fun once, let alone a dozen times...
+
+Accordingly, I decided to make a Linux distro of my own, one that takes the good from Ubuntu, but tosses out the bloat (not going to say 'bad', as some people do like Unity, Gnome, et al. Not judging ;)
+
+The ideas was that all I would need to do to get started is install Niminal, and that's it. Once installed, I would have a minimal desktop distro that has all of the packages that I want on it, nothing more, nothing less, and is fully configured, so that I don't have to change a single setting before moving on to being fully productive.
+
+-=-=-=-=Design=-=-=-=-
+
+Niminal is largely based on Lubuntu. In main fact, I took Lubuntu's package list, and just added to and removed from it those packages I respectively wanted and didn't want.
+
+Beyond that, I added a few FOSS sources I am either involved in, want to be involved in, or that I prefer as bleeding-edge (e.g. sqsh--look at the 2.1.8 changelog!).
+
+Finally, this distro comes with everything preconfigured, from elinks to Xmonad.
+
+-=-=-=-=Intended User=-=-=-=-
+
+Well, mainly me :)
+
+Jokes aside, yes, this is the distro I install on all of my machines. However, I hope that anyone out there who wishes to try out a minimal Linux distribution will consider Niminal.
+
+If you--like me--started with Ubuntu, but want something leaner, this is a great way to do that, but without having to spend the whole weekend reading how-to's and documentation on how to configure this and that til you have a fully configured, workable system. Literally, all you need to do is install it, and you're ready to go!
+
+(Alternatively, one could go minimal with Gentoo, Arch, aptosid, Tiny Core, Alpine Linux, *BSD, etc. There are a lot of good options out there. They all have their good points, but ultimately I prefer Niminal. I have no intention of inciting a comparison between any of these, so I will leave it at that.)
+
+-=-=-=-=Install=-=-=-=-
+
+Excuse the simplicity of these instructions. If you know anything about anything, you might feel offended at just HOW simplistic they are. However, I remember my first exposure to the command line, and I don't want someone unfamiliar with it to start peeing blood... That first cold shock can be quite stressful!
+
+1) Install Minimal Ubuntu.
+
+Instructions for this step can be found on <http://www.psychocats.net/ubuntu/minimal>. Pretty much, follow all of the steps RIGHT UP TO THE FIRST LOGIN. At that point, login, but do ***NOT*** install the packages the author recommends.
+
+N.B. Installing Minimal Ubuntu is probable not necessary. There is a good chance that you can just as easily install Niminal from your already-installed Ubuntu Desktop, and get much the same Niminal desktop as you would if you installed from Minimal Ubuntu. However, I haven't tried this out, and I don't know if any of the packages don't play well together. Accordingly, I recommend starting from a vanilla Minimal Ubuntu.
+
+Also, one could run the niminal install script just as easily, I believe, in Debian as in Ubuntu. Both can be installed from a minimal .iso, and use the Debian binary package system, which is where these packages come from. I haven't tested this out yet, though, so for now it's just a possibility.
+
+2) Copy the full Niminal directory to somewhere on your file system.
+
+The easiest way to do this, assuming your machine is connected to the internet (which is kind of essential for the minimal install...), is to run the following from the command line (only run code that is between the BEGIN CODE and END CODE):
+
+###BEGIN CODE###
+# Change into the directory you want to install Niminal from. This won't affect the install one way or another, as it's purely cosmetic. If you are starting from a vanilla Ubuntu Minimal install, just use your home directory--i.e. do nothing. Later, though, be sure to move the Niminal directory someplace more suitable. For instance, $HOME/Downloads/open_source/.
+# I've commented out the change directory command, as I assume you're starting from a vanilla Ubuntu Minimal install. If you aren't, just uncomment it, and make sure it points to the directory you want to install Niminal from.
+#cd "${HOME}"/Downloads/open_source
+
+# If you don't have git already, just install it with the following (be sure to uncomment the command):
+#sudo apt-get install git --no-install-recommends
+
+# Clone Niminal to your present directory:
+git clone https://github.com/DeadDork/Niminal.git
+###END CODE###
+
+3) Change directory into Niminal, i.e.:
+
+###BEGIN CODE###
+cd Niminal
+###END CODE###
+
+4) Make sure that niminal.sh is executable.
+
+###BEGIN CODE###
+chmod 755 niminal.sh
+###END CODE###
+
+5) Run niminal.sh
+
+###BEGIN CODE###
+./niminal.sh
+###END CODE###
+
+You will be presented with number of prompts. Just follow their instructions and you'll be done in no time!
+
+-=-=-=-=Feedback=-=-=-=-
+If you find any bugs, etc., just report them on the Niminal's GitHub page, <http://www.github.com/DeadDork/Niminal>. Also, you are more than welcome to contact me via my GitHub!
+
+Enjoy!
