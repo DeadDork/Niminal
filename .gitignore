@@ -1,2 +1,4 @@
 deb-packages_for_iso
 ignore
+*.swp
+.gitignore
