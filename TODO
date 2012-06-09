@@ -8,12 +8,13 @@ For now:
 * privoxy/squid3/tor (config patch)
 * vim/vim-tiny/gvim (config patch)
 * mutt (config patch)
-* st (config patch)
 * xmonad (config patch)
 * review packages (policykit-desktop-privileges?)
 * security (paranoia check)
 * stability (paranoia check)
 * test this mofo out!
+* Split INSTALL from README (also, clean up that ugly README...)
+* Test niminal.sh on both Ubuntu Desktop, Debian Desktop, and Debian net install.
 
 In the fuuuuuuture:
 * graphics
