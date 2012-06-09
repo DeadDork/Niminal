@@ -83,6 +83,14 @@ chmod 755 niminal.sh
 
 You will be presented with number of prompts. Just follow their instructions and you'll be done in no time!
 
+6) Restart your machine.
+
+###BEGIN CODE###
+sudo reboot now
+##END CODE###
+
+And that's that! Your computer will restart, and eventually you will come to a login screen. Login, and you'll find yourself a second or 4 later looking at the minimal simplicity of Xmonad. Further direction goes beyond the scope of this README, though... (I hope to draw up some usage documentation some time in the future.)
+
 -=-=-=-=Feedback=-=-=-=-
 If you find any bugs, etc., just report them on the Niminal's GitHub page, <http://www.github.com/DeadDork/Niminal>. Also, you are more than welcome to contact me via my GitHub!
 
