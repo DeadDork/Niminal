@@ -178,7 +178,7 @@ sudo apt-get --no-install-recommends build-dep\
 
 cd "${HOME}"/Downloads/open_source
 
-# dmenu
+# dmenu -- simple dynamic menu.
 if [ ! -d dmenu ]; then
 	hg clone http://hg.suckless.org/dmenu/
 else
@@ -194,7 +194,7 @@ make clean
 sudo make install
 cd ..
 
-# pianobar
+# pianobar -- command-line Pandora player.
 if [ ! -d pianobar ]; then
 	git clone git://github.com/PromyLOPh/pianobar.git
 else
@@ -210,7 +210,7 @@ make clean
 sudo make install
 cd ..
 
-# SQSH
+# SQSH -- powerful replacement for isql.
 if [ ! -d sqsh ]; then
 	echo -e "-=-=-=-=NOTE=-=-=-=-\nJust hit ENTER at the password prompt here.\n-=-=-=-=END NOTE=-=-=-=-"
 	cvs -d:pserver:anonymous@sqsh.cvs.sourceforge.net:/cvsroot/sqsh login
@@ -243,11 +243,15 @@ cd st
 if [[ -e /usr/local/bin/st  || -e /usr/bin/st ]]; then # In case it is already installed. Reinstalling doubles the man files, etc. Big PITA. Easier to uninstall, then reinstall.
 	sudo make uninstall
 fi
+patch --dry-run -f -p1 < "${custom_figs}"/st/st_niminal.patch
+if [ $? = 0 ]; then
+	hg import "${custom_figs}"/st/st_niminal.patch
+fi
 make clean
 sudo make install
 cd ..
 
-# Vimprobable
+# Vimprobable -- ultra-light web browser.
 if [ ! -d vimprobable ]; then
 	git clone git://git.code.sf.net/p/vimprobable/code
 	mv code vimprobable
