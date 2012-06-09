@@ -1,9 +1,21 @@
 #!/bin/bash
 
-# Directory location of custom configs files.
+# Run this instead of installing from the .iso. Doesn't necessarily need a minimal Ubuntu base install, but it's recommended.
+# For a minimal Ubuntu install, follow the directions from psychocats til just the point after your first login to the barebones install, but before you install the packages. Directions here: <http://www.psychocats.net/ubuntu/minimal>.
+
+# Directory location of custom configs files. This assumes that you are running this install script from it's . directory.
 custom_figs="$(pwd)/configs"
 
-# Run this instead of installing from the .iso. Doesn't necessarily need a minimal Ubuntu base install, but it's recommended.
+# Create main home directories.
+if [ ! -d "${HOME}"/Programming/{programming_projects,programming_experiments} ]; then
+	mkdir -p "${HOME}"/Programming/{programming_projects,programming_experiments/{BASH,awk,sed,SQL,hex,HTML,LaTeX,R,perl,python,sqsh}}
+fi
+if [ ! -d "${HOME}"/[Dd]ownloads ]; then
+	mkdir -p "${HOME}"/Downloads/{open_source,chromium,xombrero,elinks,vimprobable}
+fi
+if [ ! -d "${HOME}"/[Dd]ocuments ]; then
+	mkdir "${HOME}"/Documents/manuals
+fi
 
 # Initial commands.
 sudo apt-get clean
@@ -80,7 +92,6 @@ sudo apt-get --no-install-recommends -y install\
 	mpd\
 	ntp\
 	nvidia-common\
-	nvi-doc\
 	openprinting-ppds\
 	pcmciautils\
 	perl-doc\
@@ -123,7 +134,6 @@ sudo apt-get --no-install-recommends -y install\
 	mplayer\
 	mutt\
 	network-manager-gnome\
-	nvi\
 	openssh-server\
 	parcellite\
 	radare2\
@@ -163,18 +173,8 @@ sudo apt-get --no-install-recommends build-dep\
 	libghc-xmonad-dev\
 	xxxterm
 
-# Create directories.
-if [ ! -d "${HOME}"/Programming/{programming_projects,programming_experiments} ]; then
-	mkdir -p "${HOME}"/Programming/{programming_projects,programming_experiments/{BASH,awk,sed,SQL,hex,HTML,LaTeX,R,perl,python,sqsh}}
-fi
-if [ ! -d "${HOME}"/[Dd]ownloads ]; then
-	mkdir -p "${HOME}"/Downloads/{open_source,chromium,xombrero,elinks,vimprobable}
-fi
-if [ ! -d "${HOME}"/[Dd]ocuments ]; then
-	mkdir "${HOME}"/Documents/manuals
-fi
-
 # Installs various open-source projects. Many of these use a niminal patch, which could break future releases. If that happens, the broken source will revert to the master branch--i.e. away from the niminal branch--and recompile the vanilla.
+# If any of the patches fail, do alert me of this, so that I can fix it.
 
 cd "${HOME}"/Downloads/open_source
 
@@ -187,7 +187,7 @@ else
 	cd ..
 fi
 cd dmenu
-if [ -e /usr/local/bin/dmenu ]; then # In case it is already installed. Reinstalling doubles the man files, etc. Big PITA. Easier to uninstall, then reinstall.
+if [[ -e /usr/local/bin/dmenu  || -e /usr/bin/dmenu ]]; then # In case it is already installed. Reinstalling doubles the man files, etc. Big PITA. Easier to uninstall, then reinstall.
 	sudo make uninstall
 fi
 make clean
@@ -203,7 +203,7 @@ else
 	cd ..
 fi
 cd pianobar
-if [ -e /usr/local/bin/pianobar ]; then # In case it is already installed. Reinstalling doubles the man files, etc. Big PITA. Easier to uninstall, then reinstall.
+if [[ -e /usr/local/bin/pianobar  || -e /usr/bin/pianobar ]]; then # In case it is already installed. Reinstalling doubles the man files, etc. Big PITA. Easier to uninstall, then reinstall.
 	sudo make uninstall
 fi
 make clean
@@ -212,20 +212,37 @@ cd ..
 
 # SQSH
 if [ ! -d sqsh ]; then
+	echo -e "-=-=-=-=NOTE=-=-=-=-\nJust hit ENTER at the password prompt here.\n-=-=-=-=END NOTE=-=-=-=-"
 	cvs -d:pserver:anonymous@sqsh.cvs.sourceforge.net:/cvsroot/sqsh login
 	cvs -z3 -d:pserver:anonymous@sqsh.cvs.sourceforge.net:/cvsroot/sqsh co -P sqsh
 else
 	cd sqsh
-	cvs update -d
+	cvs update
 	cd ..
 fi
 cd sqsh
-if [ -e /usr/local/bin/sqsh ]; then # In case it is already installed. Reinstalling doubles the man files, etc. Big PITA. Easier to uninstall, then reinstall.
+if [[ -e /usr/local/bin/sqsh  || -e /usr/bin/sqsh ]]; then # In case it is already installed. Reinstalling doubles the man files, etc. Big PITA. Easier to uninstall, then reinstall.
 	sudo make uninstall
 fi
 SYBASE="/user/local"
 export SYBASE
 ./configure --with-readline --with-x
+make clean
+sudo make install
+cd ..
+
+# st -- simple terminal.
+if [ ! -d st ]; then
+	hg clone http://hg.suckless.org/st/
+else
+	cd st
+	hg pull
+	cd ..
+fi
+cd st
+if [[ -e /usr/local/bin/st  || -e /usr/bin/st ]]; then # In case it is already installed. Reinstalling doubles the man files, etc. Big PITA. Easier to uninstall, then reinstall.
+	sudo make uninstall
+fi
 make clean
 sudo make install
 cd ..
@@ -240,7 +257,7 @@ else
 	cd ..
 fi
 cd vimproable
-if [ -e /usr/local/bin/vimproable ]; then # In case it is already installed. Reinstalling doubles the man files, etc. Big PITA. Easier to uninstall, then reinstall.
+if [[ -e /usr/local/bin/vimprobable  || -e /usr/bin/vimprobable ]]; then # In case it is already installed. Reinstalling doubles the man files, etc. Big PITA. Easier to uninstall, then reinstall.
 	sudo make uninstall
 fi
 git apply --check "${custom_figs}"/vimprobable/0001-Niminal-Vimprobable-configuration.patch
@@ -268,30 +285,7 @@ make clean
 sudo make install
 cd ../..
 
-# st -- simple terminal.
-if [ ! -d st ]; then
-	hg clone http://hg.suckless.org/st
-else
-	cd st
-fi
-if [ ! -d dmenu ]; then
-	hg clone http://hg.suckless.org/dmenu
-fi
-if [ ! -d pianobar ]; then
-	git clone git://github.com/PromyLOPh/pianobar.git
-fi
-
-# Vimprobable -- ultra light-weigth browser.
-if [ ! -d vimprobable ]; then
-	git clone git://git.code.sf.net/p/vimprobable/code
-	mv code vimprobable
-fi
-if [ ! -d sqsh ]; then
-	cvs -d:pserver:anonymous@sqsh.cvs.sourceforge.net:/cvsroot/sqsh login 
-	cvs -z3 -d:pserver:anonymous@sqsh.cvs.sourceforge.net:/cvsroot/sqsh co -P sqsh
-fi
-
-# Set firewall.
+# Set firewall. Admittedly, this is very aggressive, but I haven't had any needs to not be.
 sudo ufw default deny
 sudo ufw enable
 sudo ufw allow from 192.168.0.0/16 to any port 22
@@ -301,22 +295,24 @@ sudo ufw allow proto udp from 192.168.0.0/16 to any port 137,138
 # Need config files for:
 #	* elinks
 #	* vimprobable
-#	* vim
+#	* vim (gvim + vim + vim-tiny)
 #	* samba
 #	* .xsession/.xinitrc
-#	* privoxy + squid3
-#	* freetds
+#	* privoxy + squid3 + tor
+#	* freetds (AMEND FOR GITHUB!!!)
 #	* zathura
 #	* mutt
-
-# Need to setup:
-#	* chromium-browser
+#	* xmonad
+#	* dzen2
+#	* conky
+#	* dcp-linux
+#	* transmission
 
 # Miscelani:
 #	* ssh scripts
 #	* 2xclip
 #	* sqsh scripts
-#	* rdesktop scripts
-#	* manuals (e.g. if-then bash manual)
+#	* rdesktop scripts (AMEND FOR GITHUB!!!)
+#	* manuals (e.g. if-then, bash, etc.)
 #	* MIT License
-#	* transfer over to new computer all important files from old computer (e.g. TrueNorthDecrypt)
+#	* PATCHING
