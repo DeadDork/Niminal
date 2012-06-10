@@ -1,24 +1,19 @@
-For now:
-* Power management (I've ultimately decided to stick to xfce4-power-manager. I need to set up a default config file for vanilla Niminal, as well as test whether I need acpid [seems extraneous...])
-* Network management (for this, too, I've decided to stick with the gui-er option, namely network-manager-gnome. Wicd might be great and all, but I like the gnome-keyring integration, as well as better hardware support, etc.)
-* elinks (config patch)
-* vimprobable (config patch)
-* samba (config patch)
-* xombrero (config patch)
-* privoxy/squid3/tor (config patch)
-* vim/vim-tiny/gvim (config patch)
-* mutt (config patch)
-* xmonad (config patch)
-* review packages (policykit-desktop-privileges?)
-* security (paranoia check)
-* stability (paranoia check)
-* test this mofo out!
-* Split INSTALL from README (also, clean up that ugly README...)
+* Use an alternative login manager (SLiM?).
+* Startup & shutdown backgrounds.
+* Fork Guake, and use st instead of whatever memory hog it uses right now.
+* tmux (I'm not even sure what it does, but I suspect it's cool).
+* Figure out why nm-applet isn't showing a graphic.
+* Power script (for quick shutdown, reboot, etc. from dmenu, etc.).
+* Phase out trayer and applet's completely
+* Power management through scripts (TLP?).
+* NM management through scripts (the security--e.g. gnome-keyring-manager--is going to be a pain...).
+* mutt (I'm using gmail right now, but I really should make the switch to the command line...)
+* xmonad (my current setup is unnecessarily ugly. xmonad can do so much--check out and1's config at <http://www.haskell.org/haskellwiki/Xmonad/Config_archive/And1%27s_xmonad.hs>).
+* review packages--i.e. I'm sure there are a couple that aren't needed.
+* tighten up settings.
+* security (harden).
+* stability (switch to debian, read on how to make the system more stable).
 * Test niminal.sh on both Ubuntu Desktop, Debian Desktop, and Debian net install.
-
-In the fuuuuuuture:
-* graphics
 * Create complete .iso (UCK?)
-* documentation
-* tighten up defaults
+* Documentation (so that anyone wanting to try out a minimal Linux distro can, and not have to spend way too much time reading documentation and how-to's).
 * website (forum, patches, wiki, flyspray, etc.)
