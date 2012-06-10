@@ -1,20 +1,33 @@
 #!/bin/bash
 
-# Run this instead of installing from the .iso. Doesn't necessarily need a minimal Ubuntu base install, but it's recommended.
-# For a minimal Ubuntu install, follow the directions from psychocats til just the point after your first login to the barebones install, but before you install the packages. Directions here: <http://www.psychocats.net/ubuntu/minimal>.
+# This script assumes you already have some *buntu distro installed (or optionally Debian).
 
 # Directory location of custom configs files. This assumes that you are running this install script from it's . directory.
 custom_figs="$(pwd)/configs"
 
 # Create main home directories.
-if [ ! -d "${HOME}"/Programming/{programming_projects,programming_experiments} ]; then
+if [ ! -d "${HOME}"/Programming ]; then
 	mkdir -p "${HOME}"/Programming/{programming_projects,programming_experiments/{BASH,awk,sed,SQL,hex,HTML,LaTeX,R,perl,python,sqsh}}
 fi
-if [ ! -d "${HOME}"/[Dd]ownloads ]; then
-	mkdir -p "${HOME}"/Downloads/{open_source,chromium,xombrero,elinks,vimprobable}
+
+if [ ! -d "${HOME}"/Downloads/chromium ]; then
+	mkdir -p "${HOME}"/Downloads/chromium
 fi
-if [ ! -d "${HOME}"/[Dd]ocuments ]; then
-	mkdir "${HOME}"/Documents/manuals
+if [ ! -d "${HOME}"/Downloads/elinks ]; then
+	mkdir -p "${HOME}"/Downloads/elinks
+fi
+if [ ! -d "${HOME}"/Downloads/open_source ]; then
+	mkdir -p "${HOME}"/Downloads/open_source
+fi
+if [ ! -d "${HOME}"/Downloads/xombrero ]; then
+	mkdir -p "${HOME}"/Downloads/xombrero
+fi
+if [ ! -d "${HOME}"/Downloads/vimprobable ]; then
+	mkdir -p "${HOME}"/Downloads/vimprobable
+fi
+
+if [ ! -d "${HOME}"/Documents/manuals ]; then
+	mkdir -p "${HOME}"/Documents/manuals
 fi
 
 # Initial commands.
@@ -48,6 +61,7 @@ sudo apt-get --no-install-recommends -y install\
 	cups-bsd\
 	cups-client\
 	cvs\
+	darcs\
 	dbus-x11\
 	elinks-doc\
 	encfs\
@@ -57,7 +71,7 @@ sudo apt-get --no-install-recommends -y install\
 	gawk\
 	gdb\
 	genisoimage\
-	ghc\
+	ghc6\
 	git\
 	gnash\
 	gnome-keyring\
@@ -117,6 +131,8 @@ sudo apt-get --no-install-recommends -y install\
 	xfonts-terminus\
 	xkb-data\
 	xorg\
+	xscreensaver-gl\
+	xscreensaver-gl-extra\
 	zip
 
 # Shells, GUI's and other interactables.
@@ -142,16 +158,14 @@ sudo apt-get --no-install-recommends -y install\
 	r-recommended\
 	scrot\
 	system-config-printer-gnome\
-	xfce4-power-manager\
-	xscreensaver\
-	xscreensaver-gl\
-	xscreensaver-gl-extra\
 	unclutter\
 	vim-latexsuite\
 	vim-gtk\
 	xarchiver\
 	xfe\
+	xfce4-power-manager\
 	xli\
+	xscreensaver\
 	zathura
 
 # Extra programs that are not minimal, but that I regularly use.
@@ -203,7 +217,7 @@ else
 	cd ..
 fi
 cd pianobar
-if [[ -e /usr/local/bin/pianobar  || -e /usr/bin/pianobar ]]; then # In case it is already installed. Reinstalling doubles the man files, etc. Big PITA. Easier to uninstall, then reinstall.
+if [[ -e /usr/local/bin/pianobar  || -e /usr/bin/pianobar ]]; then 
 	sudo make uninstall
 fi
 make clean
@@ -212,7 +226,7 @@ cd ..
 
 # SQSH -- powerful replacement for isql.
 if [ ! -d sqsh ]; then
-	echo -e "-=-=-=-=NOTE=-=-=-=-\nJust hit ENTER at the password prompt here.\n-=-=-=-=END NOTE=-=-=-=-"
+	echo -e "-=-=-=-=NOTE=-=-=-=-\nJust hit ENTER at the password prompt below.\n-=-=-=-=END NOTE=-=-=-=-"
 	cvs -d:pserver:anonymous@sqsh.cvs.sourceforge.net:/cvsroot/sqsh login
 	cvs -z3 -d:pserver:anonymous@sqsh.cvs.sourceforge.net:/cvsroot/sqsh co -P sqsh
 else
@@ -221,7 +235,7 @@ else
 	cd ..
 fi
 cd sqsh
-if [[ -e /usr/local/bin/sqsh  || -e /usr/bin/sqsh ]]; then # In case it is already installed. Reinstalling doubles the man files, etc. Big PITA. Easier to uninstall, then reinstall.
+if [[ -e /usr/local/bin/sqsh  || -e /usr/bin/sqsh ]]; then 
 	sudo make uninstall
 fi
 SYBASE="/user/local"
@@ -240,7 +254,7 @@ else
 	cd ..
 fi
 cd st
-if [[ -e /usr/local/bin/st  || -e /usr/bin/st ]]; then # In case it is already installed. Reinstalling doubles the man files, etc. Big PITA. Easier to uninstall, then reinstall.
+if [[ -e /usr/local/bin/st  || -e /usr/bin/st ]]; then 
 	sudo make uninstall
 fi
 patch --dry-run -f -p1 < "${custom_figs}"/st/st_niminal.patch
@@ -261,7 +275,7 @@ else
 	cd ..
 fi
 cd vimproable
-if [[ -e /usr/local/bin/vimprobable  || -e /usr/bin/vimprobable ]]; then # In case it is already installed. Reinstalling doubles the man files, etc. Big PITA. Easier to uninstall, then reinstall.
+if [[ -e /usr/local/bin/vimprobable  || -e /usr/bin/vimprobable ]]; then 
 	sudo make uninstall
 fi
 git apply --check "${custom_figs}"/vimprobable/0001-Niminal-Vimprobable-configuration.patch
@@ -273,8 +287,6 @@ sudo make install
 cd ..
 
 # Xmonad
-# Xombrero
-
 
 # Xombrero -- light-weight browser.
 if [ ! -d xombrero ]; then
