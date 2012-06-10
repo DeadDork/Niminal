@@ -73,6 +73,7 @@ sudo apt-get --no-install-recommends -y install\
 	genisoimage\
 	ghc6\
 	git\
+	gmrun\
 	gnash\
 	gnome-keyring\
 	gnupg2\
@@ -97,6 +98,8 @@ sudo apt-get --no-install-recommends -y install\
 	libsoup2.4-dev\
 	libwebkitgtk-dev\
 	libxp6\
+	libghc-xmonad-contrib-dev\
+	libghc-xmonad-dev\
 	lightdm\
 	lightdm-gtk-greeter\
 	linux-headers-generic\
@@ -107,6 +110,7 @@ sudo apt-get --no-install-recommends -y install\
 	ntp\
 	nvidia-common\
 	openprinting-ppds\
+	pandoc\
 	pcmciautils\
 	perl-doc\
 	pm-utils\
@@ -183,8 +187,6 @@ sudo apt-get --no-install-recommends build-dep\
 	sqsh\
 	suckless-tools\
 	xmonad\
-	libghc-xmonad-contrib-dev\
-	libghc-xmonad-dev\
 	xxxterm
 
 # Installs various open-source projects. Many of these use a niminal patch, which could break future releases. If that happens, the broken source will revert to the master branch--i.e. away from the niminal branch--and recompile the vanilla.
@@ -286,7 +288,24 @@ make clean
 sudo make install
 cd ..
 
-# Xmonad
+# xmonad -- an ultra-lightweight window manager.
+if [ ! -d xmonad ]; then
+	darcs get http://code.haskell.org/xmonad
+else
+	cd xmonad
+	darcs pull
+	cd ..
+fi
+cd xmonad
+runhaskell Setup.lhs configure
+runhaskell Setup.lhs build
+sudo runhaskell Setup.lhs install # I checked: this doesn't double up installed files.
+cd man
+sudo pandoc -s -w man xmonad.1.* -o /usr/local/man/man1/xmonad.1
+if [ ! -d "${HOME}"/.xmonad ]; then
+	mkdir "${HOME}"/.xmonad
+	cp "${custom_figs}"/xmonad/xmonad.hs "${HOME}"/.xmonad/xmonad.hs
+fi
 
 # Xombrero -- light-weight browser.
 if [ ! -d xombrero ]; then
