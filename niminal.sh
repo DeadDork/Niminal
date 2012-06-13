@@ -3,27 +3,46 @@
 # This script assumes you already have some *buntu distro installed (or optionally Debian).
 
 # Directory location of custom configs files. This assumes that you are running this install script from it's . directory.
-custom_figs="$(pwd)/configs"
+custom_figs="$(pwd)/customs"
 
 # Create main home directories.
-if [ ! -d "${HOME}"/Programming ]; then
-	mkdir -p "${HOME}"/Programming/{programming_projects,programming_experiments/{BASH,awk,sed,SQL,hex,HTML,LaTeX,R,perl,python,sqsh}}
+if [ ! -d "${HOME}"/bin ]; then
+	mkdir "${HOME}"/bin
+fi
+
+if [ ! -d /usr/local/man/man1 ]; then
+	sudo mkdir -p /usr/local/man/man1
+fi
+
+if [ ! -d "${HOME}"/Programming/programming_projects ]; then
+	mkdir -p "${HOME}"/Programming/programming_projects/scripts
+fi
+if [ ! -d "${HOME}"/Programming/programming_experiments ]; then
+	mkdir -p "${HOME}"/Programming/programming_experiments/{BASH,awk,sed,SQL,haskell,hex,HTML,LaTeX,R,perl,python,sqsh}
 fi
 
 if [ ! -d "${HOME}"/Downloads/chromium ]; then
 	mkdir -p "${HOME}"/Downloads/chromium
 fi
 if [ ! -d "${HOME}"/Downloads/elinks ]; then
-	mkdir -p "${HOME}"/Downloads/elinks
+	mkdir "${HOME}"/Downloads/elinks
 fi
 if [ ! -d "${HOME}"/Downloads/open_source ]; then
-	mkdir -p "${HOME}"/Downloads/open_source
+	mkdir "${HOME}"/Downloads/open_source
 fi
 if [ ! -d "${HOME}"/Downloads/xombrero ]; then
-	mkdir -p "${HOME}"/Downloads/xombrero
+	mkdir "${HOME}"/Downloads/xombrero
 fi
 if [ ! -d "${HOME}"/Downloads/vimprobable ]; then
-	mkdir -p "${HOME}"/Downloads/vimprobable
+	mkdir "${HOME}"/Downloads/vimprobable
+fi
+
+if [ ! -d "${HOME}"/.config/vimprobable ]; then
+	mkdir -p "{HOME}"/.config/vimprobable
+fi
+
+if [ ! -d "${HOME}"/Pictures/screenshots ]; then
+	mkdir -p "${HOME}"/Pictures/screenshots
 fi
 
 if [ ! -d "${HOME}"/Documents/manuals ]; then
@@ -70,12 +89,11 @@ sudo apt-get --no-install-recommends -y install\
 	freetds-common\
 	gawk\
 	gdb\
+	gdebi-core\
 	genisoimage\
 	ghc6\
 	git\
-	gmrun\
 	gnash\
-	gnome-keyring\
 	gnupg2\
 	gnupg-doc\
 	gstreamer0.10-pulseaudio\
@@ -98,8 +116,6 @@ sudo apt-get --no-install-recommends -y install\
 	libsoup2.4-dev\
 	libwebkitgtk-dev\
 	libxp6\
-	libghc-xmonad-contrib-dev\
-	libghc-xmonad-dev\
 	lightdm\
 	lightdm-gtk-greeter\
 	linux-headers-generic\
@@ -115,7 +131,6 @@ sudo apt-get --no-install-recommends -y install\
 	perl-doc\
 	pm-utils\
 	policy-kit-desktop-privileges\
-	privoxy\
 	pulseaudio\
 	pulseaudio-module-x11\
 	readline-common\
@@ -125,8 +140,9 @@ sudo apt-get --no-install-recommends -y install\
 	squid3\
 	ubuntu-extras-keyring\
 	unzip\
-	url-view\
+	unclutter\
 	usb-modeswitch\
+	videolan-doc\
 	wireless-tools\
 	wpasupplicant\
 	wvdial\
@@ -141,30 +157,34 @@ sudo apt-get --no-install-recommends -y install\
 
 # Shells, GUI's and other interactables.
 sudo apt-get --no-install-recommends -y install\
-	apport-gtk\
 	bc\
 	cmus\
 	elinks\
 	feh\
 	gmrun\
-	guake\
 	ghostscript-x\
-	keynav\
+	gv\
+	irssi\
+	irssi-scripts\
 	mpc\
 	mplayer\
 	mutt\
-	network-manager-gnome\
 	openssh-server\
 	parcellite\
 	radare2\
 	rdesktop\
 	rxvt-unicode-256color\
 	r-recommended\
+	screen\
 	scrot\
 	system-config-printer-gnome\
-	unclutter\
+	vim\
 	vim-latexsuite\
 	vim-gtk\
+	vlc\
+	vlc-plugin-pulse\
+	wicd-gtk\
+	wicd-cli\
 	xarchiver\
 	xfe\
 	xfce4-power-manager\
@@ -176,17 +196,16 @@ sudo apt-get --no-install-recommends -y install\
 sudo apt-get --no-install-recommends -y install\
 	abiword\
 	chromium-browser\
+	galculator\
 	gnumeric\
 	gimp\
 	libreoffice-calc\
 	libreoffice-writer
 
 # Only install the depends (for installing from sources further down).
-sudo apt-get --no-install-recommends build-dep\
-	dzen2\
+sudo apt-get build-dep\
 	sqsh\
 	suckless-tools\
-	xmonad\
 	xxxterm
 
 # Installs various open-source projects. Many of these use a niminal patch, which could break future releases. If that happens, the broken source will revert to the master branch--i.e. away from the niminal branch--and recompile the vanilla.
@@ -197,33 +216,29 @@ cd "${HOME}"/Downloads/open_source
 # dmenu -- simple dynamic menu.
 if [ ! -d dmenu ]; then
 	hg clone http://hg.suckless.org/dmenu/
+	cd dmenu
 else
 	cd dmenu
 	hg pull
-	cd ..
+	make clean
 fi
-cd dmenu
-if [[ -e /usr/local/bin/dmenu  || -e /usr/bin/dmenu ]]; then # In case it is already installed. Reinstalling doubles the man files, etc. Big PITA. Easier to uninstall, then reinstall.
-	sudo make uninstall
-fi
-make clean
-sudo make install
+make
+cp dmenu dmenu_run "${HOME}"/bin
+sudo cp dmenu.1 /usr/local/man/man1/
 cd ..
 
 # pianobar -- command-line Pandora player.
 if [ ! -d pianobar ]; then
 	git clone git://github.com/PromyLOPh/pianobar.git
+	cd pianobar
 else
 	cd pianobar
 	git pull
-	cd ..
+	make clean
 fi
-cd pianobar
-if [[ -e /usr/local/bin/pianobar  || -e /usr/bin/pianobar ]]; then 
-	sudo make uninstall
-fi
-make clean
-sudo make install
+make
+cp pianobar "${HOME}"/bin
+sudo cp "${custom_figs}"/pianobar/pianobar.sh /usr/local/bin/pianobar
 cd ..
 
 # SQSH -- powerful replacement for isql.
@@ -231,123 +246,149 @@ if [ ! -d sqsh ]; then
 	echo -e "-=-=-=-=NOTE=-=-=-=-\nJust hit ENTER at the password prompt below.\n-=-=-=-=END NOTE=-=-=-=-"
 	cvs -d:pserver:anonymous@sqsh.cvs.sourceforge.net:/cvsroot/sqsh login
 	cvs -z3 -d:pserver:anonymous@sqsh.cvs.sourceforge.net:/cvsroot/sqsh co -P sqsh
+	cd sqsh
 else
 	cd sqsh
 	cvs update
-	cd ..
-fi
-cd sqsh
-if [[ -e /usr/local/bin/sqsh  || -e /usr/bin/sqsh ]]; then 
-	sudo make uninstall
+	make clean
 fi
 SYBASE="/user/local"
 export SYBASE
 ./configure --with-readline --with-x
-make clean
-sudo make install
+make
+cp sqsh "${HOME}"/bin
+sudo cp "${custom_figs}"/sqsh/sqsh.sh /usr/local/bin/sqsh
+sudo cp doc/sqsh.1 /usr/local/man/man1/
 cd ..
 
-# st -- simple terminal.
+# st -- simple terminal emulator.
 if [ ! -d st ]; then
 	hg clone http://hg.suckless.org/st/
+cd st
 else
 	cd st
 	hg pull
-	cd ..
-fi
-cd st
-if [[ -e /usr/local/bin/st  || -e /usr/bin/st ]]; then 
-	sudo make uninstall
+	make clean
 fi
 patch --dry-run -f -p1 < "${custom_figs}"/st/st_niminal.patch
 if [ $? = 0 ]; then
 	hg import "${custom_figs}"/st/st_niminal.patch
 fi
-make clean
-sudo make install
+make
+cp st "${HOME}"/bin
+sudo cp st.1 /usr/local/man/man1/
 cd ..
 
 # Vimprobable -- ultra-light web browser.
 if [ ! -d vimprobable ]; then
 	git clone git://git.code.sf.net/p/vimprobable/code
 	mv code vimprobable
+	cd vimproable
 else
 	cd vimprobable
 	git pull
-	cd ..
-fi
-cd vimproable
-if [[ -e /usr/local/bin/vimprobable  || -e /usr/bin/vimprobable ]]; then 
-	sudo make uninstall
+	make clean
 fi
 git apply --check "${custom_figs}"/vimprobable/0001-Niminal-Vimprobable-configuration.patch
 if [ $? = 0 ]; then
 	git apply "${custom_figs}"/vimprobable/0001-Niminal-Vimprobable-configuration.patch
 fi
-make clean
-sudo make install
+make
+cp vimprobable "${HOME}"/bin
+if [ ! -d "${HOME}"/.config/vimprobable ]; then
+	mkdir -p "${HOME}"/.config/vimprobable
+fi
+cp -r "${custom_figs}"/vimprobable/vimprobable "${HOME}"/.config/
+sudo cp vimprobable2.1 /usr/local/share/man/man1/
+sudo cp vimprobablerc.5 /usr/local/share/man/man5/
 cd ..
 
-# xmonad -- an ultra-lightweight window manager.
+# xmonad -- ultra-lightweight window manager.
 if [ ! -d xmonad ]; then
 	darcs get http://code.haskell.org/xmonad
+	cd xmonad
 else
 	cd xmonad
 	darcs pull
-	cd ..
 fi
-cd xmonad
-runhaskell Setup.lhs configure
+runhaskell Setup.lhs configure --user --prefix="${HOME}"
 runhaskell Setup.lhs build
-sudo runhaskell Setup.lhs install # I checked: this doesn't double up installed files.
+runhaskell Setup.lhs install --user
 cd man
-sudo pandoc -s -w man xmonad.1.* -o /usr/local/man/man1/xmonad.1
+sudo pandoc -s -w man xmonad.1.* -o /usr/local/share/man/man1/xmonad.1
+cabal update
+cabal install cabal-install
+"${HOME}"/.cabal/bin/cabal install xmonad-contrib
 if [ ! -d "${HOME}"/.xmonad ]; then
-	mkdir "${HOME}"/.xmonad
-	cp "${custom_figs}"/xmonad/xmonad.hs "${HOME}"/.xmonad/xmonad.hs
+	cp -r "${custom_figs}"/xmonad/xmonad "${HOME}"/.xmonad/
 fi
 
 # Xombrero -- light-weight browser.
 if [ ! -d xombrero ]; then
 	git clone git://opensource.conformal.com/xombrero
+cd xombrero/linux
 else
 	cd xombrero
 	git pull origin
-	cd ..
+	make clean
 fi
-cd xombrero/linux
-make clean
-sudo make install
+make
+cp xmobrero "${HOME}"/bin/
+if [ ! -d "${HOME}"/share/xombrero ]; then
+	mkdir "${HOME}"/share/xombrero
+fi
+cp *.[Pp][Nn][Gg] tld-rules style.css "${HOME}"/share/xombrero
+cp "${custom_figs}"/xombrero/playflash.sh "${HOME}"/share/xombrero
+cp "${custom_figs}"/xombrero/xombrero.conf "${HOME}"/.xombrero.conf
 cd ../..
 
-# Set firewall. Admittedly, this is very aggressive, but I haven't had any needs to not be.
+# Proxies
+sudo apt-add-repository ppa:ubun-tor/ppa
+sudo apt-get update
+sudo apt-get install tor privoxy
+patch --dry-run -f -p1 < "${custom_figs}"/proxies/squid.patch
+if [ $? = 0 ]; then
+	sudo patch -f -p1 < "${custom_figs}"/proxies/squid.patch
+fi
+cp "${custom_figs}"/proxies/ToggleTor.sh "${HOME}"/Programming/programming_projects/scripts/
+cp "${custom_figs}"/proxies/ToggleTor.sh "${HOME}"/bin/
+
+# Set firewall. Admittedly, this is very aggressive, but I haven't had any need to not be.
 sudo ufw default deny
 sudo ufw enable
 sudo ufw allow from 192.168.0.0/16 to any port 22
 sudo ufw allow proto tcp from 192.168.0.0/16 to any port 135,139,145
 sudo ufw allow proto udp from 192.168.0.0/16 to any port 137,138
 
-# Need config files for:
-#	* elinks
-#	* vimprobable
-#	* vim (gvim + vim + vim-tiny)
-#	* samba
-#	* .xsession/.xinitrc
-#	* privoxy + squid3 + tor
-#	* freetds (AMEND FOR GITHUB!!!)
-#	* zathura
-#	* mutt
-#	* xmonad
-#	* dzen2
-#	* conky
-#	* dcp-linux
-#	* transmission
+# Simple config's
+cp -r "${custom_figs}"/elinks/elinks "${HOME}"/.elinks
 
-# Miscelani:
-#	* ssh scripts
-#	* 2xclip
-#	* sqsh scripts
-#	* rdesktop scripts (AMEND FOR GITHUB!!!)
-#	* manuals (e.g. if-then, bash, etc.)
-#	* MIT License
-#	* PATCHING
+cp -r "${custom_figs}"/parcellite/parcellite "${HOME}"/.config
+
+patch --dry-run -f -p1 /etc/samba/smb.conf < "${custom_figs}"/samba/smb.patch
+if [ $? = 0 ]; then
+	sudo patch -f -p1 /etc/samba/smb.conf < "${custom_figs}"/samba/smb.patch
+fi
+
+sudo cp "${custom_figs}"/pianobar/pianobar.sh /usr/local/bin/pianobar
+
+cp -r "${custom_figs}"/scripts "${HOME}"/Programmings/programming_projects/
+sudo cp "${custom_figs}"/scripts/ToggleTor/ToggleTor.sh /usr/local/bin/ToggleTor
+
+cp "${custom_figs}"/urxvt/Xdefaults "${HOME}"/.Xdefaults
+
+cp "${custom_figs}"/vimrc "${HOME}"/.vimrc
+cp -r "${custom_figs}"/vim "${HOME}"/.vim
+
+cp -r "${custom_figs}"/xfe "${HOME}"/.config
+
+cp -r "${custom_figs}"/xfce4/xfce4 "${HOME}"/.config
+
+cp -r "${custom_figs}"/xfe/xfe "${HOME}"/.config
+
+cp "${custom_figs}"/xscreensaver/xscreensaver "${HOME}"/.xscreensaver
+
+cp "${custom_figs}"/xsession/xsession "${HOME}"/.xsession
+link "${HOME}"/.xsession "${HOME}"/.xinitrc
+
+exit 0

@@ -1,19 +1,51 @@
-* Use an alternative login manager (SLiM?).
-* Startup & shutdown backgrounds.
-* Fork Guake, and use st instead of whatever memory hog it uses right now.
-* tmux (I'm not even sure what it does, but I suspect it's cool).
-* Figure out why nm-applet isn't showing a graphic.
+In no particular order:
+* Script for individualizing Niminal (i.e. if John Doe wants to try it out, Niminal should be able to prompt him a couple of question upon install, and then it's set up to use his favored IRC handle, etc.).
+* Scripts for updating Niminal (as in, AFTER it has alreday been installed. That said, git pull on niminal, then running the script should do a pretty good job).
+* Come up with some script/function to auto-size trayer & the two dzen2's (right now that has to be done manually).
+* Get man to read from $HOME/share/man.
+* Use an alternative login manager (This is presumably the source behind the xmonad toggleStrut bug. Whatever it is, it needs to be able to put the computer to sleep, suspect, shutdown, and reboot. I might just have to live with LightDM for now...).
+* Setup mpd (yeah yeah yeah...).
+* Configure irssi.
+* Create file associations.
+* Completer manual directory (definitely github-able!):
+	* if-then
+	* bash
+	* r
+	* latex
+	* sed
+	* gawk
+	* chmod
+* Startup, desktop, & shutdown backgrounds.
+* tmux.
+* Figure out why nm-applet isn't showing a graphic (obviously, I wouldn't have to worry about this if I go app-less).
 * Power script (for quick shutdown, reboot, etc. from dmenu, etc.).
 * Phase out trayer and applet's completely
 * Power management through scripts (TLP?).
-* NM management through scripts (the security--e.g. gnome-keyring-manager--is going to be a pain...).
+* NM managent through scripts (the security--e.g. gnome-keyring-manager--is going to be a pain...).
+* Finish configuring Xombrero.
+* Patch the make files so that the installs is done properly (what I have now is amateur kludge).
+* get-flash-videos & xombrero.
+* vim colors in st & urxvt (even with 256 colors enabled, it looks like I'm using 88 colors).
+* Work out a way to easy, but securely backup (and download into new Niminal installs) my documents & protected files.
 * mutt (I'm using gmail right now, but I really should make the switch to the command line...)
-* xmonad (my current setup is unnecessarily ugly. xmonad can do so much--check out and1's config at <http://www.haskell.org/haskellwiki/Xmonad/Config_archive/And1%27s_xmonad.hs>).
+* mixmaster.
+* urlview.
+* xmonad.hs (I'm pretty happy with my current xmonad.hs, but monad can do so much--check out and1's config at <http://www.haskell.org/haskellwiki/Xmonad/Config_archive/And1%27s_xmonad.hs>. Also, I like brisbin's config <https://github.com/pbrisbin/xmonad-config>, especially the idea of modularizing the various complex functions).
+* create small github repo's for the more complex, likely-to-be-regularly-updated config's & scripts (e.g. xmonad.hs, scripts).
+* Cheatsheets:
+	* xmonad
+	* elinks
+	* vimprobable
+	* xombrero
+	* chromium
+	* vim
 * review packages--i.e. I'm sure there are a couple that aren't needed.
 * tighten up settings.
-* security (harden).
+* security (harden?).
 * stability (switch to debian, read on how to make the system more stable).
-* Test niminal.sh on both Ubuntu Desktop, Debian Desktop, and Debian net install.
-* Create complete .iso (UCK?)
-* Documentation (so that anyone wanting to try out a minimal Linux distro can, and not have to spend way too much time reading documentation and how-to's).
-* website (forum, patches, wiki, flyspray, etc.)
+* Test niminal.sh on Ubuntu Desktop, Debian Desktop, and Debian net install.
+* Create whole .deb package, configs and all (a script is a great fist step, but it's another hurdle).
+* Create deb source.
+* Create complete .iso.
+* Documentation (user-friendly tutorial and links--again, the idea is to make it easy for newer users to enjoy a minimal setup).
+* website (forum, patches, wiki, flyspray, etc.).
