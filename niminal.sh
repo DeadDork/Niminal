@@ -321,6 +321,7 @@ cabal install cabal-install
 "${HOME}"/.cabal/bin/cabal install xmonad-contrib
 if [ ! -d "${HOME}"/.xmonad ]; then
 	cp -r "${custom_figs}"/xmonad/xmonad "${HOME}"/.xmonad/
+	sed -i 's|USER_PATH|'"${HOME}"'|g' "${HOME}"/.xmonad/xmonad.hs
 fi
 
 # Xombrero -- light-weight browser.
@@ -338,7 +339,7 @@ if [ ! -d "${HOME}"/share/xombrero ]; then
 	mkdir "${HOME}"/share/xombrero
 fi
 cp *.[Pp][Nn][Gg] tld-rules style.css "${HOME}"/share/xombrero
-cp "${custom_figs}"/xombrero/playflash.sh "${HOME}"/share/xombrero
+#cp "${custom_figs}"/xombrero/playflash.sh "${HOME}"/share/xombrero
 cp "${custom_figs}"/xombrero/xombrero.conf "${HOME}"/.xombrero.conf
 cd ../..
 
