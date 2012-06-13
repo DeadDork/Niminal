@@ -1,0 +1,5 @@
+I like to be able to open pianobar from any terminal. Accordingly, this handy scripts lets you do just that, and you don't have to worry about installing the pianobar binary to root!
+
+...Just copy pianobar.sh to /usr/local/bin/pianobar...
+
+(I get the irony. I'll figure out something more elegant later!)

@@ -1,0 +1,47 @@
+" Most of this stuff is to make vim-latex work.
+filetype plugin on
+set grepprg=grep\ -nH\ $*
+filetype indent on
+let g:tex_flavor='latex'
+
+" Turn on syntax highlighting.
+syntax on
+
+" Toggle spelling highlighting for English.
+nmap <C-S> :set spell spelllang=en_us
+nmap <C-S><C-S> :set invspell
+
+" Sets the tab and shift space to only 4 spaces.
+set tabstop=4
+set shiftwidth=4
+
+" Sets the list options (makes nested code TONS more legible).
+set list
+set lcs=tab:│·,extends:>,precedes:<,nbsp:&
+
+" Some projects don't like using tabs for spacing, in which this toggles using
+" 4 spaces instead.
+nmap <C-T> :set expandtab ts=4 sts=4 sw=4
+
+" The following sets the colors and theme.
+" N.B.: For some reason, the gvim themes don't look quite right in plain ol'
+" vim... One day I'll figure this out.
+set t_Co=256
+colors phd
+
+" This turns on cursorcolumn & cursorline.
+set cursorline
+set cursorcolumn
+
+" Set line number.
+set nu
+nmap <C-N> :set nu
+nmap <C-N><C-N> :set invnumber
+
+" GUI config.
+set guioptions=a
+
+" Necessary for r-plugin.
+set nocompatible
+syntax enable
+let vimrplugin_screenplugin = 1

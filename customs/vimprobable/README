@@ -1,0 +1,1 @@
+Copy the vimprobable directo to HOME/.config/ & patch HOME/Programming/programming_projects/vimprobable/config.h with 0001-Niminal-Vimprobable-configuration.patch.

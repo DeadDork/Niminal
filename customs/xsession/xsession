@@ -1,0 +1,63 @@
+#!/bin/sh
+
+# This file heavily relies on the startlubuntu file in /usr/bin.
+
+if [ -z "$XDG_CONFIG_HOME" ]; then
+    export XDG_CONFIG_HOME="$HOME/.config"
+fi
+
+#  Launch DBus if needed.
+if which dbus-launch >/dev/null && test -z "$DBUS_SESSION_BUS_ADDRESS"; then
+       eval "$(dbus-launch --sh-syntax --exit-with-session)"
+fi
+
+# Export Gnome-keyring variables if needed.
+# See bug #664206
+#if which gnome-keyring-daemon >/dev/null; then
+#       export $(/usr/bin/gnome-keyring-daemon --start --components=ssh)
+#fi
+
+# Set the background color. (Commented out for now, as lightdm might provide it's own backround.)
+#xsetroot -solid black
+
+# Screensaver & screen locker.
+if [ -x /usr/bin/xscreensaver ]; then
+	/usr/bin/xscreensaver -no-splash &
+fi
+
+# Notifications.
+# (For guake.)
+#if [ -x /usr/lib/notification-daemon/notification-daemon ]; then
+#	/usr/lib/notification-daemon/notification-daemon &
+#fi
+
+# Set up an icon tray.
+if [ -x /usr/bin/trayer ]; then
+	trayer --edge top --align right --margin 0 --widthtype pixel --width 119 --heighttype pixel --height 20 --SetDockType true --SetPartialStrut true --transparent true --alpha 0 --tint 0x1B1D1E --distance 1 --distancefrom right --expand false --padding 0
+#if [ -x /usr/bin/stalonetray ]; then
+#	stalonetray -bg black --dockapp-mode simple --grow-gravity NE --icon-gravity NE -i 16
+	# Fire up applets.
+	if [ -x /usr/bin/xfce4-power-manager ]; then
+		/usr/bin/xfce4-power-manager &
+	fi
+
+# In 12.04, nm-applet's graphic won't show up in trayer. Switching to wicd for now...
+#	if [ -x /usr/bin/nm-applet ]; then
+#		/usr/bin/nm-applet --sm-disable &
+#	fi
+	if [ -x /usr/bin/wicd-gtk ]; then
+		/usr/bin/wicd-gtk -t
+	fi
+
+
+	if [ -x /usr/bin/parcellite ]; then
+		/usr/bin/parcellite &
+	fi
+
+#	if [ -x /usr/bin/guake ]; then
+#		/usr/bin/guake &
+#	fi
+fi
+
+# Start the xmonad.
+exec /home/eins/bin/xmonad

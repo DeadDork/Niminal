@@ -1,0 +1,1 @@
+I personally prefer to install this in /usr/local/bin, as that way I can run it from dmenu easily, but if you don't want to check out all 4 lines of BASH here, copy it to HOME/bin.

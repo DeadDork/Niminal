@@ -1,0 +1,95 @@
+--- /etc/samba/smb.conf	2012-06-03 21:48:31.093594467 -0700
++++ smb.conf	2012-06-04 03:52:14.936040401 -0700
+@@ -35,7 +35,7 @@
+ ## Browsing/Identification ###
+ 
+ # Change this to the workgroup/NT-domain name your Samba server will part of
+-   workgroup = WORKGROUP
++   workgroup = domain
+ 
+ # server string is the equivalent of the NT Description field
+    server string = %h server (Samba, Ubuntu)
+@@ -99,7 +99,7 @@
+ # in this server for every user accessing the server. See
+ # /usr/share/doc/samba-doc/htmldocs/Samba3-HOWTO/ServerType.html
+ # in the samba-doc package for details.
+-#   security = user
++   security = user
+ 
+ # You may wish to use password encryption.  See the section on
+ # 'encrypt passwords' in the smb.conf(5) manpage before enabling.
+@@ -127,7 +127,7 @@
+ # 'passwd program'. The default is 'no'.
+    pam password change = yes
+ 
+-# This option controls how unsuccessful authentication attempts are mapped
++# This option controls how unsuccessful authentication attempts are mapped 
+ # to anonymous connections
+    map to guest = bad user
+ 
+@@ -242,8 +242,8 @@
+ #======================= Share Definitions =======================
+ 
+ # Un-comment the following (and tweak the other settings below to suit)
+-# to enable the default home directory shares. This will share each 
+-# user's home director as \\server\username
++# to enable the default home directory shares.  This will share each
++# user's home directory as \\server\username
+ ;[homes]
+ ;   comment = Home Directories
+ ;   browseable = no
+@@ -261,10 +261,8 @@
+ ;   directory mask = 0700
+ 
+ # By default, \\server\username shares can be connected to by anyone
+-# with access to the samba server. Un-comment the following parameter
++# with access to the samba server.  Un-comment the following parameter
+ # to make sure that only "username" can connect to \\server\username
+-# The following parameter makes sure that only "username" can connect
+-#
+ # This might need tweaking when using external authentication schemes
+ ;   valid users = %S
+ 
+@@ -275,6 +273,7 @@
+ ;   path = /home/samba/netlogon
+ ;   guest ok = yes
+ ;   read only = yes
++;   share modes = no
+ 
+ # Un-comment the following and create the profiles directory to store
+ # users profiles (see the "logon path" option above)
+@@ -335,3 +334,34 @@
+ ;   preexec = /bin/mount /cdrom
+ ;   postexec = /bin/umount /cdrom
+ 
++[share]
++	comment = Ubuntu File Server Share
++	path = /srv/samba/share
++	browsable = yes
++	guest ok = yes
++	read only = no
++	create mask = 0777
++
++[Goldhamer_Single_Import]
++	comment = Ubuntu File Server Share
++	path = /srv/samba/Single_Import/Goldhamer/
++	browsable = yes
++	guest ok = yes
++	read only = yes
++	create mask = 0755
++
++[Sultana_mass_import]
++	comment = Ubuntu File Server Share
++	path = /srv/samba/Sultana_mass_import/Charts/
++	browsable = yes
++	guest ok = yes
++	read only = yes
++	create mask = 0755
++
++[Sultana_test_import]
++	comment= Ubuntu File Server Share
++	path = /srv/samba/Sultana_test_import/
++	browsable = yes
++	guest ok = yes
++	read only = yes
++	create mask = 0755

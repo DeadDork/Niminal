@@ -1,0 +1,81 @@
+From dea7500fab529c8680764d2bedf2d37948b619e5 Mon Sep 17 00:00:00 2001
+From: "Nimrod Omer, aka DeadDork" <nimrodomer@gmail.com>
+Date: Fri, 8 Jun 2012 04:53:18 -0700
+Subject: [PATCH 1/1] Niminal Vimprobable configuration.
+
+---
+ config.h |   34 +++++++++++++++++++++++-----------
+ 1 file changed, 23 insertions(+), 11 deletions(-)
+
+diff --git a/config.h b/config.h
+index d74e45b..ff651f8 100644
+--- a/config.h
++++ b/config.h
+@@ -16,8 +16,8 @@
+ char startpage[MAX_SETTING_SIZE]      = "http://www.vimprobable.org/";
+ char useragent[MAX_SETTING_SIZE]      = "Vimprobable2/" VERSION;
+ char acceptlanguage[MAX_SETTING_SIZE] = "";
+-static const gboolean enablePlugins     = TRUE; /* TRUE keeps plugins enabled */
+-static const gboolean enableJava        = TRUE; /* FALSE disables Java applets */
++static const gboolean enablePlugins     = FALSE; /* TRUE keeps plugins enabled */
++static const gboolean enableJava        = FALSE; /* FALSE disables Java applets */
+ static const gboolean enablePagecache   = FALSE; /* TRUE turns on the page cache. */
+ static gboolean escape_input_on_load    = TRUE; /* TRUE will disable automatic focusing of input fields via Javascript*/
+ 
+@@ -64,17 +64,17 @@ static const char progressborderright   = ']';
+  *       "%s" will translate to "user@example.org"
+  */
+ static URIHandler uri_handlers[] = {
+-    { "mailto:",          "x-terminal-emulator -e mutt %s" },
+-    { "ftp://",           "x-terminal-emulator -e wget ftp://%s" },
++    { "mailto:",          "mutt_urxvtc mutt %s" },
++    { "ftp://",           "ftp_urxvtc wget ftp://%s" },
+ };
+ 
+ /* cookies */
+ #define             ENABLE_COOKIE_SUPPORT
+ #define             COOKIES_STORAGE_FILENAME    "%s/vimprobable/cookies", config_base
+-#define             COOKIES_STORAGE_READONLY    FALSE   /* if TRUE new cookies will be lost if you quit */
++#define             COOKIES_STORAGE_READONLY    TRUE   /* if TRUE new cookies will be lost if you quit */
+ 
+ /* downloads directory */
+-#define             DOWNLOADS_PATH              "%s", getenv("HOME")
++#define             DOWNLOADS_PATH              "%s/Downloads/vimprobable", getenv("HOME")
+ 
+ /* font size */
+ #define             DEFAULT_FONT_SIZE           12
+@@ -101,14 +101,26 @@ gboolean complete_case_sensitive        = TRUE;
+ 
+ /* search engines */
+ static Searchengine searchengines[] = {
+-    { "i",          "http://ixquick.com/do/metasearch.pl?query=%s" },
++    { "a",          "http://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=%s" },
++    { "ddg",        "https://duckduckgo.com/html/?q=%s&t=Vimprobable" },
++    { "dic",        "http://dictionary.reference.com/browse/%s" },
++    { "g",          "https://encrypted.google.com/search?q=%s" },
++    { "git",        "http://github.com/search?q=%s" },
++    { "im",         "https://startpage.com/do/search?cmd=process_search&language=english&enginecount=1&pl=&ff=&theme=&flag_ac=0&lui=english&cat=pics&query=%s" },
++    { "ix",          "http://ixquick.com/do/metasearch.pl?query=%s" },
++    { "leo",        "http://dict.leo.org/ende?lp=ende&lang=de&searchLoc=0&cmpType=relaxed&sectHdr=on&spellToler=&search=%s" },
++    { "mw",         "http://www.merriam-webster.com/dictionary/%s" },
++    { "n",          "http://news.google.com/news/search?aq=1z&pz=1&cf=all&ned=us&hl=en&q=%s" },
++    { "pgp",        "http://pgp.mit.edu:11371/pks/lookup?search=%s&op=index" },
++    { "s",          "https://www.startpage.com/do/search?query=%s" },
++    { "thes",       "http://thesaurus.reference.com/browse/%s?r=76&src=ref&ch=the" },
++    { "tran",       "http://translate.google.com/?source=osdd#auto|auto|%s" },
++    { "u",          "http://www.youtube.com/results?search_query=%s" },
+     { "w",          "https://secure.wikimedia.org/wikipedia/en/w/index.php?title=Special%%3ASearch&search=%s&go=Go" },
+-    { "wd",         "https://secure.wikimedia.org/wikipedia/de/w/index.php?title=Special%%3ASearch&search=%s&go=Go" },
+-    { "d",          "https://duckduckgo.com/?q=%s&t=Vimprobable" },
+-    { "dd",         "https://duckduckgo.com/html/?q=%s&t=Vimprobable" },
++    { "wc",         "http://www.weather.com/search/enhancedlocalsearch?where=%s" }
+ };
+ 
+-static char defaultsearch[MAX_SETTING_SIZE] = "i";
++static char defaultsearch[MAX_SETTING_SIZE] = "ddg";
+ 
+ /* command mapping */
+ Command commands[COMMANDSIZE] = {
+-- 
+1.7.9.5
+

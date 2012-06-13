@@ -1,0 +1,1 @@
+Copy xsession to HOME as .xsession. Be sure to link .xsession to .xinitrc in the same directory.
