@@ -64,8 +64,8 @@ myWorkspaces    = ["1:prim", "2:seco", "3:tert", "4:quat", "5:fs", "6:audio", "7
 
 -- Dzen/Conky
 myXmonadBar = "dzen2 -x '1440' -y '0' -h '20' -w '1160' -ta 'l' -fg '#FFFFFF' -bg '#1B1D1E'"
-myStatusBar = "conky -c /home/eins/.xmonad/.conky_dzen | dzen2 -x '150' -w '950' -h '18' -ta 'c' -bg '#1B1D1E' -fg '#FFFFFF' -y '1006'"
-myBitmapsDir = "/home/eins/.xmonad/dzen2"
+myStatusBar = "conky -c USER_PATH/.xmonad/.conky_dzen | dzen2 -x '150' -w '950' -h '18' -ta 'c' -bg '#1B1D1E' -fg '#FFFFFF' -y '1006'"
+myBitmapsDir = "USER_PATH/.xmonad/dzen2"
 --}}}
  
 -- Hooks {{{
@@ -227,7 +227,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 --  , ((0,                          0x1008ff14  ), spawn "rhythmbox-client --play-pause") -- Eventually, I'll want to do something here for mpd.
 --  , ((0,                          0x1008ff17  ), spawn "rhythmbox-client --next") -- ""
 --  , ((0,                          0x1008ff16  ), spawn "rhythmbox-client --previous") -- ""
-    , ((modMask .|. controlMask,    xK_Return   ), spawn "/home/eins/bin/st/st") --Opens up st.
+    , ((modMask .|. controlMask,    xK_Return   ), spawn "USER_PATH/bin/st/st") --Opens up st.
  
     -- layouts
     , ((modMask,                    xK_space    ), sendMessage NextLayout)
@@ -254,8 +254,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
  
     -- quit, or restart
     , ((modMask .|. shiftMask,      xK_q        ), io (exitWith ExitSuccess))
-    , ((modMask,                    xK_q        ), spawn "killall conky dzen2 && /home/eins/bin/xmonad --recompile && /home/eins/bin/xmonad --restart")
-    , ((modMask,                    xK_r        ), spawn "/home/eins/bin/xmonad --restart")
+    , ((modMask,                    xK_q        ), spawn "killall conky dzen2 && USER_PATH/bin/xmonad --recompile && USER_PATH/bin/xmonad --restart")
+    , ((modMask,                    xK_r        ), spawn "USER_PATH/bin/xmonad --restart")
     ]
     ++
     -- mod-[1..9] %! Switch to workspace N
