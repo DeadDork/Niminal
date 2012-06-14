@@ -1,5 +1,5 @@
---- current_squid_config	2012-06-04 05:01:31.623118081 -0700
-+++ /etc/squid3/squid.conf	2012-06-04 05:57:59.283742214 -0700
+--- a/squid.patch	2012-06-04 05:01:31.623118081 -0700
++++ b/squid.conf	2012-06-04 05:57:59.283742214 -0700
 @@ -3691,6 +3691,7 @@
  #	seconds will receive a 'timeout' message.
  #Default:

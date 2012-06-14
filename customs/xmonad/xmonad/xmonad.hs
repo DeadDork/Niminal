@@ -227,7 +227,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 --  , ((0,                          0x1008ff14  ), spawn "rhythmbox-client --play-pause") -- Eventually, I'll want to do something here for mpd.
 --  , ((0,                          0x1008ff17  ), spawn "rhythmbox-client --next") -- ""
 --  , ((0,                          0x1008ff16  ), spawn "rhythmbox-client --previous") -- ""
-    , ((modMask .|. controlMask,    xK_Return   ), spawn "USER_PATH/bin/st/st") --Opens up st.
+    , ((modMask .|. controlMask,    xK_Return   ), spawn "USER_PATH/local/bin/st/st") --Opens up st.
  
     -- layouts
     , ((modMask,                    xK_space    ), sendMessage NextLayout)
@@ -254,8 +254,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
  
     -- quit, or restart
     , ((modMask .|. shiftMask,      xK_q        ), io (exitWith ExitSuccess))
-    , ((modMask,                    xK_q        ), spawn "killall conky dzen2 && USER_PATH/bin/xmonad --recompile && USER_PATH/bin/xmonad --restart")
-    , ((modMask,                    xK_r        ), spawn "USER_PATH/bin/xmonad --restart")
+    , ((modMask,                    xK_q        ), spawn "killall conky dzen2 && USER_PATH/local/bin/xmonad --recompile && USER_PATH/local/bin/xmonad --restart")
+    , ((modMask,                    xK_r        ), spawn "USER_PATH/local/bin/xmonad --restart")
     ]
     ++
     -- mod-[1..9] %! Switch to workspace N
