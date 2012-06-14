@@ -7,7 +7,7 @@ In no particular order:
 * Setup mpd (yeah yeah yeah...).
 * Configure irssi.
 * Create file associations.
-* Completer manual directory (definitely github-able!):
+* Complete manuals directory (definitely github-able!):
 	* if-then
 	* bash
 	* r
@@ -22,11 +22,9 @@ In no particular order:
 * Phase out trayer and applet's completely
 * Power management through scripts (TLP?).
 * NM managent through scripts (the security--e.g. gnome-keyring-manager--is going to be a pain...).
-* Finish configuring Xombrero.
-* Patch the make files so that the installs is done properly (what I have now is amateur kludge).
 * get-flash-videos & xombrero.
 * vim colors in st & urxvt (even with 256 colors enabled, it looks like I'm using 88 colors).
-* Work out a way to easy, but securely backup (and download into new Niminal installs) my documents & protected files.
+* Work out a way to easily, but securely, backup (and download into new Niminal installs) my documents & protected files.
 * mutt (I'm using gmail right now, but I really should make the switch to the command line...)
 * mixmaster.
 * urlview.
@@ -44,8 +42,8 @@ In no particular order:
 * security (harden?).
 * stability (switch to debian, read on how to make the system more stable).
 * Test niminal.sh on Ubuntu Desktop, Debian Desktop, and Debian net install.
-* Create whole .deb package, configs and all (a script is a great fist step, but it's another hurdle).
-* Create deb source.
+* Create whole .deb package, configs and all (a script is a great first step, but it's another hurdle for people who might otherwise try out Niminal).
+* Create deb ppa.  
 * Create complete .iso.
 * Documentation (user-friendly tutorial and links--again, the idea is to make it easy for newer users to enjoy a minimal setup).
 * website (forum, patches, wiki, flyspray, etc.).
