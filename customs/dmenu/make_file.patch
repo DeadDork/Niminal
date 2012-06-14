@@ -1,0 +1,19 @@
+# HG changeset patch
+# User Nimrod Omer, aka DeadDork <nimrodomer@gmail.com>
+# Date 1339625447 25200
+# Node ID 25779c1f3e99aeaec332d9788e79e2c856b6ef38
+# Parent  6b2b356f9b49d44decee8a08771ef31660ee2f47
+Changed makefile config for Niminal patch.
+
+diff -r 6b2b356f9b49 -r 25779c1f3e99 config.mk
+--- a/config.mk	Tue May 15 11:47:54 2012 +0200
++++ b/config.mk	Wed Jun 13 15:10:47 2012 -0700
+@@ -2,7 +2,7 @@
+ VERSION = 4.5-tip
+ 
+ # paths
+-PREFIX = /usr/local
++PREFIX = "${HOME}"/local
+ MANPREFIX = ${PREFIX}/share/man
+ 
+ X11INC = /usr/X11R6/include

@@ -1,0 +1,40 @@
+# HG changeset patch
+# User Nimrod Omer, aka DeadDork <nimrodomer@gmail.com>
+# Date 1339629749 25200
+# Node ID 4d4e4cf4c85fd13ec68e9b80f2a22f1d56af6cbc
+# Parent  e1414acbe5471ce59723cffa3688a3010832fd75
+Patches makefile & adds word-jumping functions.
+
+diff -r e1414acbe547 -r 4d4e4cf4c85f config.def.h
+--- a/config.def.h	Mon Feb 27 12:48:13 2012 +0100
++++ b/config.def.h	Wed Jun 13 16:22:29 2012 -0700
+@@ -1,6 +1,6 @@
+ 
+-#define FONT "-*-*-medium-r-*-*-*-120-75-75-*-60-*-*"
+-#define BOLDFONT "-*-*-bold-r-*-*-*-120-75-75-*-60-*-*"
++#define FONT "-*-terminus-medium-r-*-*-*-160-72-72-*-80-*-*"
++#define BOLDFONT "-*-terminus-bold-r-*-*-*-160-72-72-*-80-*-*"
+ 
+ /* Space in pixels around the terminal buffer */
+ #define BORDER 2
+@@ -72,6 +72,8 @@
+ 	{ XK_F10,       XK_NO_MOD, "\033[21~" },
+ 	{ XK_F11,       XK_NO_MOD, "\033[23~" },
+ 	{ XK_F12,       XK_NO_MOD, "\033[24~" },
++	{ XK_Left,      ControlMask, "\033[5D" },
++	{ XK_Right,     ControlMask, "\033[5C" },
+ };
+ 
+ /* Set TERM to this */
+diff -r e1414acbe547 -r 4d4e4cf4c85f config.mk
+--- a/config.mk	Mon Feb 27 12:48:13 2012 +0100
++++ b/config.mk	Wed Jun 13 16:22:29 2012 -0700
+@@ -4,7 +4,7 @@
+ # Customize below to fit your system
+ 
+ # paths
+-PREFIX = /usr/local
++PREFIX = "${HOME}"/local
+ MANPREFIX = ${PREFIX}/share/man
+ 
+ X11INC = /usr/X11R6/include

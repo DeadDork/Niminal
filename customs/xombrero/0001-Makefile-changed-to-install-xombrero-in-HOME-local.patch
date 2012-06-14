@@ -1,0 +1,25 @@
+From d27aeb88c74745c1624e1cd29cbcef3ac9c63824 Mon Sep 17 00:00:00 2001
+From: Arbeit Eins <eins@Niminal.(none)>
+Date: Wed, 13 Jun 2012 23:29:13 -0700
+Subject: [PATCH 1/1] Makefile changed to install xombrero in HOME/local.
+
+---
+ linux/Makefile |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/linux/Makefile b/linux/Makefile
+index a351d34..3100c0b 100644
+--- a/linux/Makefile
++++ b/linux/Makefile
+@@ -6,7 +6,7 @@ LIBS= glib-2.0 gtk+-2.0 webkit-1.0 libsoup-2.4 gthread-2.0 gnutls libbsd
+ CFLAGS+= -O2 -Wall -ggdb3 -D_GNU_SOURCE -I. -I.. $(shell pkg-config --cflags $(LIBS)) $(JS_CF)
+ LDADD+= $(shell pkg-config --libs $(LIBS)) $(JS_LD) -ldl -lgcrypt -lX11
+ 
+-PREFIX?= /usr/local
++PREFIX?= ${HOME}/local
+ BINDIR?= $(PREFIX)/bin
+ LIBDIR?= $(PREFIX)/lib
+ MANDIR?= $(PREFIX)/share/man
+-- 
+1.7.9.5
+
