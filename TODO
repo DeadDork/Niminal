@@ -21,6 +21,7 @@ Immediate:
 * urlview.
 
 Future:
+* cabal install cabal-install
 * Work out a way to easily, but securely, backup (and download into new Niminal installs) my documents & protected files.
 * Phase out trayer and applet's completely
 	* Power script (for quick shutdown, reboot, etc. from dmenu, etc.).
