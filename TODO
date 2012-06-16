@@ -21,6 +21,7 @@ Immediate:
 * urlview.
 
 Future:
+* Squid3 vs Polipo?
 * Add update notifier.
 * Niminal install script for non-minimal Ubuntu/Debian base installs.
 * cabal install cabal-install
