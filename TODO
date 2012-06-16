@@ -21,6 +21,7 @@ Immediate:
 * urlview.
 
 Future:
+* Niminal install script for non-minimal Ubuntu/Debian base installs.
 * cabal install cabal-install
 * Work out a way to easily, but securely, backup (and download into new Niminal installs) my documents & protected files.
 * Phase out trayer and applet's completely
@@ -55,3 +56,4 @@ Future:
 * Script for individualizing Niminal (i.e. if John Doe wants to try it out, the Niminal script should be able to prompt him a couple of question upon install, and then it's set up to use his favored IRC handle, etc.).
 * Scripts for updating Niminal (as in, AFTER it has alreday been installed. That said, git pull on niminal, then running the script should do a pretty good job).
 * Use an alternative login manager (this is presumably the source behind the xmonad toggleStrut bug. Whatever it is, it needs to be able to put the computer to sleep, suspect, shutdown, and reboot. OK, those are a lot of features...I might just have to live with LightDM...).
+* Notifications (notify-osd, etc.). (I'm actually not sure of this. I'm not terribly enthusiastic of pop-up's, and having yet another daemon running in the background seems like a waste. Still, some people like guake, in which case, etc...)
