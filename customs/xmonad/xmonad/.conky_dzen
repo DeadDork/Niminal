@@ -1,0 +1,9 @@
+background yes
+out_to_console yes
+out_to_x no
+temperature_unit fahrenheit 
+# Update interval in seconds
+update_interval 1
+ 
+TEXT
+^fg(\#EBAC54)^fg(\#FFFFFF)^fg(\#EBAC54)^i(/home/alpha/.xmonad/dzen2/cpu.xbm) ^fg(\#FFFFFF)${cpu}%  ^fg(\#EBAC54)^i(/home/alpha/.xmonad/dzen2/mem.xbm) ^fg(\#FFFFFF)${memperc}%  ^fg(\#EBAC54)SWP: ^fg(\#FFFFFF)${swapperc}%  ^fg(\#EBAC54)^i(/home/alpha/.xmonad/dzen2/diskette.xbm) ^fg(\#FFFFFF)${fs_free}  ^fg(\#EBAC54)UP: ^fg(\#FFFFFF)${uptime_short}  ^fg(\#EBAC54)IP: ^fg(\#FFFFFF)${addr eth0}  ^fg(\#EBAC54)^i(/home/alpha/.xmonad/dzen2/clock.xbm) ^fg(\#FFFFFF)${time %c} ^fg(\#EBAC54) ^i(/home/alpha/.xmonad/dzen2/temp.xbm) ^fg(\#FFFFFF)${weather http://weather.noaa.gov/pub/data/observations/metar/stations/ KSTS temperature weather}
