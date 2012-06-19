@@ -64,4 +64,4 @@ if [ -x /usr/bin/trayer ]; then
 fi
 
 # Start the xmonad.
-exec /home/alpha/local/bin/xmonad
+exec USER_PATH/local/bin/xmonad
