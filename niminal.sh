@@ -35,6 +35,7 @@ sudo apt-get --no-install-recommends -y install\
 	aspell-fr\
 	aspell-he\
 	anacron\
+	audacious-plugins\
 	avahi-daemon\
 	bluez\
 	bluez-alsa\
@@ -92,6 +93,7 @@ sudo apt-get --no-install-recommends -y install\
 	mercurial\
 	mixmaster\
 	mpd\
+	mplayer-doc\
 	nmap\
 	notify-osd\
 	ntp\
@@ -116,7 +118,6 @@ sudo apt-get --no-install-recommends -y install\
 	trayer\
 	ubuntu-extras-keyring\
 	unzip\
-	unclutter\
 	usb-modeswitch\
 	videolan-doc\
 	wireless-tools\
@@ -137,8 +138,8 @@ fi
 
 # Shells, GUI's and other interactables.
 sudo apt-get --no-install-recommends -y install\
+	audacious\
 	alsamixergui\
-	apport-gtk\
 	bc\
 	cmus\
 	elinks\
@@ -160,7 +161,6 @@ sudo apt-get --no-install-recommends -y install\
 	screen\
 	scrot\
 	system-config-printer-gnome\
-	update-notifier\
 	vim\
 	vim-latexsuite\
 	vim-gtk\
@@ -210,7 +210,7 @@ fi
 
 # Installs various open-source projects from source. Many of these use a niminal patch, which could break future releases. If that happens, the broken source will not compile, and an error will be redirected into ~/install.errors.
 # If any of the patches fail, do alert me of this, so that I can fix them
-# N.B. As all of the following software is installed from source, there is no Debian or Ubuntu maintainer keeping an eye on safety, etc. Accordingly, all of these projects are installed in HOME/local, where root access isn't necessary for their installation.
+# N.B. As all of the following software is installed from source, there is no Debian or Ubuntu maintainer keeping an eye on safety, etc. Neither am I sure that these are digitally signed and checked when cloned (or otherwise). Accordingly, all of these projects are installed in HOME/local, where root access isn't necessary for their installation.
 
 # First, though, to enter user info in .hgrc & .gitrc
 
@@ -335,13 +335,13 @@ if [ $? = 0 ]; then
 	sed -i 's|USER_PATH|'"${HOME}"'|g' "${HOME}"/.xmonad/.conky_dzen
 
 	# N.B. the .xsession & xmonad.desktop assume that xmonad was installed correctly. If it wasn't, oi...
-	cp "${custom_figs}"/xsession/xsession "${HOME}"/.xsession
+	sed 's|USER_PATH|'"${HOME}"'|g' <"${custom_figs}"/xsession/xsession >"${HOME}"/.xsession
 	link "${HOME}"/.xsession "${HOME}"/.xinitrc
 	if [ ! -d /usr/share/xsessions ]; then
 		sudo mkdir /usr/share/xsessions
 	fi
-	sudo cp "${custom_flags}"/xmonad/xmonad.png /usr/share/icons/
-	sudo cp "${custom_figs}"/xsession/xmonad.desktop /usr/share/xsessions/
+	sudo cp "${custom_flags}"/xmonad/xmonad.png /usr/share/icons/ # Is this sudo a security hole? Is it possible to stick trojans in png's? I can imagine that it is. If so, I might was to do away with this.
+	sudo sed 's|USER_PATH|'"${HOME}"'|' <"${custom_figs}"/xsession/xmonad.desktop >/usr/share/xsessions/xmonad.desktop
 	if [ ! $? = 0 ]; then
 		echo "Couldn't set up xmonad.desktop." >> install.errors
 	fi
@@ -367,8 +367,7 @@ cd ../..
 # Samba
 mkdir -p "${HOME}"/samba/share
 sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.master
-sudo cp "${custom_figs}"/samba/smb.conf.niminal /etc/samba/
-sudo sed -i 's|PATH_TO_HOME|'"${HOME}"'|' /etc/samba/smb.conf.niminal
+sudo sed 's|PATH_TO_HOME|'"${HOME}"'|' <"${custom_figs}"/samba/smb.conf.niminal >/etc/samba/smb.conf.niminal
 sudo testparm -s /etc/samba/smb.conf.niminal /etc/samba/smb.conf
 if [ ! $? = 0 ]; then
 	echo "Couldn't generate good smb.conf." >> install.errors
