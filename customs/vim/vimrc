@@ -27,7 +27,7 @@ nmap <C-T> :set expandtab ts=4 sts=4 sw=4
 " N.B.: For some reason, the gvim themes don't look quite right in plain ol'
 " vim... One day I'll figure this out.
 set t_Co=256
-colors phd
+colors twilight
 
 " This turns on cursorcolumn & cursorline.
 set cursorline

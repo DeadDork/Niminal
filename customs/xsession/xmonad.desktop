@@ -2,6 +2,6 @@
 Encoding=UTF-8
 Name=XMonad
 Comment=Lightweight tiling window manager
-Exec=xmonad
+Exec=USER_PATH/.xsession
 Icon=xmonad.png
 Type=XSession

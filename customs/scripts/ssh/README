@@ -1,1 +1,0 @@
-Copy autogen.sh to HOME/Programming/programming_projects/scripts/ssh. Run autogen.sh. Personally, I like to then copy all of the output scripts to /usr/local/bin, as that way I can run them from any terminal easily.

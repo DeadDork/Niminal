@@ -11,7 +11,7 @@ let colors_name = "twilight"
 
 let s:grey_blue = '#8a9597'
 let s:light_grey_blue = '#a0a8b0'
-let s:dark_grey_blue = '#34383c'
+let s:dark_grey_blue = '#333333'
 let s:mid_grey_blue = '#64686c'
 let s:beige = '#ceb67f'
 let s:light_orange = '#ebc471'
@@ -21,7 +21,7 @@ let s:green = '#a2a96f'
 let s:lightgreen = '#c2c98f'
 let s:red = '#d08356'
 let s:cyan = '#74dad9'
-let s:darkgrey = '#1a1a1a'
+let s:darkgrey = '#161616'
 let s:grey = '#303030'
 let s:lightgrey = '#605958'
 let s:white = '#fffedc'
@@ -54,7 +54,7 @@ exe 'hi Underlined     guifg='.s:white             .' guibg='.s:darkgrey        
 exe 'hi NonText        guifg='.s:lightgrey         .' guibg='.s:grey
 exe 'hi SpecialKey     guifg='.s:grey              .' guibg='.s:darkgrey
 
-exe 'hi LineNr         guifg='.s:mid_grey_blue     .' guibg='.s:dark_grey_blue  .' gui=none'
+exe 'hi LineNr         guifg='.s:mid_grey_blue   .' guibg='.s:dark_grey_blue  .' gui=none'
 exe 'hi StatusLine     guifg='.s:white             .' guibg='.s:grey            .' gui=italic,underline'
 exe 'hi StatusLineNC   guifg='.s:lightgrey         .' guibg='.s:grey            .' gui=italic,underline'
 exe 'hi VertSplit      guifg='.s:grey              .' guibg='.s:grey            .' gui=none'

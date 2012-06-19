@@ -1,34 +1,35 @@
 -- ~/.xmonad/xmonad.hs
 -- Imports {{{
+
+-- Basics {{{
 import XMonad
-import XMonad.Prompt
---import XMonad.Prompt.RunOrRaise (runOrRaisePrompt)
-import XMonad.Prompt.AppendFile (appendFilePrompt)
-import XMonad.Operations
+import XMonad.Hooks.DynamicLog
+import XMonad.Util.Run
+import XMonad.Hooks.ManageDocks
 import System.IO
 import System.Exit
-import XMonad.Util.Run
+import XMonad.Operations
 import XMonad.Actions.CycleWS
-import XMonad.Hooks.ManageDocks
+import qualified XMonad.StackSet as W
+import qualified Data.Map as M
+-- }}}
+
+-- Extras {{{
+import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
-import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.UrgencyHook
-import XMonad.Hooks.FadeInactive
-import XMonad.Hooks.EwmhDesktops
+import XMonad.Layout.Grid
+import XMonad.Layout.LayoutHints
+import XMonad.Layout.LayoutModifier
 import XMonad.Layout.NoBorders (smartBorders, noBorders)
 import XMonad.Layout.PerWorkspace (onWorkspace, onWorkspaces)
 import XMonad.Layout.Reflect (reflectHoriz)
-import XMonad.Layout.IM
+import XMonad.Layout.ResizableTile
 import XMonad.Layout.SimpleFloat
 import XMonad.Layout.Spacing
-import XMonad.Layout.ResizableTile
-import XMonad.Layout.LayoutHints
-import XMonad.Layout.LayoutModifier
-import XMonad.Layout.Grid
-import Data.Ratio ((%))
-import qualified XMonad.StackSet as W
-import qualified Data.Map as M
+-- }}}
 --}}} 
 
 -- Main {{{
@@ -42,7 +43,7 @@ main = do
       , modMask             = myModMask
       , layoutHook          = mylayoutHook
       , manageHook          = myManageHook  <+> manageDocks
-      , logHook             = myLogHook dzenLeftBar -- >> fadeInactiveLogHook 0xdddddddd
+      , logHook             = myLogHook dzenLeftBar >> fadeInactiveLogHook 0xdddddddd
       , normalBorderColor   = colorNormalBorder
       , focusedBorderColor  = colorFocusedBorder
       , borderWidth         = 2
@@ -51,6 +52,11 @@ main = do
 --}}}
  
 -- Config {{{
+-- Dzen/Conky
+myXmonadBar = "dzen2 -x '0' -y '0' -h '20' -w \"$(expr $(xrandr --current | sed -n '1 p' | sed  's/.*current *\\([0-9]*\\).*/\\1/') - 150)\" -ta 'l' -fg '#FFFFFF' -bg '#000000'"
+myStatusBar = "conky -c USER_PATH/.xmonad/.conky_dzen | dzen2 -x '0' -y '1062' -w \"$(xrandr --current | sed -n '1 p' | sed  's/.*current *\\([0-9]*\\).*/\\1/')\" -h '18' -ta 'c' -bg '#000000' -fg '#FFFFFF'"
+myBitmapsDir = "USER_PATH/.xmonad/dzen2"
+
 -- Define Terminal
 myTerminal      = "urxvtcd"
 
@@ -59,13 +65,7 @@ myModMask :: KeyMask
 myModMask = mod4Mask
 
 -- Define workspaces
---myWorkspaces    = ["1:main","2:web","3:vim","4:chat","5:music", "6:gimp"]
 myWorkspaces    = ["1:prim", "2:seco", "3:tert", "4:quat", "5:fs", "6:audio", "7:video", "8:social", "9:web"]
-
--- Dzen/Conky
-myXmonadBar = "dzen2 -x '1440' -y '0' -h '20' -w '1160' -ta 'l' -fg '#FFFFFF' -bg '#1B1D1E'"
-myStatusBar = "conky -c USER_PATH/.xmonad/.conky_dzen | dzen2 -x '150' -w '950' -h '18' -ta 'c' -bg '#1B1D1E' -fg '#FFFFFF' -y '1006'"
-myBitmapsDir = "USER_PATH/.xmonad/dzen2"
 --}}}
  
 -- Hooks {{{
@@ -73,20 +73,14 @@ myBitmapsDir = "USER_PATH/.xmonad/dzen2"
 myManageHook :: ManageHook
 myManageHook = (composeAll . concat $
     [ [resource     =? r            --> doIgnore            |   r   <- myIgnores] -- ignore desktop
-    --[className    =? c            --> doShift  "1:main"   |   c   <- myDev    ] -- move dev to main
     , [className    =? c            --> doShift  "5:fs"     |   c   <- myFS     ] -- move file system stuff (e.g. xfe) to fs.
     , [className    =? c            --> doShift  "6:audio"  |   c   <- myAudio  ] -- move audo stuff (e.g. spotify) to audio.
     , [className    =? c            --> doShift  "7:video"  |   c   <- myVideo  ] -- move video stuff (e.g. mplayer, vlc,gpicview, etc.) to video.
     , [className    =? c            --> doShift  "8:social" |   c   <- mySocial ] -- move social stuff (e.g. irc) to social.
     , [className    =? c            --> doShift  "9:web"    |   c   <- myWebs   ] -- move web-ish stuff (e.g. Firefox, Chromium, etc.) to web.
---  , [className    =? c            --> doShift  "2:web"    |   c   <- myWebs   ] -- move webs to main
---  , [className    =? c            --> doShift  "3:vim"    |   c   <- myVim    ] -- move webs to main
---  , [className    =? c            --> doShift  "4:chat"   |   c   <- myChat   ] -- move chat to chat
---  , [className    =? c            --> doShift  "5:music"  |   c   <- myMusic  ] -- move music to music
---  , [className    =? c            --> doShift  "6:gimp"   |   c   <- myGimp   ] -- move img to div
     , [className    =? c            --> doCenterFloat       |   c   <- myFloats ] -- float my floats
     , [name         =? n            --> doCenterFloat       |   n   <- myNames  ] -- float my names
-    , [isFullscreen                 --> myDoFullFloat                           ]
+    , [isFullscreen                 --> myDoFullFloat                           ] -- floats a fullscreen
     ])
  
     where
@@ -95,14 +89,12 @@ myManageHook = (composeAll . concat $
         name      = stringProperty "WM_NAME"
  
         -- classnames
-        myFloats  = ["Smplayer", "MPlayer", "VirtualBox", "Xmessage", "XFontSel", "Downloads", "Nm-connection-editor", "Wicd", "st-256", "st", "rdesktop", "system-config-printer", "apport-gtk", "feh", "gmrun", "gpicview", "guvcview", "xfce4-power-manager-settings", "xscreensaver-demo", "galculator", "gimp","xfce4-power-manager-settings", "Xfce4-power-manager-settings"]
+        myFloats  = ["Smplayer", "MPlayer", "VirtualBox", "Xmessage", "XFontSel", "Downloads", "Wicd-client.py", "rdesktop", "System-config-printer", "feh", "gmrun", "Xscreensaver-demo", "Galculator", "Gimp", "Xfce4-power-manager-settings", "st-256color"]
         myFS      = ["Xfe", "Xfw", "Xfv", "Xfi", "Xfp", "Xarchiver"]
         myWebs    = ["Firefox", "Google-chrome", "Chromium", "Chromium-browser", "Xombrero"] -- Vimprobable I reserve as my swiss army knife browser.
-        myVideo   = ["Boxee", "Trine", "MPlayer", "Gpicview", "Vlc", "Guvcview"]
+        myVideo   = ["Boxee", "Trine", "Gpicview", "Vlc", "Guvcview"]
         myAudio   = ["Rhythmbox","Spotify"]
         mySocial  = ["Pidgin","Buddy List"]
---      myDev     = ["urxvtc"] -- I use terminals too often and too broadly to restrict the use to one workspace. For instance, elinks doesn't belong in "main" because it's run in a terminal.
---      myVim     = ["Gvim"] -- Same with vim.
  
         -- resources
         myIgnores = ["desktop","desktop_window","notify-osd","stalonetray","trayer"]
@@ -111,29 +103,27 @@ myManageHook = (composeAll . concat $
         myNames   = ["bashrun","Google Chrome Options","Chromium Options"]
  
 -- a trick for fullscreen but stil allow focusing of other WSs
+-- I'm actually not sure this works...
 myDoFullFloat :: ManageHook
 myDoFullFloat = doF W.focusDown <+> doFullFloat
 -- }}}
 
 mylayoutHook  = avoidStruts $ tiled ||| Mirror tiled ||| simpleFloat ||| Full
                     where tiled =  ResizableTall 1 (2/100) (1/2) []
-                --onWorkspaces ["1:main","5:music"] customLayout $ 
-                --onWorkspaces ["6:gimp"] gimpLayout $ 
-                --onWorkspaces ["4:chat"] imLayout $
-                -- customLayout2
  
 --Bar
+-- I've been having some problems with docking the bars. Namely, recompiling & restarting xmonad does not automatically dock the bars. Usually, cycling through the layouts will dock the bars, but not always. This happens though trayer docks just fine... Maybe I'll solve this later, when I know Haskell, and can put together a decent xmonad.hs.
 myLogHook :: Handle -> X ()
 myLogHook h = dynamicLogWithPP $ defaultPP
     {
-        ppCurrent           =   dzenColor "#ebac54" "#1B1D1E" . pad
-      , ppVisible           =   dzenColor "white" "#1B1D1E" . pad
-      , ppHidden            =   dzenColor "white" "#1B1D1E" . pad
-      , ppHiddenNoWindows   =   dzenColor "#7b7b7b" "#1B1D1E" . pad
-      , ppUrgent            =   dzenColor "#ff0000" "#1B1D1E" . pad
+        ppCurrent           =   dzenColor "#ebac54" "#000000" . pad
+      , ppVisible           =   dzenColor "white" "#000000" . pad
+      , ppHidden            =   dzenColor "white" "#000000" . pad
+      , ppHiddenNoWindows   =   dzenColor "#7b7b7b" "#000000" . pad
+      , ppUrgent            =   dzenColor "#ff0000" "#000000" . pad
       , ppWsSep             =   " "
       , ppSep               =   "  |  "
-      , ppLayout            =   dzenColor "#ebac54" "#1B1D1E" .
+      , ppLayout            =   dzenColor "#ebac54" "#000000" .
                                 (\x -> case x of
                                     "ResizableTall"             ->      "^i(" ++ myBitmapsDir ++ "/tall.xbm)"
                                     "Mirror ResizableTall"      ->      "^i(" ++ myBitmapsDir ++ "/mtall.xbm)"
@@ -141,24 +131,10 @@ myLogHook h = dynamicLogWithPP $ defaultPP
                                     "Simple Float"              ->      "~"
                                     _                           ->      x
                                 )
-      , ppTitle             =   (" " ++) . dzenColor "white" "#1B1D1E" . dzenEscape
+      , ppTitle             =   (" " ++) . dzenColor "white" "#000000" . dzenEscape
       , ppOutput            =   hPutStrLn h
     }
  
--- Layout
---customLayout = avoidStruts $ tiled ||| Mirror tiled ||| Full ||| simpleFloat
---where
---  tiled   = ResizableTall 1 (2/100) (1/2) []
- 
---customLayout2 = avoidStruts $ Full ||| tiled ||| Mirror tiled ||| simpleFloat
---  where
---    tiled   = ResizableTall 1 (2/100) (1/2) []
- 
---gimpLayout  = avoidStruts $ withIM (0.11) (Role "gimp-toolbox") $
---            reflectHoriz $
---            withIM (0.15) (Role "gimp-dock") Full
- 
---imLayout    = avoidStruts $ withIM (1%5) (And (ClassName "Pidgin") (Role "buddy_list")) Grid 
 --}}}
 
 -- Theme {{{
@@ -175,64 +151,33 @@ colorGrey           = "#666666"
  
 colorNormalBorder   = "#CCCCC6"
 colorFocusedBorder  = "#fd971f"
- 
- 
-barFont  = "terminus"
-barXFont = "inconsolata:size=12"
---xftFont = "xft: inconsolata-14"
---}}}
- 
--- Prompt Config {{{
---myXPConfig :: XPConfig
---myXPConfig =
---    defaultXPConfig { font                  = barFont
-----                  , bgColor               = colorDarkGray
---                    , bgColor               = colorBlack
-----                  , fgColor               = colorGreen
---                    , fgColor               = colorWhite
---                    , bgHLight              = colorWhite
---                    , fgHLight              = colorBlack
---                    , promptBorderWidth     = 0
---                    , height                = 12
---                    , historyFilter         = deleteConsecutive
---                    }
- 
--- Run or Raise Menu
---largeXPConfig :: XPConfig
---largeXPConfig = myXPConfig
---                { font = xftFont
---                , height = 22
---                }
 -- }}}
 
 -- Key mapping {{{
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
-    [ --((modMask .|. shiftMask,      xK_p        ), runOrRaisePrompt largeXPConfig)
-      ((modMask,                    xK_p        ), spawn "dmenu_run -fn '-*-terminus-medium-r-normal-*-16-*-*-*-*-*-*-*'")
+    [ 
+    -- Programs
+      ((modMask,                    xK_p        ), spawn "USER_PATH/local/bin/dmenu_run -fn '-*-terminus-medium-r-normal-*-17-*-*-*-*-*-*-*'") 
     , ((modMask .|. shiftMask,      xK_p        ), spawn "gmrun")
     , ((modMask .|. shiftMask,      xK_Return   ), spawn $ XMonad.terminal conf)
---  , ((modMask,                    xK_F2       ), spawn "gmrun")
+    , ((modMask .|. controlMask,    xK_Return   ), spawn "USER_PATH/local/bin/st") --Opens up st.
     , ((modMask .|. shiftMask,      xK_x        ), kill)
-    , ((modMask .|. controlMask,    xK_l        ), spawn "xscreensaver-command --lock")
-    -- Programs
-    , ((0,                          xK_Print    ), spawn "scrot -m '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/Pictures/screenshots'")
-    , ((shiftMask,                  xK_Print    ), spawn "scrot -s '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/Pictures/screenshots'")
-    , ((modMask,                    xK_v        ), spawn "vimprobable2")
---    , ((modMask,                    xK_o        ), spawn "chromium-browser")
-    , ((modMask,                    xK_f        ), spawn "xfe")
+    , ((modMask .|. controlMask,    xK_l        ), spawn "xscreensaver-command --lock") --locks X11.
+    , ((0,                          xK_Print    ), spawn "scrot -m '%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Pictures/screenshots'") -- screenshot of the whole screen.
+    , ((shiftMask,                  xK_Print    ), spawn "sleep 0.2; scrot -s '%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Pictures/screenshots'") -- screenshot of a selected rectangle.
+    , ((modMask,                    xK_i        ), spawn "USER_PATH/local/bin/vimprobable2") -- 'i' for internet.
+    , ((modMask,                    xK_f        ), spawn "xfe") -- 'f' for "file system".
+
     -- Media Keys
+    -- I don't have a media keyboard at work, so this isn't always useful... But that's why there is the volume dock.
     , ((0,                          0x1008ff12  ), spawn "amixer -q sset Headphone toggle")        -- XF86AudioMute
     , ((0,                          0x1008ff11  ), spawn "amixer -q sset Headphone 5%-")   -- XF86AudioLowerVolume
     , ((0,                          0x1008ff13  ), spawn "amixer -q sset Headphone 5%+")   -- XF86AudioRaiseVolume
---  , ((0,                          0x1008ff14  ), spawn "rhythmbox-client --play-pause") -- Eventually, I'll want to do something here for mpd.
---  , ((0,                          0x1008ff17  ), spawn "rhythmbox-client --next") -- ""
---  , ((0,                          0x1008ff16  ), spawn "rhythmbox-client --previous") -- ""
-    , ((modMask .|. controlMask,    xK_Return   ), spawn "USER_PATH/local/bin/st/st") --Opens up st.
  
     -- layouts
-    , ((modMask,                    xK_space    ), sendMessage NextLayout)
+    , ((modMask,                    xK_space    ), sendMessage NextLayout)                      -- switch to next layout
     , ((modMask .|. shiftMask,      xK_space    ), setLayout $ XMonad.layoutHook conf)          -- reset layout on current desktop to default
-    , ((modMask,                    xK_b        ), sendMessage ToggleStruts)
+    , ((modMask,                    xK_b        ), sendMessage ToggleStruts)                    -- toggle the statusbars
     , ((modMask,                    xK_n        ), refresh)
     , ((modMask,                    xK_Tab      ), windows W.focusDown)                         -- move focus to next window
     , ((modMask,                    xK_j        ), windows W.focusDown)
@@ -247,9 +192,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask,                    xK_period   ), sendMessage (IncMasterN (-1)))
  
     -- workspaces
-    , ((modMask .|. controlMask,   xK_Right     ), nextWS)
+    , ((modMask,                   xK_Right     ), nextWS)
     , ((modMask .|. shiftMask,     xK_Right     ), shiftToNext)
-    , ((modMask .|. controlMask,   xK_Left      ), prevWS)
+    , ((modMask,                   xK_Left      ), prevWS)
     , ((modMask .|. shiftMask,     xK_Left      ), shiftToPrev)
  
     -- quit, or restart
@@ -274,4 +219,4 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
  
 --}}}
--- vim:foldmethod=marker sw=4 sts=4 ts=4 tw=0 et ai nowrap
+-- vim:foldmethod=marker sw=4 sts=4 ts=4 tw=0 et ai 

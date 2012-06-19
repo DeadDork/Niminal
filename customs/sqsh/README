@@ -1,5 +1,0 @@
-As with pianobar, my ugly way to get to run binaries from HOME/bin--so that I don't have to install them on root (my amateur way of trying to be secure)--is to put a script in /usr/local/bin that runs the binary from HOME/bin. It's kludge, and one day I'll work out the right way to do this.
-
-For now, though:
-
-sudo cp sqsh.sh /usr/local/bin/sqsh

@@ -13,7 +13,7 @@ diff -r 6b2b356f9b49 -r 25779c1f3e99 config.mk
  
  # paths
 -PREFIX = /usr/local
-+PREFIX = "${HOME}"/local
++PREFIX = ${HOME}/local
  MANPREFIX = ${PREFIX}/share/man
  
  X11INC = /usr/X11R6/include
