@@ -19,7 +19,7 @@ sudo apt-get clean
 sudo apt-get update
 sudo apt-get upgrade
 
-# Install just packages and their depends.
+ Install just packages and their depends.
 
 # Libraries, tools and other non-interactables.
 sudo apt-get --no-install-recommends -y install\
@@ -305,6 +305,7 @@ cd ..
 # Vimprobable -- ultra-light web browser.
 git clone git://git.code.sf.net/p/vimprobable/code
 mv code vimprobable
+cd vimprobable
 git apply --check "${custom_figs}"/vimprobable/0001-Niminal-Vimprobable-configs.patch
 if [ $? = 0 ]; then
 	git apply "${custom_figs}"/vimprobable/0001-Niminal-Vimprobable-configs.patch
@@ -340,8 +341,9 @@ if [ $? = 0 ]; then
 	if [ ! -d /usr/share/xsessions ]; then
 		sudo mkdir /usr/share/xsessions
 	fi
-	sudo cp "${custom_flags}"/xmonad/xmonad.png /usr/share/icons/ # Is this sudo a security hole? Is it possible to stick trojans in png's? I can imagine that it is. If so, I might was to do away with this.
-	sudo sed 's|USER_PATH|'"${HOME}"'|' <"${custom_figs}"/xsession/xmonad.desktop >/usr/share/xsessions/xmonad.desktop
+	sudo cp "${custom_figs}"/xmonad/xmonad.png /usr/share/icons/ # Is this sudo a security hole? Is it possible to stick trojans in png's? I can imagine that it is. If so, I might was to do away with this.
+	sudo cp "${custom_figs}"/xsession/xmonad.desktop /usr/share/xsessions/xmonad.desktop
+	sudo sed -i 's|USER_PATH|'"${HOME}"'|g' /usr/share/xsessions/xmonad.desktop
 	if [ ! $? = 0 ]; then
 		echo "Couldn't set up xmonad.desktop." >> install.errors
 	fi
@@ -365,10 +367,14 @@ fi
 cd ../..
 
 # Samba
+# A lot of these sed's, cp's, and mv's are unnecessary. However, I keep getting weird permission issues otherwise.
 mkdir -p "${HOME}"/samba/share
 sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.master
-sudo sed 's|PATH_TO_HOME|'"${HOME}"'|' <"${custom_figs}"/samba/smb.conf.niminal >/etc/samba/smb.conf.niminal
-sudo testparm -s /etc/samba/smb.conf.niminal /etc/samba/smb.conf
+sed 's|PATH_TO_HOME|'"${HOME}"'|' < /etc/samba/smb.conf.niminalized >"${HOME}"/smb.conf.niminalized
+testparm -s "${HOME}"/smb.conf.niminalized > "${HOME}"/smb.conf
+sudo mv "${HOME}"/smb.conf.niminalized /etc/samba
+sudo mv "${HOME}"/smb.conf /etc/samba
+sudo testparm -s /etc/samba/smb.conf.niminalized /etc/samba/smb.conf
 if [ ! $? = 0 ]; then
 	echo "Couldn't generate good smb.conf." >> install.errors
 fi
@@ -414,8 +420,6 @@ cp "${custom_figs}"/urxvt/Xdefaults "${HOME}"/.Xdefaults
 
 cp "${custom_figs}"/vim/vimrc "${HOME}"/.vimrc
 cp -r "${custom_figs}"/vim/vim "${HOME}"/.vim
-
-cp -r "${custom_figs}"/xfe "${HOME}"/.config
 
 cp -r "${custom_figs}"/xfce4/xfce4 "${HOME}"/.config
 
