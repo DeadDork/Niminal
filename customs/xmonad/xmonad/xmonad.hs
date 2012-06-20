@@ -53,8 +53,8 @@ main = do
  
 -- Config {{{
 -- Dzen/Conky
-myXmonadBar = "dzen2 -x '0' -y '0' -h '20' -w \"$(expr $(xrandr --current | sed -n '1 p' | sed  's/.*current *\\([0-9]*\\).*/\\1/') - 150)\" -ta 'l' -fg '#FFFFFF' -bg '#000000'"
-myStatusBar = "conky -c USER_PATH/.xmonad/.conky_dzen | dzen2 -x '0' -y '1062' -w \"$(xrandr --current | sed -n '1 p' | sed  's/.*current *\\([0-9]*\\).*/\\1/')\" -h '18' -ta 'c' -bg '#000000' -fg '#FFFFFF'"
+myXmonadBar = "dzen2 -x '0' -y '0' -h '20' -w \"$(expr $(xrandr --current | sed -n '1 p' | sed  's/.*current *\\([0-9]*\\).*/\\1/') - 152)\" -ta 'l' -fg '#FFFFFF' -bg '#000000'"
+myStatusBar = "conky -c USER_PATH/.xmonad/.conky_dzen | dzen2 -x '0' -y \"$(expr $(xrandr --current | sed -n '1 p' | sed  's/.*current *[0-9]* *x *\\([0-9]*\\).*/\\1/') - 18)\" -w \"$(xrandr --current | sed -n '1 p' | sed  's/.*current *\\([0-9]*\\).*/\\1/')\" -h '18' -ta 'c' -bg '#000000' -fg '#FFFFFF'"
 myBitmapsDir = "USER_PATH/.xmonad/dzen2"
 
 -- Define Terminal
