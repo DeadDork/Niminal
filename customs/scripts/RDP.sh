@@ -39,7 +39,7 @@ select connect_prompt in 'New connection' 'Established connection'; do
 						break
 						;;
 					* )
-						echo 'Bad entry. Try again.'
+						echo 'Bad connection strength choice. Try again.'
 						;;
 				esac
 			done
@@ -55,7 +55,7 @@ select connect_prompt in 'New connection' 'Established connection'; do
 						break
 						;;
 					* )
-						echo 'Bad entry. Try again.'
+						echo 'Bad bitmap caching choice. Try again.'
 						;;
 				esac
 			done
@@ -77,7 +77,7 @@ select connect_prompt in 'New connection' 'Established connection'; do
 						break
 						;;
 					* )
-						echo "Bad entry. Try again."
+						echo "Bad mount drive choice. Try again."
 						;;
 				esac
 			done
@@ -103,32 +103,32 @@ select connect_prompt in 'New connection' 'Established connection'; do
 						break
 						;;
 					* )
-						echo 'Bad entry. Try again.'
+						echo 'Choice out of bounds for adding the connection to the list. Try again.'
 						;;
 				esac
 			done
 			break
 			;;
 		'Established connection' )
-			PS3='Pick a connection.'
 			if [ -s ~/.rdesktop_connections_list ]; then
+				PS3='Pick a connection.'
 				select est_connect in $(awk '{printf "%s ", $0}' <~/.rdesktop_connections_list); do
-					grep -q -e "${est_connect}" ~/.rdesktop_connections_list
-					if [ ! $? = 0 ]; then
-						echo 'Bad entry. Try again.'
-					else
+					grep -F -q -e "${est_connect}" ~/.rdesktop_connections_list
+					if [ $? = 0 -a -n "${est_connect}" ]; then
 						settings="${est_connect}"
 						break
+					else
+						echo 'Bad connection for list choice. Try again.'
 					fi
 				done
-				break
 			else
 				echo -e "\nThere are no established connections. Execute the script again to create one.\n"
 				exit 1
 			fi
+			break
 			;;
 		* )
-			echo 'Bad entry. Try again.'
+			echo 'Either choose to create new connection or use an established one. Try again.'
 			;;
 	esac
 done
