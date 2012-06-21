@@ -332,7 +332,7 @@ if [ $? = 0 ]; then
 	#cabal install cabal-install # This command SHOULD work, but it's been giving me some problems. I'll address this in a later version.
 	cabal install xmonad-contrib
 	cp -r "${custom_figs}"/xmonad/xmonad "${HOME}"/.xmonad/
-	sed -i 's|USER_PATH|'"${HOME}"'|g' "${HOME}"/.xmonad/xmonad.hs
+	sed -i -e 's|USER_PATH|'"${HOME}"'|g' -e 's|CMUS_VERSION|'"$(cmus --version | sed -n '1 p')"'|' "${HOME}"/.xmonad/xmonad.hs
 	sed -i 's|USER_PATH|'"${HOME}"'|g' "${HOME}"/.xmonad/.conky_dzen
 
 	# N.B. the .xsession & xmonad.desktop assume that xmonad was installed correctly. If it wasn't, oi...

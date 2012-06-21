@@ -102,7 +102,7 @@ myManageHook = (composeAll . concat $
  
         -- names
         myNamesName         = ["bashrun", "Google Chrome Options", "Chromium Options"]
-        myAudioName         = ["pianobar", "cmus v2.4.3"]
+        myAudioName         = ["pianobar", "CMUS_VERSION"]
  
 -- a trick for fullscreen but stil allow focusing of other WSs
 -- I'm actually not sure this works... It certainly doesn't with Chromium when it is in fullscreen.
