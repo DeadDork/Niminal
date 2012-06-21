@@ -90,6 +90,7 @@ sudo apt-get --no-install-recommends -y install\
 	lightdm-gtk-greeter\
 	linux-headers-generic\
 	lubuntu-restricted-extras\
+	macchanger\
 	mercurial\
 	mixmaster\
 	mpd\
