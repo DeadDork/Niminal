@@ -249,7 +249,7 @@ cd ..
 # freetds -- free, reverse-engineered version of Microsoft's TDS.
 mkdir freetds
 cd freetds
-wget ftp://ftp.ibiblio.org/pub/Linux/ALPHA/freetds/stable/freetds-stable.tgz # The CVS tip didn't have 'configure'...
+wget ftp://ftp.ibiblio.org/pub/Linux/ALPHA/freetds/stable/freetds-stable.tgz # The CVS tip didn't have 'configure' last I checked.
 tar -xvf freetds*
 cd freetds*
 ./configure --prefix="${HOME}"/local
@@ -366,33 +366,30 @@ else
 fi
 cd ../..
 
+# Settings configuration.
+
 # Samba
-# A lot of these sed's, cp's, and mv's are unnecessary. However, I keep getting weird permission issues otherwise.
 mkdir -p "${HOME}"/samba/share
 sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.master
-sed 's|PATH_TO_HOME|'"${HOME}"'|' < /etc/samba/smb.conf.niminalized >"${HOME}"/smb.conf.niminalized
-testparm -s "${HOME}"/smb.conf.niminalized > "${HOME}"/smb.conf
-sudo mv "${HOME}"/smb.conf.niminalized /etc/samba
-sudo mv "${HOME}"/smb.conf /etc/samba
-sudo testparm -s /etc/samba/smb.conf.niminalized /etc/samba/smb.conf
+sudo bash -c "sed 's|PATH_TO_HOME|${HOME}|g' <${custom_figs}/samba/smb.conf.niminalized >/etc/samba/smb.conf.niminalized"
+sudo bash -c "testparm -s /etc/samba/smb.conf.niminalized >/etc/samba/smb.conf"
 if [ ! $? = 0 ]; then
 	echo "Couldn't generate good smb.conf." >> install.errors
 fi
 
 # Proxies
-if [ -e /etc/apt/sources.list ]; then 
-	sudo echo -e "\n# Tor & privoxy as offered by the Tor Project folks.\ndeb     http://deb.torproject.org/torproject.org $(lsb_release -c | awk '{print $2}') main" >> /etc/apt/sources.list
-	gpg --keyserver keys.gnupg.net --recv 886DDD89
-	gpg --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | sudo apt-key add -
-	sudo apt-get update
-else
+sudo bash -c "echo -e \"\n# Tor & privoxy as offered by the Tor Project folks.\ndeb     http://deb.torproject.org/torproject.org $(lsb_release -c | awk '{print $2}') main\" >>/etc/apt/sources.list"
+if [ ! $? = 0 ]; then
 	echo "Failed to add Tor Project deb." >> ~/install.errors
 fi
+gpg --keyserver keys.gnupg.net --recv 886DDD89
+gpg --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | sudo apt-key add -
+sudo apt-get update
 sudo apt-get install tor privoxy
 patch --dry-run -f -p1 /etc/squid3/squid.conf "${custom_figs}"/proxies/squid.patch
 if [ $? = 0 ]; then
-	sudo patch -f -p1 /etc/squid3/squid.conf "${custom_figs}"/proxies/squid.patch
-	sudo echo 'http_proxy="http://127.0.0.1:3128"' >> /etc/environment
+	sudo bash -c "patch -f -p1 /etc/squid3/squid.conf ${custom_figs}/proxies/squid.patch"
+	sudo bash -c "echo 'http_proxy=\"http://127.0.0.1:3128\"' >> /etc/environment"
 else
 	echo "Failed to patch squid3." >> install.errors
 fi
