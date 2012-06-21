@@ -54,8 +54,8 @@ main = do
 -- Config {{{
 -- Dzen/Conky
 myXmonadBar = "dzen2 -x '0' -y '0' -h '20' -w \"$(expr $(xrandr --current | sed -n '1 p' | sed  's/.*current *\\([0-9]*\\).*/\\1/') - 152)\" -ta 'l' -fg '#FFFFFF' -bg '#000000'"
-myStatusBar = "conky -c USER_PATH/.xmonad/.conky_dzen | dzen2 -x '0' -y \"$(expr $(xrandr --current | sed -n '1 p' | sed  's/.*current *[0-9]* *x *\\([0-9]*\\).*/\\1/') - 18)\" -w \"$(xrandr --current | sed -n '1 p' | sed  's/.*current *\\([0-9]*\\).*/\\1/')\" -h '18' -ta 'c' -bg '#000000' -fg '#FFFFFF'"
-myBitmapsDir = "USER_PATH/.xmonad/dzen2"
+myStatusBar = "conky -c /USER_PATH/.xmonad/.conky_dzen | dzen2 -x '0' -y \"$(expr $(xrandr --current | sed -n '1 p' | sed  's/.*current *[0-9]* *x *\\([0-9]*\\).*/\\1/') - 18)\" -w \"$(xrandr --current | sed -n '1 p' | sed  's/.*current *\\([0-9]*\\).*/\\1/')\" -h '18' -ta 'c' -bg '#000000' -fg '#FFFFFF'"
+myBitmapsDir = "/USER_PATH/.xmonad/dzen2"
 
 -- Define Terminal
 myTerminal      = "urxvtcd"
@@ -72,15 +72,16 @@ myWorkspaces    = ["1:prim", "2:seco", "3:tert", "4:quat", "5:fs", "6:audio", "7
 -- ManageHook {{{
 myManageHook :: ManageHook
 myManageHook = (composeAll . concat $
-    [ [resource     =? r            --> doIgnore            |   r   <- myIgnores] -- ignore desktop
-    , [className    =? c            --> doShift  "5:fs"     |   c   <- myFS     ] -- move file system stuff (e.g. xfe) to fs.
-    , [className    =? c            --> doShift  "6:audio"  |   c   <- myAudio  ] -- move audo stuff (e.g. spotify) to audio.
-    , [className    =? c            --> doShift  "7:video"  |   c   <- myVideo  ] -- move video stuff (e.g. mplayer, vlc,gpicview, etc.) to video.
-    , [className    =? c            --> doShift  "8:social" |   c   <- mySocial ] -- move social stuff (e.g. irc) to social.
-    , [className    =? c            --> doShift  "9:web"    |   c   <- myWebs   ] -- move web-ish stuff (e.g. Firefox, Chromium, etc.) to web.
-    , [className    =? c            --> doCenterFloat       |   c   <- myFloats ] -- float my floats
-    , [name         =? n            --> doCenterFloat       |   n   <- myNames  ] -- float my names
-    , [isFullscreen                 --> myDoFullFloat                           ] -- floats a fullscreen
+    [ [resource     =? r            --> doIgnore            |   r   <- myIgnoresResource    ] -- ignore desktop
+    , [className    =? c            --> doShift  "5:fs"     |   c   <- myFSClass            ] -- move file system stuff (e.g. xfe) to fs.
+    , [className    =? c            --> doShift  "6:audio"  |   c   <- myAudioClass         ] -- move audo stuff (e.g. spotify) to audio.
+    , [name         =? n            --> doShift  "6:audio"  |   n   <- myAudioName          ] -- move audo stuff (e.g. spotify) to audio.
+    , [className    =? c            --> doShift  "7:video"  |   c   <- myVideoClass         ] -- move video stuff (e.g. mplayer, vlc,gpicview, etc.) to video.
+    , [className    =? c            --> doShift  "8:social" |   c   <- mySocialClass        ] -- move social stuff (e.g. irc) to social.
+    , [className    =? c            --> doShift  "9:web"    |   c   <- myWebsClass          ] -- move web-ish stuff (e.g. Firefox, Chromium, etc.) to web.
+    , [className    =? c            --> doCenterFloat       |   c   <- myFloatsClass        ] -- float my floats
+    , [name         =? n            --> doCenterFloat       |   n   <- myNamesName          ] -- float my names
+    , [isFullscreen                 --> myDoFullFloat                                       ] -- floats a fullscreen
     ])
  
     where
@@ -89,21 +90,22 @@ myManageHook = (composeAll . concat $
         name      = stringProperty "WM_NAME"
  
         -- classnames
-        myFloats  = ["Smplayer", "MPlayer", "VirtualBox", "Xmessage", "XFontSel", "Downloads", "Wicd-client.py", "rdesktop", "System-config-printer", "feh", "gmrun", "Xscreensaver-demo", "Galculator", "Gimp", "Xfce4-power-manager-settings", "st-256color"]
-        myFS      = ["Xfe", "Xfw", "Xfv", "Xfi", "Xfp", "Xarchiver"]
-        myWebs    = ["Firefox", "Google-chrome", "Chromium", "Chromium-browser", "Xombrero"] -- Vimprobable I reserve as my swiss army knife browser.
-        myVideo   = ["Boxee", "Trine", "Gpicview", "Vlc", "Guvcview"]
-        myAudio   = ["Rhythmbox","Spotify"]
-        mySocial  = ["Pidgin","Buddy List"]
+        myFloatsClass       = ["Smplayer", "MPlayer", "VirtualBox", "Xmessage", "XFontSel", "Downloads", "Wicd-client.py", "rdesktop", "System-config-printer", "feh", "gmrun", "Xscreensaver-demo", "Galculator", "Gimp", "Xfce4-power-manager-settings", "st-256color", "Vlc"]
+        myFSClass           = ["Xfe", "Xfw", "Xfv", "Xfi", "Xfp", "Xarchiver"]
+        myWebsClass         = ["Firefox", "Google-chrome", "Chromium", "Chromium-browser", "Xombrero"] -- Vimprobable I reserve as my swiss army knife browser.
+        myVideoClass        = ["Boxee", "Trine", "Gpicview", "Vlc", "Guvcview"]
+        myAudioClass        = ["Rhythmbox", "Spotify"]
+        mySocialClass       = ["Pidgin", "Buddy List"]
  
         -- resources
-        myIgnores = ["desktop","desktop_window","notify-osd","stalonetray","trayer"]
+        myIgnoresResource   = ["desktop", "desktop_window", "notify-osd", "stalonetray", "trayer"]
  
         -- names
-        myNames   = ["bashrun","Google Chrome Options","Chromium Options"]
+        myNamesName         = ["bashrun", "Google Chrome Options", "Chromium Options"]
+        myAudioName         = ["pianobar", "cmus v2.4.3"]
  
 -- a trick for fullscreen but stil allow focusing of other WSs
--- I'm actually not sure this works...
+-- I'm actually not sure this works... It certainly doesn't with Chromium when it is in fullscreen.
 myDoFullFloat :: ManageHook
 myDoFullFloat = doF W.focusDown <+> doFullFloat
 -- }}}
@@ -157,15 +159,15 @@ colorFocusedBorder  = "#fd971f"
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     [ 
     -- Programs
-      ((modMask,                    xK_p        ), spawn "USER_PATH/local/bin/dmenu_run -fn '-*-terminus-medium-r-normal-*-17-*-*-*-*-*-*-*'") 
+      ((modMask,                    xK_p        ), spawn "/USER_PATH/local/bin/dmenu_run -fn '-*-terminus-medium-r-normal-*-17-*-*-*-*-*-*-*'") 
     , ((modMask .|. shiftMask,      xK_p        ), spawn "gmrun")
     , ((modMask .|. shiftMask,      xK_Return   ), spawn $ XMonad.terminal conf)
-    , ((modMask .|. controlMask,    xK_Return   ), spawn "USER_PATH/local/bin/st") --Opens up st.
+    , ((modMask .|. controlMask,    xK_Return   ), spawn "/USER_PATH/local/bin/st") --Opens up st.
     , ((modMask .|. shiftMask,      xK_x        ), kill)
     , ((modMask .|. controlMask,    xK_l        ), spawn "xscreensaver-command --lock") --locks X11.
     , ((0,                          xK_Print    ), spawn "scrot -m '%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Pictures/screenshots'") -- screenshot of the whole screen.
     , ((shiftMask,                  xK_Print    ), spawn "sleep 0.2; scrot -s '%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Pictures/screenshots'") -- screenshot of a selected rectangle.
-    , ((modMask,                    xK_i        ), spawn "USER_PATH/local/bin/vimprobable2") -- 'i' for internet.
+    , ((modMask,                    xK_i        ), spawn "/USER_PATH/local/bin/vimprobable2") -- 'i' for internet.
     , ((modMask,                    xK_f        ), spawn "xfe") -- 'f' for "file system".
 
     -- Media Keys
@@ -199,8 +201,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
  
     -- quit, or restart
     , ((modMask .|. shiftMask,      xK_q        ), io (exitWith ExitSuccess))
-    , ((modMask,                    xK_q        ), spawn "killall conky dzen2 && USER_PATH/local/bin/xmonad --recompile && USER_PATH/local/bin/xmonad --restart")
-    , ((modMask,                    xK_r        ), spawn "USER_PATH/local/bin/xmonad --restart")
+    , ((modMask,                    xK_q        ), spawn "killall conky dzen2 && /USER_PATH/local/bin/xmonad --recompile && /USER_PATH/local/bin/xmonad --restart")
+    , ((modMask,                    xK_r        ), spawn "/USER_PATH/local/bin/xmonad --restart")
     ]
     ++
     -- mod-[1..9] %! Switch to workspace N
