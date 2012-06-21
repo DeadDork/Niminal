@@ -2,4 +2,4 @@
 
 # Quickie script to open up pianobar with st.
 
-st -e 'pianobar'
+st -t 'pianobar' -c 'pianobar' -e 'pianobar'
