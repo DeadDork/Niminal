@@ -102,7 +102,7 @@ myManageHook = (composeAll . concat $
  
         -- names
         myNamesName         = ["bashrun", "Google Chrome Options", "Chromium Options"]
-        myAudioName         = ["pianobar", "CMUS_VERSION"]
+        myAudioName         = ["pianobar", "CMUS_VERSION"] -- N.B. the cmus version has to be update manually every time cmus has a version change, otherwise opening it will not redirect to 6:audio. One day I'll figure out an easy way to automate this.
  
 -- a trick for fullscreen but stil allow focusing of other WSs
 -- I'm actually not sure this works... It certainly doesn't with Chromium when it is in fullscreen.
