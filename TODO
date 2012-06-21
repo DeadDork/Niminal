@@ -1,7 +1,7 @@
 (In no particular order.)
 
 Immediate:
-* Come up with some script/function to auto-size trayer & the two dzen2's (right now that has to be done manually).
+* Change 'local' to '.local' (stupid stupid stupid...)
 * Setup mpd (yeah yeah yeah...).
 * Configure irssi.
 * Create file associations.
