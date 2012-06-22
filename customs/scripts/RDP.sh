@@ -2,8 +2,6 @@
 
 # This script makes it easy to create a Windows terminal that's well-fitted to the local machine's screen, as well as connect to any previously created connections.
 
-# Because some of the expanded variables have individual WORDS that have space elements, IFS has to be set to 
-
 # This file stores all of the RDP connection settings.
 settings_store="${HOME}/.rdesktop_connections_list"
 
@@ -121,7 +119,10 @@ select connect_prompt in 'New connection' 'Established connection'; do
 		'Established connection' )
 			if [ -s $settings_store ]; then
 				PS3='Pick a connection.'
+				
+				IFS="	" # The expanded WORDS have space elements, and accordingly the IFS is temporarily changed to TAB here.
 				select est_connect in "$(cat $settings_store)"; do
+					unset IFS # Returning IFS to stock.
 					grep -F -q -e "${est_connect}" $settings_store
 					if [ $? = 0 -a -n "${est_connect}" ]; then
 						settings="${est_connect}"
