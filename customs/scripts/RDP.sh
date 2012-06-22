@@ -10,13 +10,15 @@ if [ ! -e $settings_store ]; then
 	touch $settings_store
 fi
 
-# Geometry values can't be saved, as a change in monitors leads to problems, etc.
+# Geometry values can't be saved, but have to be determined every time this script is called, as a change in monitors leads to problems, etc.
 geometry="-g $(xrandr --current | gawk '(NR==1){match($0, /current ([0-9]*) x ([0-9]*)/, A); print A[1] "x" A[2] - 5}')"
 
-# Connections prompt user menu.
+# Top-level of the menu: select NEW CONNECTION, OLD CONNECTION, ERROR.
 PS3='Establish a new RDP connection or use previously created connection settings?'
+clear
 select connect_prompt in 'New connection' 'Established connection'; do
 	case "${connect_prompt}" in
+		# If NEW CONNECTION, then collect all of the setting data.
 		'New connection' )
 			while [ -z "${user}" ]; do
 				read -p 'User name? ' user
@@ -27,6 +29,7 @@ select connect_prompt in 'New connection' 'Established connection'; do
 			done
 			domain="-d ${domain}"
 			PS3='Connection strength?'
+			clear
 			select connect_strength in 'Modem' 'Broadband' 'LAN'; do
 				case "${connect_strength}" in
 					'Modem' )
@@ -47,6 +50,7 @@ select connect_prompt in 'New connection' 'Established connection'; do
 				esac
 			done
 			PS3='Bitmap caching?'
+			clear
 			select bmp_cache in 'Yes' 'No'; do
 				case "${bmp_cache}" in
 					'Yes' )
@@ -63,6 +67,7 @@ select connect_prompt in 'New connection' 'Established connection'; do
 				esac
 			done
 			PS3='Mount a drive (e.g. USB. N.B. if you want to share a drive, use samba instead)?'
+			clear
 			select drive in 'Yes' 'No'; do
 				case "${drive}" in
 					'Yes' )
@@ -93,9 +98,11 @@ select connect_prompt in 'New connection' 'Established connection'; do
 			fi
 			settings="${user} ${domain} ${experience} ${bitmap_caching} ${device} ${address}${port}" # Do NOT include geometry!
 			PS3='Add the new connection to the list of established connections?'
+			clear
 			select add_connect_prompt in 'Yes' 'No'; do
 				case "${add_connect_prompt}" in
 					'Yes' )
+						# It's easier to just have one line in the file, rather than a series of lines that have to be concatenated into one line in the OLD CONNECTIONS case.
 						grep -F -i -q -e "${settings}" $settings_store 
 						if [ ! $? = 0 ]; then
 							if [ -s $settings_store ]; then
@@ -116,13 +123,14 @@ select connect_prompt in 'New connection' 'Established connection'; do
 			done
 			break
 			;;
+		# If OLD CONNECTION, then select the old connection to connect to.
 		'Established connection' )
 			if [ -s $settings_store ]; then
 				PS3='Pick a connection.'
-				
-				IFS="	" # The expanded WORDS have space elements, and accordingly the IFS is temporarily changed to TAB here.
-				select est_connect in "$(cat $settings_store)"; do
-					unset IFS # Returning IFS to stock.
+				IFS="	" # The expanded WORDS of the established connection have space elements, and accordingly the IFS is temporarily changed to just TAB.
+				clear
+				select est_connect in $(cat $settings_store); do
+					unset IFS # Returning IFS to stock setting.
 					grep -F -q -e "${est_connect}" $settings_store
 					if [ $? = 0 -a -n "${est_connect}" ]; then
 						settings="${est_connect}"
@@ -132,7 +140,7 @@ select connect_prompt in 'New connection' 'Established connection'; do
 					fi
 				done
 			else
-				echo -e "\nThere are no established connections. Execute the script again to create one.\n"
+				echo -e "\nThere are no established connections. Execute the script again to create one.\n" # Couldn't find a GOTO-like command in BASH to go to NEW CONNECTION here.
 				exit 1
 			fi
 			break
@@ -143,7 +151,7 @@ select connect_prompt in 'New connection' 'Established connection'; do
 	esac
 done
 
-echo "${geometry} ${settings}"
-#rdesktop "${geometry} ${settings}"
+# Open the Windows terminal with the desired settings.
+rdesktop ${geometry} ${settings}
 
 exit 0
