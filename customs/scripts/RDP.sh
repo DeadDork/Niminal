@@ -2,13 +2,18 @@
 
 # This script makes it easy to create a Windows terminal that's well-fitted to the local machine's screen, as well as connect to any previously created connections.
 
-# Various RDP settings that are "hard-wired" in the script.
-geometry="-g $(xrandr --current | gawk '(NR==1){match($0, /current ([0-9]*) x ([0-9]*)/, A); print A[1] "x" A[2] - 5}')"
+# Because some of the expanded variables have individual WORDS that have space elements, IFS has to be set to 
 
-# Making sure this file exists.
-if [ ! -e ~/.rdesktop_connections_list ]; then
-	touch ~/.rdesktop_connections_list
+# This file stores all of the RDP connection settings.
+settings_store="${HOME}/.rdesktop_connections_list"
+
+# Make sure the file exists.
+if [ ! -e $settings_store ]; then
+	touch $settings_store
 fi
+
+# Geometry values can't be saved, as a change in monitors leads to problems, etc.
+geometry="-g $(xrandr --current | gawk '(NR==1){match($0, /current ([0-9]*) x ([0-9]*)/, A); print A[1] "x" A[2] - 5}')"
 
 # Connections prompt user menu.
 PS3='Establish a new RDP connection or use previously created connection settings?'
@@ -88,14 +93,18 @@ select connect_prompt in 'New connection' 'Established connection'; do
 			if [ -n "${port}" ]; then
 				port=":${port}"
 			fi
-			settings="$(echo ${user} ${domain} ${geometry} ${experience} ${bitmap_caching} ${device} ${address}${port} | sed 's/ /_/g')" # Horrible kludge to make the Established Connections select work...
+			settings="${user} ${domain} ${experience} ${bitmap_caching} ${device} ${address}${port}" # Do NOT include geometry!
 			PS3='Add the new connection to the list of established connections?'
 			select add_connect_prompt in 'Yes' 'No'; do
 				case "${add_connect_prompt}" in
 					'Yes' )
-						grep -F -i -q -e "${settings}" ~/.rdesktop_connections_list 
+						grep -F -i -q -e "${settings}" $settings_store 
 						if [ ! $? = 0 ]; then
-							echo "${settings}" >> "${HOME}"/.rdesktop_connections_list
+							if [ -s $settings_store ]; then
+								sed -i 's/\(.*\)/\1\t'"${settings}"'/' $settings_store
+							else
+								echo "${settings}" > $settings_store
+							fi
 						fi
 						break
 						;;
@@ -110,10 +119,10 @@ select connect_prompt in 'New connection' 'Established connection'; do
 			break
 			;;
 		'Established connection' )
-			if [ -s ~/.rdesktop_connections_list ]; then
+			if [ -s $settings_store ]; then
 				PS3='Pick a connection.'
-				select est_connect in $(awk '{printf "%s ", $0}' <~/.rdesktop_connections_list); do
-					grep -F -q -e "${est_connect}" ~/.rdesktop_connections_list
+				select est_connect in "$(cat $settings_store)"; do
+					grep -F -q -e "${est_connect}" $settings_store
 					if [ $? = 0 -a -n "${est_connect}" ]; then
 						settings="${est_connect}"
 						break
@@ -133,6 +142,7 @@ select connect_prompt in 'New connection' 'Established connection'; do
 	esac
 done
 
-rdesktop $(echo ${settings} | sed 's/_/ /g')
+echo "${geometry} ${settings}"
+#rdesktop "${geometry} ${settings}"
 
 exit 0
