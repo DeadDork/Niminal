@@ -20,6 +20,7 @@ select connect_prompt in 'New connection' 'Established connection'; do
 	case "${connect_prompt}" in
 		# If NEW CONNECTION, then collect all of the setting data.
 		'New connection' )
+			clear
 			while [ -z "${user}" ]; do
 				read -p 'User name? ' user
 			done
