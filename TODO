@@ -21,9 +21,10 @@ Immediate:
 * mixmaster.
 * urlview.
 * Automount USB drives.
+* Add update notifier.
+* Deprecate niminal into niminal-core with masks (niminal as is, is too top heavy).
 
 Future:
-* Add update notifier.
 * Niminal install script for non-minimal Ubuntu/Debian base installs.
 * cabal install cabal-install
 * Work out a way to easily, but securely, backup (and download into new Niminal installs) my documents & protected files.
