@@ -1,6 +1,7 @@
 (In no particular order.)
 
 Immediate:
+* Change Squid3 to Polipo (squid is eating WAY too much memory).
 * Change 'local' to '.local' (stupid stupid stupid...)
 * Setup mpd (yeah yeah yeah...).
 * Configure irssi.
@@ -22,7 +23,6 @@ Immediate:
 * Automount USB drives.
 
 Future:
-* Squid3 vs Polipo?
 * Add update notifier.
 * Niminal install script for non-minimal Ubuntu/Debian base installs.
 * cabal install cabal-install
