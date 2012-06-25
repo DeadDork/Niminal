@@ -110,7 +110,7 @@ select connect_prompt in 'New connection' 'Established connection'; do
 						grep -F -i -q -e "${settings}" $settings_store 
 						if [ ! $? = 0 ]; then
 							if [ -s $settings_store ]; then
-								sed -i 's/\(.*\)/\1\t'"${settings}"'/' $settings_store
+								sed -i 's|\(.*\)|\1\t'"${settings}"'|' $settings_store
 							else
 								echo "${settings}" > $settings_store
 							fi
