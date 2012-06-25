@@ -24,6 +24,7 @@ select connect_prompt in 'New connection' 'Established connection'; do
 				read -p 'User name? ' user
 			done
 			user="-u ${user}"
+			clear
 			while [ -z "${domain}" ]; do
 				read -p 'Domain? ' domain
 			done
@@ -89,9 +90,11 @@ select connect_prompt in 'New connection' 'Established connection'; do
 						;;
 				esac
 			done
+			clear
 			while [ -z "${address}" ]; do
 				read -p 'Host address? ' address
 			done
+			clear
 			read -p 'Host port (if any)? ' port
 			if [ -n "${port}" ]; then
 				port=":${port}"
@@ -125,10 +128,10 @@ select connect_prompt in 'New connection' 'Established connection'; do
 			;;
 		# If OLD CONNECTION, then select the old connection to connect to.
 		'Established connection' )
+			clear
 			if [ -s $settings_store ]; then
 				PS3='Pick a connection.'
 				IFS="	" # The expanded WORDS of the established connection have space elements, and accordingly the IFS is temporarily changed to just TAB.
-				clear
 				select est_connect in $(cat $settings_store); do
 					unset IFS # Returning IFS to stock setting.
 					grep -F -q -e "${est_connect}" $settings_store
