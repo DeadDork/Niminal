@@ -1,6 +1,7 @@
 (In no particular order.)
 
 Immediate:
+* Rewrite README in markdown.
 * Setup ssh properly (public/private keys, and whatnot).
 * Password management.
 * Change Squid3 to Polipo (squid is eating WAY too much memory).
