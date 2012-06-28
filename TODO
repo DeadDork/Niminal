@@ -27,6 +27,9 @@ Immediate:
 * Deprecate niminal into niminal-core with masks (niminal as is, is too top heavy. Things like libreoffice & gimp should go in the mask).
 
 Future:
+* niminal-core (I had thought that Niminal was relatively lightweight, but after looking at the total size of the current install's size, I realized it most certainly is not. Accordingly, I am reverting back to the old plan: create a niminal-core, and masks to go on top).
+* Squid3 vs Polipo?
+* Add update notifier.
 * Niminal install script for non-minimal Ubuntu/Debian base installs.
 * cabal install cabal-install
 * Work out a way to easily, but securely, backup (and download into new Niminal installs) my documents & protected files.
