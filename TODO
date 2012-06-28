@@ -1,6 +1,8 @@
 (In no particular order.)
 
 Immediate:
+* Setup ssh properly (public/private keys, and whatnot).
+* Password management.
 * Change Squid3 to Polipo (squid is eating WAY too much memory).
 * Change 'local' to '.local' (stupid stupid stupid...)
 * Setup mpd (yeah yeah yeah...).
@@ -22,7 +24,7 @@ Immediate:
 * urlview.
 * Automount USB drives.
 * Add update notifier.
-* Deprecate niminal into niminal-core with masks (niminal as is, is too top heavy).
+* Deprecate niminal into niminal-core with masks (niminal as is, is too top heavy. Things like libreoffice & gimp should go in the mask).
 
 Future:
 * Niminal install script for non-minimal Ubuntu/Debian base installs.
