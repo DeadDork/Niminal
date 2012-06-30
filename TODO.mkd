@@ -1,0 +1,78 @@
+TODO
+====
+
+High priority:
+--------------
+*	Tighten up settings (e.g. xfe).
+*	Deprecate niminal into niminal-core with masks (as is, niminal is too top heavy. Things like libreoffice & gimp should go in something like the desktop mask).
+*	Update script (with cron? Point is, I need a lightweight updater of some kind, and I think it's nuts to have to install the insane libraries of gnome just for a pop-up alerting me that there are updates).
+*	Automount USB drives.
+*	Setup ssh properly (public/private keys, and whatnot).
+*	Change Squid3 to Polipo (squid is eating WAY too much memory, and I have no need for it's power-features).
+*	Apparmor
+
+Medium priority:
+----------------
+*	Xmonad toggleStrut bug (suspected conflict with lightdm. Maybe switch dm?)
+*	Volume on startup needs to be set to ON, not OFF.
+*	Over-size trayer bug (volume?)
+*	Startup & shutdown backgrounds.
+*	Weird pause on start-up (does this for all minimal installs...).
+*	Change 'local' to '.local' (stupid stupid stupid...)
+*	Complete Documents/manuals directory (definitely github-able!):
+	*	if-then
+	*	BASH
+	*	R
+	*	LaTeX
+	*	sed
+	*	gawk
+	*	chmod
+*	Script for individualizing Niminal (i.e. if John Doe wants to try it out, the Niminal script should be able to prompt him a couple of question upon install, and then it's set up to use his favored IRC handle, etc.).
+*	Recovery plan (for when things go horribly, horribly wrong).
+
+Low priority:
+-------------
+*	Xmonad install script (xmonad does not install the man page--fix this).
+*	Niminal install script for non-minimal Ubuntu/Debian base installs.
+*	cabal install cabal-install (I can't install cabal-install using cabal for the latest version of cabal-install. As it's maintained by Ubuntu these days, though, this isn't a big deal.)
+*	get-flash-videos & xombrero to work together.
+*	Xombrero keyboard shortcuts page exemptions.
+*	Create a .deb for niminal.
+*	Also create a PPA.
+*	Also create a complete .iso.
+*	create small github repo's for the more complex, likely-to-be-regularly-updated config's & scripts.
+	* vim
+	* xmonad
+	* my niminal masks
+*	Keyboard shortcuts cheatsheets:
+	* xmonad
+	* elinks
+	* vimprobable
+	* xombrero
+	* chromium
+	* vim
+* Phase out trayer and applet's completely
+	* Power script (for quick shutdown, reboot, etc. using DBus. Makes manual power management--e.g. sleep--with dmenu a cinch).
+	* Automated power management through scripts (TLP?).
+	* NM managent through scripts (wicd-cli? Anyway, the security--i.e. integration with gnome-keyring-manager--is going to be a pain...).
+	* Find a better copy buffer system (I like parcellite a lot, and I wonder if I can strip it's source to make it more lightweight & applet-less).
+	* volume (dzen & conky, and I have to make it so that you can click on it, as not all keyboards have volume control buttons, and I don't want to assign mod4 & '+/-').
+*	Password management (I need to work out a more secure system).
+*	Work out a way to easily, but securely, backup (and download into new Niminal installs) my documents & protected files.
+
+Long-term projects:
+-------------------
+*	Documentation (good documentation is so important--which is why I feel so bad about doing such a poor job of documenting niminal thus far...).
+*	Review packages (minimalism, minimalism, *minimalism*).
+*	security
+*	stability (switch to debian with backports? I definitely need to read up on stability).
+*	xmonad.hs (I'm pretty happy with my current xmonad.hs, but xmonad can do so much--check out and1's config at <http://www.haskell.org/haskellwiki/Xmonad/Config_archive/And1%27s_xmonad.hs>. Also, I like brisbin's config <https://github.com/pbrisbin/xmonad-config>, especially the idea of modularizing the various complex functions. Finally, I need to clean up my xmonad.hs. There are a lot of deprecated comments.)
+
+Programs I want to try out:
+---------------------------
+* mpd
+* irssi
+* tmux
+* mutt
+* mixmaster
+	* urlview.
