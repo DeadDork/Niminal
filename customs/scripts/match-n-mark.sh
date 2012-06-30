@@ -13,7 +13,7 @@
 ##########BEGIN CODE##########
 
 # Makes sure that all of the variables have been entered.
-test -z "${1}" -o -z "${2}" -o -z "${3}" -o -z "${4}" && echo "./match-n-mark.sh MATCH_FIELD MATCH_PREFIX SOURCE_MATCH_FILE TARGET_MATCH_FILE" && exit 1
+test -z "${1}" -o -z "${2}" -o -z "${3}" -o -z "${4}" && echo "match-n-mark.sh MATCH_FIELD MATCH_PREFIX SOURCE_MATCH_FILE TARGET_MATCH_FILE" && exit 1
 
 # Match script.
 awk '{
