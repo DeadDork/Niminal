@@ -28,7 +28,6 @@ Immediate:
 * Deprecate niminal into niminal-core with masks (niminal as is, is too top heavy. Things like libreoffice & gimp should go in the mask).
 * Work out a way to easily, but securely, backup (and download into new Niminal installs) my documents & protected files.
 * Niminal install script for non-minimal Ubuntu/Debian base installs.
-* Weird swap issue.
 
 Future:
 * cabal install cabal-install
