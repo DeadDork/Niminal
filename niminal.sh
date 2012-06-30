@@ -5,7 +5,7 @@
 # Directory location of customizing files. This assumes that you are running this install script from the git's ./ directory (i.e. the one niminal.sh is in).
 custom_figs="$(pwd)/customs"
 
-# Create general home directories.
+# Create home subdirectories.
 mkdir -p "${HOME}"/Programming/{programming_projects,programming_experiments/{BASH,awk,sed,SQL,haskell,hex,HTML,LaTeX,R,perl,python,sqsh}}
 
 mkdir -p "${HOME}"/Downloads/{chromium,elinks,open_source,xombrero,vimprobable}
@@ -14,12 +14,12 @@ mkdir -p "${HOME}"/Pictures/screenshots
 
 mkdir -p "${HOME}"/Documents/manuals
 
-# Prepare to install packages.
+# Prepare system to install packages.
 sudo apt-get clean
 sudo apt-get update
 sudo apt-get upgrade
 
- Install just packages and their depends.
+# Install just packages and their depends.
 
 # Libraries, tools and other non-interactables.
 sudo apt-get --no-install-recommends -y install\
@@ -403,11 +403,20 @@ sudo ufw allow from 192.168.0.0/16 to any port 22
 sudo ufw allow proto tcp from 192.168.0.0/16 to any port 135,139,145
 sudo ufw allow proto udp from 192.168.0.0/16 to any port 137,138
 
-# Scripts
+# Scripts.
 cp -r "${custom_figs}"/scripts "${HOME}"/Programming/programming_projects/
 cp "${HOME}"/Programming/programming_projects/scripts/* "${HOME}"/local/bin/
 
-# Simple config's
+# Swap configuration.
+grep -q -i 'vm\.swappiness *= *[0-9]' /etc/sysctl.conf
+if [ $? -eq 0 ]; then
+	sudo cp /etc/sysctl.conf /etc/sysctl.conf.original
+	sudo bash -c "sed -i 's/\(vm\.swappiness *= *\)[0-9]*/\110/' /etc/sysctl.conf"
+else
+	sudo bash -c "echo -e '\n# Default swappiness = 60. As this is a desktop machine, I'm changing this to 10.\nvm.swappiness=10' >> /etc/sysctl.conf"
+fi
+
+# Simple config's.
 cp -r "${custom_figs}"/elinks/elinks "${HOME}"/.elinks
 
 cp -r "${custom_figs}"/parcellite/parcellite "${HOME}"/.config
