@@ -1,0 +1,92 @@
+Niminal
+=======
+
+An Ubuntu fork that fits my (minimal?) needs perfectly.
+
+Motivation
+----------
+
+I really like Linux: it's open-source, it lets me do what I want to do, it's fast, it's powerful, it's well-supported, etc.
+
+I also really like Ubuntu: it's pretty secure (though not as secure as Tin Hat Linux), it's stable (though not quite as stable as Debian), it's got a fantastic community (though not as great as... Wait, it's actually pretty great!), a great package repository, it's software library is relatively up-to-date (though it's an improvement on Debian, it's no Arch), it's easy to use, IT JUST WORKS, etc.
+
+Unfortunately, while Ubuntu is lighter-weight relative to OS X or Windows, it is a bit bloated for my taste. That, and I really don't like Unity or Gnome 3.
+
+In the past, I would install Ubuntu, and then remove every package that I didn't want. However, that's a bit of pain in the butt to do. Over the years, doing this again and again across all of the computers I use simply became too much for me. 
+
+Accordingly, I decided to make a Linux distro of my own, one that takes the good from Ubuntu, but tosses out the bloat (not going to say 'bad', as some people do like Unity, Gnome, et al. Not judging ;)
+
+Design
+------
+
+Initially, the idea was to create a distro that has everything I want, configured exactly the way I like it. That way, all I had to do the first time I got on a new machine was just install niminal, and, BOOM!, I was ready to roll. In practice, though, this has not worked out that way. For instance, my needs for my work computer are quite different than my home computer, which are then hybridized in my laptop, which has needs all of its own from those of my desktops. Installing a one-size-fits-all distro on all three results in a number of programs that do not get used on one or the other machine. In other words, I get bloat (the horror, the *horror*). Accordingly, I chose to go with a core system, and just use masks for any further customization.
+
+As such, niminal-core borrows heavily from lubuntu-core. In main fact, niminal-core is pretty much lubuntu-core, but with a different desktop environment.
+
+The main differences being:
+*	Xmonad is the window manager.
+*	Dzen & conky provide the panels.
+*	Trayer allows applets to dock in the panel.
+*	Xfe is the file manager.
+
+Intended User
+-------------
+
+Well, me :)
+
+As I mention above, the main motivation here was to create a distro that fits *my* needs as snugly as possible.
+
+That said, I'm no elite *nix hacker, and niminal is not a tricked out Arch, let alone a tricked out Linux From Scratch. Rather, it is a minimal Ubuntu install with a thin veneer of d customized xmonad window manager (more or less). As such, it is a relatively accessible minimal Linux distro. Accordingly, it could be said that the intended user is also any intermediate-level Ubuntu-er interested in trying something a bit more lightweight, but still familiar.
+
+(Alternatively, one could go minimal with Gentoo, Arch, aptosid, Tiny Core, Alpine Linux, *BSD, etc. There are a lot of good options out there. They all have their good points, but ultimately I prefer Niminal. I have no intention of inciting a comparison between any of these, so I will leave it at that.)
+
+Install
+-------
+
+1)	Install Minimal Ubuntu.
+
+	Instructions for this step can be found on <http://www.psychocats.net/ubuntu/minimal>. Pretty much, follow all of the steps *RIGHT UP TO THE FIRST LOGIN*. At that point, login, but do ***NOT*** install the packages the author recommends.
+
+2)	Copy the full Niminal directory to somewhere on your file system.
+
+	The easiest way to do this, assuming your machine is connected to the internet (which is kind of essential for the minimal install...), is to use git:
+
+		# Install git.
+		sudo apt-get install git --no-install-recommends
+		
+		# Clone Niminal to your present directory:
+		git clone https://github.com/DeadDork/Niminal.git
+
+3)	Change directory into Niminal, i.e.:
+
+		cd Niminal
+
+4)	Run niminal-core.sh
+
+		./niminal-core.sh
+
+	You will be presented with number of prompts. Just follow their instructions and you'll be done in no time!
+
+5)	(Highly recommended, but optional) Install a niminal mask, e.g.:
+
+		cd ~/Downloads/open_source
+		git clone https://github.com/DeadDork/niminal_desktop-mask.git
+		cd niminal_desktop-mask
+		./niminal_desktop-mask.sh
+
+6)	Restart your machine.
+
+		sudo reboot now
+
+And that's that! Your computer will restart, and eventually you will come to a login screen (I have yet to add a system boot animation, let alone graphic, so the computer still looks like it falls asleep at startup). Log in, and you'll find yourself a second or 4 later looking at the minimal simplicity of a customized Xmonad. 
+
+(Usage documentation goes beyond the scope of this README. That said, I hope to draw some up one day soon.)
+
+Feedback
+--------
+
+Report bugs, etc., on the Niminal GitHub page, <http://www.github.com/DeadDork/Niminal>.
+
+Feedback is appreciated--and one day I promise to set something up so that users can do more than just submit bug reports!
+
+Enjoy!
