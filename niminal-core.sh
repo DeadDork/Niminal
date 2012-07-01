@@ -53,7 +53,7 @@ test ! $? -eq 0 && echo 'Lubuntu-core depends install fail.' >> "${HOME}"/instal
 
 # Recommends.
 sudo apt-get --no-install-recommends -y install\
-	acpi-support\
+	gucharmap\
 	kerneloops-daemon\
 	pcmciautils
 
