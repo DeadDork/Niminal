@@ -1,0 +1,58 @@
+Pianobar
+========
+
+Pianobar is a command line Pandora music player. Pretty much, it does everything Pandora's web client does, but without sucking up *all* of your RAM.
+
+(Also, it comes with the added benefit of not having any of the nuisances a basic, non-premium account has, e.g. ads, limitations on how many songs can be skipped, etc. ...But you enjoy these benefits already, don't you, because you have a premium account, *right*???)
+
+That said, as with many of the open source software on niminal, Pianobar needs to be patched so that it can be installed in the proper directory. The niminal-core.sh script should do this automatically.
+
+In case it doesn't, report the issue on <http://github.com/DeadDork/Niminal>. I will do my best to help you asap.
+
+If you are feeling adventurous, you can try to patch Pianobar yourself.
+1.	Go to the open source directory. E.G.
+
+		cd ~/Downloads/open_source
+
+2.	Make sure that Pianobar has been cloned.
+
+		ls
+
+	(You should see 'pianobar' in the output.)
+        
+	If it is not, then clone it now:
+
+		git clone git://github.com/PromyLOPh/pianobar.git
+
+3.	Go to pianobar
+
+		cd pianobar
+
+4.	Test the patch.
+
+		git apply --check /PATH/TO/Niminal/customs/pianobar/0001-Added-USER_PATH-to-make-patching-pianobar-easy.patch
+
+	(Replace PATH/TO with the directory path to Niminal. E.G. '~/Programming/programming_projects/'.)
+5.	If you *don't* get an error, run the patch, and commit the change.
+
+		git apply /PATH/TO/Niminal/customs/pianobar/0001-Added-USER_PATH-to-make-patching-pianobar-easy.patch
+		git commit -a -m "MakeFile patch applied."
+
+	If you *do* get an error, then manually patch Pianobar.
+
+	Use a text editor (e.g. vi) to open Makefile.
+        
+	Change 
+
+		PREFIX = /usr/local
+
+	(or whatever the PREFIX is set to) to
+
+		PREFIX = ${HOME}/.local
+
+	Save and exit, and commit the change:
+
+		git add Makefile
+		git commit -a -m "MakeFile patch applied."
+
+Good luck!

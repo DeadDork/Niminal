@@ -15,7 +15,7 @@ index d48a56e..008d774 100644
  # makefile of pianobar
  
 -PREFIX:=/usr/local
-+PREFIX:=${HOME}/local
++PREFIX:=${HOME}/.local
  BINDIR:=${PREFIX}/bin
  LIBDIR:=${PREFIX}/lib
  INCDIR:=${PREFIX}/include
