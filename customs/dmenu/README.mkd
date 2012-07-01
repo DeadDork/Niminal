@@ -1,0 +1,57 @@
+dmenu
+=====
+
+dmenu is a dynamic menu, and quite useful for tiling managers. With a single keyboard shortcut, a user can launch just about any program that can be launched.
+
+Of course, this comes at the price of discoverability (i.e. important system related programs aren't grouped in sensible places like a "System Tools") and memorability (i.e. rather than learning the much more memorable route to get to a particular program, the user has to remember the actual name of the program). However, given that the trade-off is elegance and glorious, glorious speed, it's more than a fair exchange in my case.
+
+In order to use dmenu in niminal, the dmenu source has to be cloned from it's developer site and patched. The niminal-core.sh script should do this automatically.
+
+In case it doesn't, report the issue on <http://github.com/DeadDork/Niminal>. I will do my best to help you asap.
+
+If you are feeling adventurous, you can try to patch dmenu yourself.
+1.	Go to the open source directory. E.G.
+
+		cd ~/Downloads/open_source
+
+2.	Make sure that dmenu has been cloned.
+
+		ls
+
+	(You should see dmenu in the output.)
+	
+	If it is not, then clone it now:
+
+		hg clone http://hg.suckless.org/dmenu/
+
+3.	Go to dmenu
+
+		cd dmenu
+
+4.	Test patch.
+
+		patch --dry-run -p1 -f config.mk /PATH/TO/Niminal/customs/dmenu/make_file.patch
+
+	(Replace PATH/TO with directory path to Niminal. E.G. '~/Programming/programming_projects/'.)
+5.	If you *don't* get an error, then run the patch.
+
+	hg import "${custom_figs}"/dmenu/make_file.patch
+
+	If you *do* get an error, then manually patch dmenu.
+
+	Use a text editor (e.g. vi) to open config.mk
+	
+	Change 
+
+		PREFIX = /usr/local
+
+	(or whatever the PREFIX is set to) to
+
+		PREFIX = ${HOME}/.local
+
+	Save and exit, and commit the change:
+
+		hg add config.mk
+		hg commit -m 'Manually patched config.mk'
+
+Good luck!
