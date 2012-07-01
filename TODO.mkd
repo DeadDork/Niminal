@@ -34,6 +34,7 @@ Medium priority:
 *	Script for individualizing Niminal (i.e. if John Doe wants to try it out, the Niminal script should be able to prompt him a couple of question upon install, and then it's set up to use his favored IRC handle, etc.).
 *	cabal install cabal-install (I can't install cabal-install using cabal for the latest version of cabal-install. As it's maintained by Ubuntu these days, though, this isn't a big deal.)
 *	Xombrero keyboard shortcuts page exemptions.
+*	Delete guest account.
 
 Low priority:
 -------------
