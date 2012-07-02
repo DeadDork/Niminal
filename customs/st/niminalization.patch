@@ -34,7 +34,7 @@ diff -r e1414acbe547 -r 57a1235ffd33 config.mk
  
  # paths
 -PREFIX = /usr/local
-+PREFIX = ${HOME}/local
++PREFIX = ${HOME}/.local
  MANPREFIX = ${PREFIX}/share/man
  
  X11INC = /usr/X11R6/include
