@@ -1,15 +1,24 @@
 dmenu
 =====
 
-dmenu is a dynamic menu, and quite useful for tiling managers. With a single keyboard shortcut, a user can launch just about any program that can be launched.
+dmenu is a simple dynamic menu from the <http://www.suckless.org> folks.
 
-Of course, this comes at the price of discoverability (i.e. important system related programs aren't grouped in sensible places like a "System Tools") and memorability (i.e. rather than learning the much more memorable route to get to a particular program, the user has to remember the actual name of the program). However, given that the trade-off is elegance and glorious, glorious speed, it's more than a fair exchange in my case.
+Why it's part of niminal
+------------------------
+
+Simply put, dmenu is incredibly useful for tiling window managers like awesome, dwm, and xmonad. With a single keyboard shortcut, a user can launch just about any program that can be launched without having to raise her hand off of the keyboard.
+
+Of course, this comes at the price of discoverability (i.e. important system-related programs aren't grouped in sensible places like a "System Tools") and memorability (i.e. rather than learning the much more memorable route to get to a particular program, the user has to remember the actual,and often arbitrary, name of the program). However, given that the trade-off is elegance and glorious, glorious speed, it's more than a fair exchange, at least in my case.
+
+Patching dmenu
+--------------
 
 In order to use dmenu in niminal, the dmenu source has to be cloned from it's developer site and patched. The niminal-core.sh script should do this automatically.
 
-In case it doesn't, report the issue on <http://github.com/DeadDork/Niminal>. I will do my best to help you asap.
+In case it doesn't, report the issue on <http://github.com/DeadDork/Niminal>. I will do my best to resolve the issue ASAP.
 
 If you are feeling adventurous, you can try to patch dmenu yourself.
+
 1.	Go to the open source directory. E.G.
 
 		cd ~/Downloads/open_source
@@ -28,14 +37,14 @@ If you are feeling adventurous, you can try to patch dmenu yourself.
 
 		cd dmenu
 
-4.	Test patch.
+4.	Test the patch.
 
 		patch --dry-run -p1 -f config.mk /PATH/TO/Niminal/customs/dmenu/make_file.patch
 
 	(Replace PATH/TO with directory path to Niminal. E.G. '~/Programming/programming_projects/'.)
 5.	If you *don't* get an error, then run the patch.
 
-	hg import "${custom_figs}"/dmenu/make_file.patch
+		hg import "${custom_figs}"/dmenu/make_file.patch
 
 	If you *do* get an error, then manually patch dmenu.
 
