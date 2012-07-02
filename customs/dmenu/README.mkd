@@ -15,7 +15,7 @@ Patching dmenu
 
 In order to use dmenu in niminal, the dmenu source has to be cloned from it's developer site and patched. The niminal-core.sh script should do this automatically.
 
-In case it doesn't, report the issue on <http://github.com/DeadDork/Niminal>. I will do my best to resolve the issue ASAP.
+In case it doesn't, report the issue on <http://github.com/DeadDork/Niminal>. I will do my best to resolve it ASAP.
 
 If you are feeling adventurous, you can try to patch dmenu yourself.
 
@@ -33,7 +33,7 @@ If you are feeling adventurous, you can try to patch dmenu yourself.
 
 		hg clone http://hg.suckless.org/dmenu/
 
-3.	Go to dmenu
+3.	Go to *dmenu*
 
 		cd dmenu
 
@@ -41,14 +41,14 @@ If you are feeling adventurous, you can try to patch dmenu yourself.
 
 		patch --dry-run -p1 -f config.mk /PATH/TO/Niminal/customs/dmenu/make_file.patch
 
-	(Replace PATH/TO with directory path to Niminal. E.G. '~/Programming/programming_projects/'.)
-5.	If you *don't* get an error, then run the patch.
+	(Replace *PATH/TO* with directory path to Niminal. E.G. *~/Programming/programming_projects/*.)
+5.	If you **don't** get an error, then run the patch.
 
 		hg import "${custom_figs}"/dmenu/make_file.patch
 
-	If you *do* get an error, then manually patch dmenu.
+	If you **do** get an error, then manually patch dmenu.
 
-	Use a text editor (e.g. vi) to open config.mk
+	Use a text editor (e.g. vi) to open *config.mk*
 	
 	Change 
 
