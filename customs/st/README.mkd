@@ -46,50 +46,50 @@ If you are feeling adventurous, you can try to patch st yourself.
 		patch --dry-run -p1 < /PATH/TO/Niminal/customs/st/niminalization.patch
 
 	(Replace PATH/TO with directory path to Niminal. E.G. '~/Programming/programming_projects/'.)
-5.	a.	If you *don't* get an error, then run the patch.
+5.	If you *don't* get an error, then run the patch.
 
-			hg import /PATH/TO/Niminal/customs/st/niminalization.patch
+		hg import /PATH/TO/Niminal/customs/st/niminalization.patch
 
-	b.	If you *do* get an error, then manually patch st.
+	If you *do* get an error, then manually patch st.
 
-		Use a text editor (e.g. vi) to open *config.def.h*.
-	
-		Change 
+	Use a text editor (e.g. vi) to open *config.def.h*.
 
-			#define FONT "-*-*-medium-r-*-*-*-120-75-75-*-60-*-*"
-			#define BOLDFONT "-*-*-bold-r-*-*-*-120-75-75-*-60-*-*"
+	Change 
 
-		to
-	
-			#define FONT "-*-terminus-medium-r-*-*-*-160-72-72-*-80-*-*"
-			#define BOLDFONT "-*-terminus-bold-r-*-*-*-160-72-72-*-80-*-*"
-	
-		Also, add the following two lines of code to 'static Key key[]':
-	
-			{ XK_Left,      ControlMask, "\033[5D" },
-			{ XK_Right,     ControlMask, "\033[5C" },
-	
-		N.B. last I checked, these two lines would follow 
-	
-			{ XK_F12,       XK_NO_MOD, "\033[24~" },
-	
-		but precede the functions close paren
-	
-			};
-	
-		Save and exit, and then open *config.mk* with a text editor.
-	
-		Change
-	
-			PREFIX = /usr/local
-	
-		to
-	
-			PREFIX = ${HOME}/.local
-	
-		Save and exit, and then commit the changes.
-	
-			hg add config.def.h config.mk
-			hg commit -m 'Manually patched config.def.h and config.mk'
+		#define FONT "-*-*-medium-r-*-*-*-120-75-75-*-60-*-*"
+		#define BOLDFONT "-*-*-bold-r-*-*-*-120-75-75-*-60-*-*"
+
+	to
+
+		#define FONT "-*-terminus-medium-r-*-*-*-160-72-72-*-80-*-*"
+		#define BOLDFONT "-*-terminus-bold-r-*-*-*-160-72-72-*-80-*-*"
+
+	Also, add the following two lines of code to 'static Key key[]':
+
+		{ XK_Left,      ControlMask, "\033[5D" },
+		{ XK_Right,     ControlMask, "\033[5C" },
+
+	N.B. last I checked, these two lines would follow 
+
+		{ XK_F12,       XK_NO_MOD, "\033[24~" },
+
+	but precede the functions close paren
+
+		};
+
+	Save and exit, and then open *config.mk* with a text editor.
+
+	Change
+
+		PREFIX = /usr/local
+
+	to
+
+		PREFIX = ${HOME}/.local
+
+	Save and exit, and then commit the changes.
+
+		hg add config.def.h config.mk
+		hg commit -m 'Manually patched config.def.h and config.mk'
 
 Good luck!
