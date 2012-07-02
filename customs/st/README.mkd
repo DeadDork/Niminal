@@ -22,7 +22,8 @@ That said, the vanilla st lacks word movement (e.g. ctrl+LEFT moves one WORD lef
 
 In case it doesn't, report the issue on <http://github.com/DeadDork/Niminal>. I will do my best to help you asap.
 
-If you are feeling adventurous, you can try to patch st yourself.
+If you are feeling adventurous, you can try to patch st yourself:
+
 1.	Go to the open source directory. E.G.
 
 		cd ~/Downloads/open_source
