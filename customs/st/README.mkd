@@ -1,7 +1,7 @@
 st
 ==
 
-st is a simple terminal from the <suckless.org> folks. As with everything suckless, it is as barebones as you can get.
+st is a simple terminal from the <http://www.suckless.org> folks. As with everything suckless, it is as barebones as you can get.
 
 Why it's part of niminal
 ------------------------
@@ -32,13 +32,13 @@ If you are feeling adventurous, you can try to patch st yourself:
 
 		ls
 
-	(You should see st in the output.)
+	(You should see *st* in the output.)
 	
 	If it is not, then clone it now:
 
 		hg clone http://hg.suckless.org/st/
 
-3.	Go to st
+3.	Go to *st*
 
 		cd st
 
@@ -46,12 +46,12 @@ If you are feeling adventurous, you can try to patch st yourself:
 
 		patch --dry-run -p1 < /PATH/TO/Niminal/customs/st/niminalization.patch
 
-	(Replace PATH/TO with directory path to Niminal. E.G. '~/Programming/programming_projects/'.)
-5.	If you *don't* get an error, then run the patch.
+	(Replace *PATH/TO* with directory path to Niminal. E.G. *~/Programming/programming_projects/*.)
+5.	If you **don't** get an error, then run the patch.
 
 		hg import /PATH/TO/Niminal/customs/st/niminalization.patch
 
-	If you *do* get an error, then manually patch st.
+	If you **do** get an error, then manually patch st.
 
 	Use a text editor (e.g. vi) to open *config.def.h*.
 
