@@ -1,14 +1,14 @@
 Pianobar
 ========
 
-Pianobar is a command line Pandora music player. Pretty much, it does everything Pandora's web client does, but without sucking up *all* of your RAM and crashing your browser (what the hell are Pandora's programmer's doing?).
+Pianobar is a command line Pandora music player. Pretty much, it does everything Pandora's web client does, but without sucking up **all** of your RAM and crashing your browser (what the hell are Pandora's programmer's doing?).
 
 (Also, it comes with the added benefit of not having any of the nuisances a basic, non-premium account has, e.g. ads, limitations on how many songs can be skipped, etc... But you enjoy these benefits already, don't you, because you have a premium account, **right**???)
 
 Patching Pianobar
 -----------------
 
-That said, as with many of the open source software on niminal, Pianobar needs to be patched so that it can be installed in the proper directory. The niminal-core.sh script should do this automatically.
+Pianobar needs to be patched in order so that it can be installed in the proper directory. The niminal-core.sh script should do this automatically.
 
 In case it doesn't, report the issue on <http://github.com/DeadDork/Niminal>. I will do my best to resolve it ASAP.
 
