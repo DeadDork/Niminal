@@ -1,7 +1,7 @@
 Pianobar
 ========
 
-Pianobar is a command line Pandora music player. Pretty much, it does everything Pandora's web client does, but without sucking up **all** of your RAM and crashing your browser (what the hell are Pandora's programmer's doing?).
+Pianobar is a command line Pandora music player. Pretty much, it does everything Pandora's web client does, but without sucking up **all** of your RAM and crashing your browser (what the hell are Pandora's web-developers doing?).
 
 (Also, it comes with the added benefit of not having any of the nuisances a basic, non-premium account has, e.g. ads, limitations on how many songs can be skipped, etc... But you enjoy these benefits already, don't you, because you have a premium account, **right**???)
 
