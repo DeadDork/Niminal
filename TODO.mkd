@@ -10,6 +10,7 @@ High priority:
 *	Setup ssh properly (public/private keys, and whatnot).
 *	Change Squid3 to Polipo (squid is eating WAY too much memory, and I have no need for it's power features. I'm not an ISP!).
 *	Apparmor
+*	Something is sucking up swap & cache real bad (cache suckage is normally not a problem, but when the mem cache is over 50% full, it's not possible to swapoff/swapon, and if you can't do that then you get freeze issues when swap finally reaches 100%. I suspect that lightdm is the culprit--again.)
 
 Medium priority:
 ----------------
