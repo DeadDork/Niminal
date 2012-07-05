@@ -1,0 +1,32 @@
+Parcellite
+==========
+
+Parcellite is a lightweight GTK clipboard manager.
+
+Why it is in niminal
+--------------------
+
+There are a number of clipboards in a typical Linux distro, and they don't always talk to one another. For example, oftentimes when I copy some text in a browser, I can't paste it into vim. Not cool.
+
+Parcellite solves this problem by syncing all of the clipboards.
+
+Moreover, it also has a bunch of neat features, e.g. storing some 25 copy entries as opposed to the usual 1 (this is super useful when you're doing a flurry of cutting and pasting between a bunch of documents).
+
+That said, the vanilla install needs it's settings configured to be fully useful.
+
+Setting up Parcellite's configs
+-------------------------------
+
+Niminal-core should automatically copy the customized Parcellite configuration files into *HOME/.config/*.
+
+In case it doesn't, report the issue on <http://github.com/DeadDork/Niminal>. I will do my best to resolve it ASAP.
+
+Optionally, you can copy the config directory yourself:
+
+1.	Go to the parcellite config directory in Niminal. E.G.
+		cd ~/Programming/programming_projects/Niminal/customs/parcellite/
+
+2.	Copy the *parcellite* directory to *HOME/.config*.
+		cp -r parcellite ~/.config
+
+Good luck!
