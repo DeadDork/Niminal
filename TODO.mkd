@@ -14,6 +14,9 @@ High priority:
 
 Medium priority:
 ----------------
+*	Play with Samba's smb.conf, see if I can get it more secure & usable, etc.
+*	Play with Polipo's config.
+*	Play with Privoxy's config.
 *	Xmonad toggleStrut bug (suspected conflict with lightdm. Maybe switch dm?)
 *	Update script (with cron? Point is, I need a lightweight updater of some kind, and I think it's nuts to have to install the insane libraries of gnome just for a pop-up alerting me that there are updates).
 *	Volume on startup needs to be set to ON, not OFF, by default.
