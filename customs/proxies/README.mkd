@@ -1,0 +1,19 @@
+Proxies
+=======
+
+Niminal-core chains together Polipo ==> Privoxy ==> Tor for a measure of internet privacy.
+
+Motivation
+----------
+
+I find the recent erosion in individual privacy more than a little alarming.
+
+Accordingly, Polipo is chained to Privoxy, which is chained to Tor.
+
+Polipo is used to scrub some identifying info like what computer you're using, etc.
+
+Privoxy is used to remove ads and "obnoxious internet junk"
+
+(Also, there's a simple BASH script that toggle's Tor, as the 
+
+Patch /etc/squid3/squid.conf with squid.patch.
