@@ -6,11 +6,11 @@ dmenu is a simple dynamic menu from the <http://www.suckless.org> folks.
 Motivation
 ----------
 
-Simply put, dmenu is an incredibly useful tool for tiling window managers like awesome, dwm, and xmonad. With a single keyboard shortcut, a user can launch dmenu, and from there easily run just about any program available--and without ever having to raise her hand off of the keyboard! It is simple, elegant, fast, and highly functional.
+Simply put, dmenu is an incredibly useful tool for tiling window managers like awesome, dwm, and xmonad. With a single keyboard shortcut, a user can launch dmenu, and from there easily execute most programs without ever having to raise her hands off of the keyboard! It is simple, elegant, fast, and highly functional--and a big step up from having to double click on this folder, that folder, yet another folder or three, and only then finally execute the desired program.
 
 Of course, the trade-off is discoverability (i.e. important system-related programs aren't grouped in sensible places like a "System Tools") and memorability (i.e. rather than learning the much more memorable route to get to a particular program, the user has to remember the actual--and often arbitrary--name of the program). 
 
-However, for those who value the former over the latter--as I do--the trade is worth it.
+However, for those who value simplicity--as I do--the trade-off is worth it.
 
 Patching dmenu
 --------------
@@ -19,7 +19,7 @@ In order to use dmenu in niminal, the dmenu source has to be cloned from its dev
 
 In case it doesn't, report the issue on <http://github.com/DeadDork/Niminal>. I will do my best to resolve it ASAP.
 
-Alternatively, you can patch dmenu yourself:
+Alternatively, you can patch dmenu manually:
 
 1.	Go to your open source directory. E.G.
 
@@ -29,7 +29,7 @@ Alternatively, you can patch dmenu yourself:
 
 		ls
 
-	You should see 'dmenu' somewhere in the output. If you do not, then clone it now:
+	You should see *dmenu* somewhere in the output. If you do not, then clone it now:
 
 		hg clone http://hg.suckless.org/dmenu/
 
@@ -43,13 +43,13 @@ Alternatively, you can patch dmenu yourself:
 
 	(Replace *PATH/TO* with the directory path to Niminal, e.g. *~/Programming/programming_projects/*.)
 
-5.	If you **don't** get an error, then run the patch.
+5a.	If you **don't** get an error, then run the patch.
 
 		hg import /PATH/TO/Niminal/customs/dmenu/make_file.patch
 
 	(Again, be sure to replace *PATH/TO* with the directory path to Niminal, e.g. *~/Programming/programming_projects/*.)
 
-	If you **do** get an error, then manually patch dmenu.
+5b.	If you **do** get an error, then manually patch dmenu.
 
 	Open *config.mk* with your favorite text editor (e.g. vim).
 	
