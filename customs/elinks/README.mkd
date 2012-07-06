@@ -1,0 +1,32 @@
+Elinks Config
+=============
+
+Elinks is a relatively feature-rich text-based browser. It is a bit buggy, and not actively maintained, but yet still stands tall in the text-based browsing crowd.
+
+Why it is in niminal
+--------------------
+
+I sometimes find myself browsing the internet using a less than optimal connection. At times like these, a text-based browser is the difference between rage and webcomic-induced joy.
+
+(Daddy needs his daily dose of Schlock <http://www.schlockmercenary.com>.)
+
+As it is heavily configurable, I have tweaked it into something that I quite enjoy using. There are still a few things I need to work out, but it's definitely crossed the "good-enough" line for me. In order to maintain a single version of my preferred config file, it is maintained in the Niminal customs directory.
+
+Using my custom config file
+---------------------------
+
+The desktop mask should automatically copy the customized elinks configurations to HOME/.config.
+
+In case it doesn't, report the issue on <http://github.com/DeadDork/Niminal>. I will do my best to resolve it ASAP.
+
+If you are feeling adventurous, you could copy it yourself with the following commands:
+
+1.	Go to elinks config directory in Niminal. E.G.
+		cd ~/Programming/programming_projects/Niminal/customs/elinks/
+
+2.	Copy the elinks directory in the customs/elinks/ directory to HOME. E.G.
+		cp -r elinks ~/.elinks
+
+And that's that!
+
+I hope you enjoy my elinks settings.
