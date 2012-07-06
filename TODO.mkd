@@ -4,6 +4,7 @@ TODO
 High priority:
 --------------
 *	encfs directories in niminal-core & niminal desktop mask.
+*	Parcellite in daemon-mode only.
 *	move elinks (and maybe other stuff?) to laptop mask.
 *	Tighten up settings (e.g. xfce4-power-manager).
 *	Deprecate niminal into niminal-core with masks (as is, niminal is too top-heavy. Things like libreoffice & gimp should go in something like the desktop mask).
@@ -65,7 +66,6 @@ Low priority:
 	*	Power script (for quick shutdown, reboot, etc. using DBus. Makes manual power management--e.g. sleep--with dmenu a cinch).
 	*	Automated power management through scripts (TLP?).
 	*	NM through scripts (wicd-cli? The security--i.e. integration with gnome-keyring-manager--is going to be a pain...).
-	*	Find a better copy buffer system (I like parcellite a lot, and I wonder if I can strip it's source to make it more lightweight & applet-less).
 	*	volume (dzen & conky, and I have to make it so that you can click on it, as not all keyboards have volume control buttons, and I don't want to assign mod4 & '+/-').
 *	Password management (I need to work out a more secure system).
 *	Work out a way to easily, but securely, backup (and download into new Niminal installs) my documents & protected files.
