@@ -4,6 +4,7 @@ TODO
 High priority:
 --------------
 *	encfs directories in niminal-core & niminal desktop mask.
+*	move elinks (and maybe other stuff?) to laptop mask.
 *	Tighten up settings (e.g. xfce4-power-manager).
 *	Deprecate niminal into niminal-core with masks (as is, niminal is too top-heavy. Things like libreoffice & gimp should go in something like the desktop mask).
 *	Mask installer.
