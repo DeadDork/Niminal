@@ -1,0 +1,23 @@
+Samba
+=====
+
+samba -- a Windows fileserver for UNIX/
+
+Motivation
+----------
+
+Because it's still a world Windows dominates, especially in business.
+
+That said, the vanilla samba config is not as secure as it could be. Accordingly, I've made a few modifications to the samba conf file.
+
+Preparing smb.conf
+------------------
+
+The niminal desktop mask should prepare the smb.conf file on its own.
+
+In case it doesn't, report the issue on <http://github.com/DeadDork/Niminal>. I will do my best to resolve it ASAP.
+
+Alternatively, you could do it yourself with the following commands:
+
+
+Patch smb.patch to /etc/samba/smb.conf
