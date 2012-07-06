@@ -8,6 +8,7 @@ High priority:
 *	Tighten up settings (e.g. xfce4-power-manager).
 *	Deprecate niminal into niminal-core with masks (as is, niminal is too top-heavy. Things like libreoffice & gimp should go in something like the desktop mask).
 *	Mask installer.
+*	Mask uninstaller.
 *	Automount USB drives.
 *	Setup ssh properly (public/private keys, and whatnot).
 *	Change Squid3 to Polipo (squid is eating WAY too much memory, and I have no need for it's power features. I'm not an ISP!).
