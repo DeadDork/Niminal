@@ -13,16 +13,16 @@ I sometimes find myself browsing the internet using a less than optimal network 
 Configuring
 -----------
 
-One of elinks advantages is its degree and ease of customization. As such, I have:
+One of elinks' advantages is its degree and ease of customization. As such, I have:
 *	Created a custom collection of bookmarks.
 *	Changed how it opens image files.
 *	Made many of the keybindings vim-like-ish (there are a bunch of bugs preventing me from making it even vim-like).
 
-The laptop mask script should automatically copy the customized elinks configurations to the home directory.
+The laptop mask script should automatically configure elinks per the above.
 
 In case it doesn't, report the issue on <http://github.com/DeadDork/Niminal>. I will do my best to resolve it ASAP.
 
-Alternatively, you could copy it yourself with the following commands:
+Alternatively, you could manually configure elinks:
 
 1.	Go to elinks config directory in Niminal. E.G.
 
@@ -33,3 +33,5 @@ Alternatively, you could copy it yourself with the following commands:
 		cp -r elinks ~/.elinks
 
 And that's that!
+
+Enjoy using elinks!
