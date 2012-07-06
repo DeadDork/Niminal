@@ -17,7 +17,24 @@ The niminal desktop mask should prepare the smb.conf file on its own.
 
 In case it doesn't, report the issue on <http://github.com/DeadDork/Niminal>. I will do my best to resolve it ASAP.
 
-Alternatively, you could do it yourself with the following commands:
+Alternatively, you could prepare the file yourself with the following commands:
 
+1.	Create the share directory.
 
-Patch smb.patch to /etc/samba/smb.conf
+		mkdir -p "${HOME}"/samba/share
+
+2.	Create a back-up of the vanilla smb.conf (in case you want to revert to original configuration. This is useful for troubleshooting errors).
+
+		sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.original
+
+3.	Localize the niminal samba config file.
+
+		sudo bash -c "sed 's|PATH_TO_HOME|${HOME}|g' < PATH/TO/NIMINAL/customs/samba/smb.conf.niminalized > /etc/samba/smb.conf.niminalized"
+
+	(Be sure to change 'PATH/TO/NIMINAL' to whatever the path to niminal is, e.g. *${HOME}/Programming/programming_projects/Niminal*.)
+
+4.	Generate the new smb.conf file.
+
+		sudo bash -c "testparm -s /etc/samba/smb.conf.niminalized > /etc/samba/smb.conf"
+
+And you're done!
