@@ -1,18 +1,35 @@
 Pianobar
 ========
 
-Pianobar is a command line Pandora music player. Pretty much, it does everything Pandora's web client does, but without sucking up **all** of your RAM and crashing your browser (what the hell are Pandora's web-developers doing?).
+Pianobar is a command line Pandora music player.
 
-(Also, it comes with the added benefit of not having any of the nuisances a basic, non-premium account has, e.g. ads, limitations on how many songs can be skipped, etc... But you enjoy these benefits already, don't you, because you have a premium account, **right**???)
+Motivation
+----------
 
-Patching Pianobar
------------------
+All things being equal, given a choice between Spotify and Pandora, I would go with the Spotify in a heartbeat. Unfortunately, there isn't a good Linux client for Spotify (last I checked, you had to run the Windows client with Wine). Neither is it free.
 
-Pianobar needs to be patched in order so that it can be installed in the proper directory. The niminal-core.sh script should do this automatically.
+Pandora, on the other hand, does the job well enough at least, has a number of Linux clients, and *is* free.
+
+That said, its web AJAX client is horrible. It sucks up an obscene amount of system resources, and regularly crashes the browser. Accordingly, a user-side Pandora client is a must.
+
+I personally prefer Pianobar, as it's simple and lightweight. Pretty much, it does everything Pandora's web client does, but without the suckage.
+
+Strangely, it also removes the usual restrictions placed on free accounts, such as the limit on how many songs can be skipped. Further, ads won't be played on the music stream when you use Pianobar.
+
+Given this, I have to warn that getting essentially premium content for free is likely in breach of the user agreement with Pandora. Consider yourself warned.
+
+That said, in the hypothetical I can certainly appreciate how that might be a big plus for Pianobar!
+
+Patching
+--------
+
+Pianobar needs to be patched so that it instals in the local directory.
+
+Niminal desktop  should do this automatically.
 
 In case it doesn't, report the issue on <http://github.com/DeadDork/Niminal>. I will do my best to resolve it ASAP.
 
-If you are feeling adventurous, you can try to patch Pianobar yourself.
+Alternatively, you can try to patch Pianobar yourself.
 
 1.	Go to the open source directory. E.G.
 
@@ -28,7 +45,7 @@ If you are feeling adventurous, you can try to patch Pianobar yourself.
 
 		git clone git://github.com/PromyLOPh/pianobar.git
 
-3.	Go to *pianobar*
+3.	Go to *pianobar*.
 
 		cd pianobar
 
@@ -36,21 +53,24 @@ If you are feeling adventurous, you can try to patch Pianobar yourself.
 
 		git apply --check /PATH/TO/Niminal/customs/pianobar/0001-Added-USER_PATH-to-make-patching-pianobar-easy.patch
 
-	(Replace PATH/TO with the directory path to Niminal. E.G. '~/Programming/programming_projects/'.)
-5.	If you **don't** get an error, run the patch, and commit the change.
+	(Replace PATH/TO with the directory path to Niminal. E.G. '${HOME}/Programming/programming_projects/'.)
+
+5a.	If you **don't** get an error, run the patch, and commit the change.
 
 		git apply /PATH/TO/Niminal/customs/pianobar/0001-Added-USER_PATH-to-make-patching-pianobar-easy.patch
 		git commit -a -m "MakeFile patch applied."
 
-	If you **do** get an error, then manually patch Pianobar.
+	(Again, be sure to replace PATH/TO with the directory path to Niminal. E.G. '${HOME}/Programming/programming_projects/'.)
 
-	Use a text editor (e.g. vi) to open *Makefile*.
+5b.	If you **do** get an error, then manually patch Pianobar.
+
+	Open *Makefile* with your favorite text editor (e.g vim).
         
 	Change 
 
 		PREFIX = /usr/local
 
-	(or whatever the PREFIX is set to) to
+	(or whatever the PREFIX is set to in the vanilla) to
 
 		PREFIX = ${HOME}/.local
 
@@ -59,4 +79,6 @@ If you are feeling adventurous, you can try to patch Pianobar yourself.
 		git add Makefile
 		git commit -a -m "Makefile patch applied."
 
-Good luck!
+And that's that!
+
+Enjoy Pianobar!
