@@ -1,28 +1,28 @@
 st
 ==
 
-st is a simple terminal from the <http://www.suckless.org> folks. As with everything suckless, it is as barebones as you can get.
+st is a simple terminal emulator from the <http://www.suckless.org> folks. As with everything suckless, it is as barebones as you can get, and maximally awesome.
 
-Why it's part of niminal
-------------------------
+Motivation
+----------
 
 I have three main terminal emulator needs:
 1.	Sustained cli work, such as for coding in vim.
 2.	Quick cli work, such as for quickly checking which process is sucking up memory using htop.
 3.	For running cli programs, such as pianobar.
 
-The first I felt was well-satisfied by urxvt. It had all of the features that I liked, was sufficiently customizable, and lightweight (especially when used with the server/client daemon option). However, lightweight as it was, I felt that it was still too bloated for (2) and (3). I explored some of the other terminal emulator options out there, but either was disappointed by poor rendering performance, too much memory consumption or bugs, and invariably still too many features. I began seriously considering coding my own terminal emulator.
+The first I felt was well-satisfied by urxvt. It had all of the features that I liked, was sufficiently customizable and lightweight (especially when used with the server/client daemon option). However, lightweight as it was, I felt that it was still too bloated for (2) and (3). I explored some of the other terminal emulator options out there, but either was disappointed by poor rendering performance, too much memory consumption or bugs, and invariably still too many features. I began seriously considering coding my own terminal emulator.
 
-Thankfully, I found st, which satisfied my needs perfectly!
+Thankfully, I found st, which satisfied my remaining needs perfectly!
 
-Patching st
------------
+Patching
+--------
 
-That said, the vanilla st lacks word movement (e.g. ctrl+LEFT moves one WORD left), as well as installs to '/usr/local/'. As such, I wrote a simple patch that adds word movement functionality & installs st to 'HOME/.local/'. The niminal-core.sh script should automatically patch st.
+That said, the vanilla st lacks word movement (e.g. ctrl+LEFT moves one WORD left), as well as installs by default to '/usr/local/'. As such, I wrote a simple patch that adds word movement functionality & installs st to the more appropriate 'HOME/.local/'. The niminal-core.sh script should automatically patch st.
 
-In case it doesn't, report the issue on <http://github.com/DeadDork/Niminal>. I will do my best to help you asap.
+In case it doesn't, report the issue on <http://github.com/DeadDork/Niminal>. I will do my best to help you ASAP.
 
-If you are feeling adventurous, you can try to patch st yourself:
+Alternatively, you can patch st manually:
 
 1.	Go to the open source directory. E.G.
 
@@ -32,9 +32,9 @@ If you are feeling adventurous, you can try to patch st yourself:
 
 		ls
 
-	(You should see *st* in the output.)
+	You should see *st* in the output.
 	
-	If it is not, then clone it now:
+	If you do not, then clone it now:
 
 		hg clone http://hg.suckless.org/st/
 
@@ -42,18 +42,18 @@ If you are feeling adventurous, you can try to patch st yourself:
 
 		cd st
 
-4.	Test patch.
+4.	Test the patch.
 
 		patch --dry-run -p1 < /PATH/TO/Niminal/customs/st/niminalization.patch
 
-	(Replace *PATH/TO* with directory path to Niminal. E.G. *~/Programming/programming_projects/*.)
-5.	If you **don't** get an error, then run the patch.
+	(Replace *PATH/TO* with the directory path to Niminal, e.g. *$HOME/Programming/programming_projects/*.)
+5a.	If you **don't** get an error, then run the patch.
 
 		hg import /PATH/TO/Niminal/customs/st/niminalization.patch
 
-	If you **do** get an error, then manually patch st.
+5b.	If you **do** get an error, then manually patch st.
 
-	Use a text editor (e.g. vi) to open *config.def.h*.
+	Open *config.def.h* with your favorite text editor (e.g. vim).
 
 	Change 
 
@@ -70,15 +70,17 @@ If you are feeling adventurous, you can try to patch st yourself:
 		{ XK_Left,      ControlMask, "\033[5D" },
 		{ XK_Right,     ControlMask, "\033[5C" },
 
-	N.B. last I checked, these two lines would follow 
+	N.B. last I checked, the above two lines should follow 
 
 		{ XK_F12,       XK_NO_MOD, "\033[24~" },
 
-	but precede the functions close paren
+	but precede the function's close paren
 
 		};
 
-	Save and exit, and then open *config.mk* with a text editor.
+	Save and exit.
+
+	Now open *config.mk* with a text editor.
 
 	Change
 
@@ -88,9 +90,13 @@ If you are feeling adventurous, you can try to patch st yourself:
 
 		PREFIX = ${HOME}/.local
 
-	Save and exit, and then commit the changes.
+	Save and exit.
+
+	Finally commit the changes.
 
 		hg add config.def.h config.mk
 		hg commit -m 'Manually patched config.def.h and config.mk'
 
-Good luck!
+And that's that!
+
+Enjoy st!
