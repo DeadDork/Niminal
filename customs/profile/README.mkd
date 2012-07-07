@@ -3,19 +3,23 @@ PROFILE
 
 The '.profile' file lets the user give certain directories special properties.
 
-What .profile does in niminal
------------------------------
+Motivation
+----------
 
-I have amended '.profile' to include 'HOME/.local/bin' in PATH. This allows me to execute programs installed in 'HOME/.local/bin' from the command line, gmrun, dmenu, etc. without having to use the full path to the executable. Similarly with man pages installed in 'HOME/.local/share/doc/man/'.
+I don't like installing from source using root. Accordingly, I make a point of installing everything that hasn't been vetted by the Debian & Ubuntu folks in *HOME/.local/bin*.
 
-Patching .profile
------------------
+Unfortunately, by default executables in that directory will not be called from dmeny, anywhere from the cli, etc.; neither will *man* read manpages that are installed there.
 
-niminal-core.sh should automatically copy the customized '.profile' to 'HOME'.
+For that, you have to amend *HOME/.profile*.
+
+Patching
+--------
+
+niminal-core.sh should automatically patch *HOME/.profile*.
 
 In case it doesn't, report the issue on <http://github.com/DeadDork/Niminal>. I will do my best to resolve it ASAP.
 
-Alternatively, you could do it yourself with the following commands:
+Alternatively, you could patch it yourself with the following commands:
 
 1.	Go to the profile directory in Niminal. E.G.
 
