@@ -1,29 +1,31 @@
 Samba
 =====
 
-samba -- a Windows fileserver for UNIX/
+samba -- a Windows fileserver for UNIX.
 
 Motivation
 ----------
 
-Because it's still a world Windows dominates, especially in business.
+Like it or not, we live in a world Windows dominates, especially in the business world.
 
-That said, the vanilla samba config is not as secure as it could be. Accordingly, I've made a few modifications to the samba conf file.
+Samba makes it easy to manage files across both Windows and Linux using a secure share.
 
-Preparing smb.conf
-------------------
+Configuring
+-----------
 
-The niminal desktop mask should prepare the smb.conf file on its own.
+The vanilla samba config is not as secure as it could be (whether it is not secure enough is a separate question, and one I am not qualified to answer). Accordingly, I've made a few modifications to the samba conf file, following the direction of those who understand this stuff better than I ever will, in order to increase the level of security.
 
-In case it doesn't, report the issue on <http://github.com/DeadDork/Niminal>. I will do my best to resolve it ASAP.
+The niminal desktop mask should automatically configure samba as such.
 
-Alternatively, you could prepare the file yourself with the following commands:
+If it does not, report the issue on <http://github.com/DeadDork/Niminal>. I will do my best to resolve it ASAP.
+
+Alternatively, you could configure samba manually:
 
 1.	Create the share directory.
 
 		mkdir -p "${HOME}"/samba/share
 
-2.	Create a back-up of the vanilla smb.conf (in case you want to revert to original configuration. This is useful for troubleshooting errors).
+2.	Make a back-up of the vanilla smb.conf (in case you want to revert to original configuration. This is useful for troubleshooting errors).
 
 		sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.original
 
@@ -31,10 +33,12 @@ Alternatively, you could prepare the file yourself with the following commands:
 
 		sudo bash -c "sed 's|PATH_TO_HOME|${HOME}|g' < PATH/TO/NIMINAL/customs/samba/smb.conf.niminalized > /etc/samba/smb.conf.niminalized"
 
-	(Be sure to change 'PATH/TO/NIMINAL' to whatever the path to niminal is, e.g. *${HOME}/Programming/programming_projects/Niminal*.)
+	(Be sure to change 'PATH/TO/NIMINAL' to whatever the path to niminal is in your case, e.g. *${HOME}/Programming/programming_projects/Niminal*.)
 
 4.	Generate the new smb.conf file.
 
 		sudo bash -c "testparm -s /etc/samba/smb.conf.niminalized > /etc/samba/smb.conf"
 
-And you're done!
+And that's that!
+
+Enjoy using Samba!
