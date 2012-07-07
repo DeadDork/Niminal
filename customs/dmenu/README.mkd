@@ -43,13 +43,13 @@ Alternatively, you can patch dmenu manually:
 
 	(Replace *PATH/TO* with the directory path to Niminal, e.g. *~/Programming/programming_projects/*.)
 
-5a.	If you **don't** get an error, then run the patch.
+5.	If you **don't** get an error, then run the patch.
 
 		hg import /PATH/TO/Niminal/customs/dmenu/make_file.patch
 
 	(Again, be sure to replace *PATH/TO* with the directory path to Niminal, e.g. *~/Programming/programming_projects/*.)
 
-5b.	If you **do** get an error, then manually patch dmenu.
+	If you **do** get an error, then manually patch dmenu.
 
 	Open *config.mk* with your favorite text editor (e.g. vim).
 	
