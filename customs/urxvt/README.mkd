@@ -1,0 +1,34 @@
+URXVT
+=====
+
+urxvt -- a lightweight terminal emulator.
+
+Motivation
+----------
+
+In my current professional incarnation, I spend **a lot** of time on the command line.
+
+As such, a good terminal emulator is critical.
+
+For my primary term, I was looking for one that was lightweight, yet still had critical features (e.g. a scrollback buffer of at least a couple thousand lines). Urxvt pretty much nailed it.
+
+Configuring
+-----------
+
+The default settings in urxvt are a bit ugly. As such, I made some changes to the config file to make urxvt a bit more easy on the eyes.
+
+Niminal-core should automatically configure urxvt.
+
+In case it doesn't, report the issue on <http://github.com/DeadDork/Niminal>. I will do my best to resolve it ASAP.
+
+Alternatively, you can configure urxvt manually:
+
+1.	Simply copy the custom config from the Niminal urxvt directory to home:
+
+		cp PATH/TO/Niminal/customs/urxvt/Xdefaults "${HOME}"/.Xdefaults 
+
+	(Replace *PATH/TO* with the directory path to Niminal, e.g. *~/Programming/programming_projects/*.)
+
+And that's that!
+
+Enjoy using urxvt!
