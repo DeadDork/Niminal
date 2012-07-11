@@ -1,0 +1,30 @@
+XFCE4-Power-Manager
+===================
+
+XFCE4-Power-Manager -- a lightweight power manager.
+
+Motivaton
+---------
+
+Power management is an important part of any OS.
+
+That said, I don't need the whole Gnome library, etc. etc. etc. just to manage my battery settings.
+
+Hence, the XFCE4 power manager instead of Gnome power manager. It's relatively light weight, and does the job well enough (there are a few bugs, but they're largely cosmetic).
+
+(In truth, even XFCE4 has a bit too much bloat. However, I leave working out some cobbled-together, ultra-lightweight homebrewed solution for another day.)
+
+Configuring
+-----------
+
+The niminal laptop mask should automatically configure the XFCE4 power manager for better battery life.
+
+In case it doesn't, report the issue on <http://github.com/DeadDork/Niminal>. I will do my best to resolve it ASAP.
+
+Alternatively, you can configure XFCE4-Power-Manager manually:
+
+1.	Copy the configuration directory from the XFCE4 Niminal customs directory to the *HOME/.config* directory, e.g.
+
+		cp -r ~/Programming/programming_projects/Niminal/customs/xfce4/xfce4 ~/.config/
+
+And that's that!
