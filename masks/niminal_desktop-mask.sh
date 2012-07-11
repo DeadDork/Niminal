@@ -6,7 +6,8 @@
 
 # Prepatory stuff.
 
-# Directory location of customizing files. This assumes that you are running this install script from the niminal-core's git home directory (i.e. the directory niminal-core.sh is in)--*NOT* the scrip the mask is in (yeah, yeah).
+# Directory location of customizing files.
+# This assumes that this mask is installed using the mask installer in the top Niminal git directory. 
 custom_figs="$(pwd)/customs"
 
 # Readies system to install packages.
