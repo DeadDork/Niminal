@@ -128,7 +128,6 @@ sudo apt-get --no-install-recommends -y install\
 	wicd-cli\
 	xarchiver\
 	xfe\
-	xfce4-power-manager\
 	xli\
 	zathura
 
@@ -265,8 +264,6 @@ cp "${custom_figs}"/profile/profile "${HOME}"/.profile
 cp "${custom_figs}"/vim/vimrc "${HOME}"/.vimrc
 
 cp -r "${custom_figs}"/vim/vim "${HOME}"/.vim
-
-cp -r "${custom_figs}"/xfce4/xfce4 "${HOME}"/.config
 
 cp -r "${custom_figs}"/xfe/xfe "${HOME}"/.config
 

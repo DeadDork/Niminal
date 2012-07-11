@@ -15,9 +15,14 @@ sudo apt-get --no-install-recommends -y install\
 	bluez-alsa\
 	bluez-utils\
 	laptop-detect\
-	lxrandr\
+	lxrandr
 
-test "$(aptitude search '^cups$' | egrep '[[:space:]]+cups[[:space:]]+' | awk '{print $1}')" != 'i' && sudo apt-get --no-install-recommends -y install bluez-cups # There's probably a better way to test whether the cups package is installed.
+# Installs bluez-cups if cups is installed.
+# There's probably a better way to test whether the cups package is installed...
+test "$(aptitude search '^cups$' | egrep '[[:space:]]+cups[[:space:]]+' | awk '{print $1}')" != 'i' && sudo apt-get --no-install-recommends -y install bluez-cups
+
+# Configures xfce4 power manager for better laptop battery life.
+cp -r "${custom_figs}"/xfce4/xfce4 "${HOME}"/.config
 
 # As soon as I resolve the network-manager applet bug, I want to add to the package install list:
 #	mobile-broadband-provider-info
