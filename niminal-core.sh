@@ -202,7 +202,7 @@ fi
 sudo ufw default deny
 sudo ufw enable
 sudo ufw allow from 192.168.0.0/16 to any port 22
-sudo ufw allow proto tcp from 192.168.0.0/16 to any port 135,139,145
+sudo ufw allow proto tcp from 192.168.0.0/16 to any port 135,139,445
 sudo ufw allow proto udp from 192.168.0.0/16 to any port 137,138
 
 # Swap configuration.
