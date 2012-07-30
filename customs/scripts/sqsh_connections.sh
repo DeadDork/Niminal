@@ -17,25 +17,27 @@ new_connection () {
 
 	# Get the server name.
 	clear
-	PS3='Server name?'
+	PS3='Server name? '
 	IFS="	"
 	select server in $(awk '/^\[[^\]]+\]/{printf "%s\t", gensub(/^\[([^\]]+)\].*/, "\\1", 1)}' < "${interface}"); do 
 		grep -q '^\['"${server}"'\]' "${interface}"
 		if [ $? -eq 0 ]; then
 			break
 		else
-			# Error trap.
 			echo 'Bad SERVER selection. Try again.'
 		fi
 	done
 	unset IFS
 
-	# Get the user name.
+	# Get the user name. For this, you first have to get the domain, if one is exists.
 	clear
-	read -p 'USER name (e.g "domain\tester". N.B. If there is a "\", be sure to escape it, i.e. "domain\\tester")? ' user
+	read -p 'DOMAIN name (e.g. "domain" from "domain\tester". N.B. if there is no domain name, leave this empty)? ' domain
+	read -p 'USER name (e.g "tester" from "domain\tester")? ' user
+	# "user_file" needs four escapes in order to create a proper backslash for the settings file. However, it only needs two escapes when it is part of a new connection.
+	test ! -z $domain && user_file="${domain}\\\\${user}" && user="${domain}\\${user}"
 
 	# Adds the connection to the connections file.
-	echo -e "${interface} ${server} ${user}" >> "${connections_file}"
+	echo -e "${interface} ${server} ${user_file}" >> "${connections_file}"
 }
 
 # Makes sure that a scripts directory exists.
@@ -44,18 +46,11 @@ test ! -d ~/.config/scripts/ && mkdir -p ~/.config/scripts
 # Makes sure that a connections file exists & that it is not empty.
 if [ ! -e "${connections_file}" ]; then
 	touch "${connections_file}"
-	empty=1
-else
-	empty=0
-fi
-
-# If no connections exist, the user is prompted for connection information. If connections exist, then the user is prompted whether to use an established connection or to create a new one.
-if [ $empty -eq 1 ]; then
 	# Create a new connection because none exist yet.
 	new_connection
-elif [ $empty -eq 0 ]; then
+else
 	# Select whether to create a new connection setting or use an established one.
-	PS3='Choose to create a new connection setting or use an established one.'
+	PS3='Choose to create a new connection setting or use an established one. '
 	select setting in 'New connection' 'Established connection'; do
 		case "${setting}" in
 			# If a NEW CONNECTION is desired, then the necessary connection settings are collected.
@@ -67,7 +62,7 @@ elif [ $empty -eq 0 ]; then
 			# If an ESTABLISHED CONNECTION is desired, then the necessary connection settings are retrieved from the settings file.
 			'Established connection' )
 				clear
-				PS3='Choose which established connection to use.'
+				PS3='Choose which established connection to use. '
 				IFS='	'
 				select connection in $(awk '{printf "%s\t", $0}' < "${connections_file}"); do
 					grep -q -F "${connection}" "${connections_file}"
@@ -77,7 +72,6 @@ elif [ $empty -eq 0 ]; then
 						user="$(echo "${connection}" | awk '{printf "%s", $3}')"
 						break
 					else
-						# Error trap.
 						echo 'Bad CONNECTION selection. Try again.'
 					fi
 				done
@@ -85,7 +79,6 @@ elif [ $empty -eq 0 ]; then
 				break
 				;;
 
-			# Error trap.
 			* )
 				echo 'Bad SETTING selection. Try again.'
 				;;
