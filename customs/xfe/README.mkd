@@ -1,0 +1,30 @@
+XFE
+===
+
+XFE -- a lightweight gui file system manager based on X Win Commander.
+
+Motivation
+----------
+
+Though I do just about everything on the cli these days, a gui file manager is quite useful in some cases (e.g. exploration, browsing through photos, etc.).
+
+Given my preference for lightweight FOSS, I chose XFE, as it's footprint is 1/3 that of even PCMANFM.
+
+Configuration
+-------------
+
+XFE is easily configured, and highly configurable. I personally prefer it on the more minimalistic, feature-poor side, as I prefer allocating more screen real estate to the file tree & directory panes.
+
+The niminal desktop mask should automatically configure XFE to my preference.
+
+In case it doesn't, report the issue on <http://github.com/DeadDork/Niminal>. I will do my best to resolve it ASAP.
+
+Alternatively, you can try manually configure it yourself:
+
+1.	Copy the XFE directory from the Niminal customs xfe directory to *HOME/.config*, e.g.
+
+		cp -r ~/Programming/programming_projects/Niminal/customs/xfe/xfe ~/.config
+
+And that's that!
+
+You are also encouraged to play with the gui settings in XFE directly.

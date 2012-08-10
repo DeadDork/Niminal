@@ -1,0 +1,23 @@
+XMonad
+======
+
+XMonad -- an ultra-lightweight window manager.
+
+Motivation
+----------
+
+After hearing a lot of hooplah about tiling window managers, I gave xmonad a shot. I rather liked it.
+
+Unfortunately, it had a few bugs, so I tried a few other window managers.
+
+Awesome was a bit too feature-full.
+
+DWM has a hostile community, and was a bit too much of a PITA for me to modify to fit my needs (I really, **really** need to learn C...).
+
+Spectrwm had a slightly nicer community than DWM, but not by much, but was pretty buggy (it's nowhere near it's putative >1.0 release. It's in beta at most).
+
+When I came back to xmonad, it was like coming back home: it had everything I wanted (a great community, a minimum of features), and only a few minor bugs to detract from what would otherwise be ideal.
+I tried dwm, awesome, xmonad, and spectrwm.
+
+I liked xmonad best.
+Copy xmonad to HOME/.xmonad and xmonad.png to /usr/share/icons.

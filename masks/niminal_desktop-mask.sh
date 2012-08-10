@@ -6,7 +6,8 @@
 
 # Prepatory stuff.
 
-# Directory location of customizing files. This assumes that you are running this install script from the niminal-core's git home directory (i.e. the directory niminal-core.sh is in)--*NOT* the scrip the mask is in (yeah, yeah).
+# Directory location of customizing files.
+# This assumes that this mask is installed using the mask installer in the top Niminal git directory. 
 custom_figs="$(pwd)/customs"
 
 # Readies system to install packages.
@@ -128,7 +129,6 @@ sudo apt-get --no-install-recommends -y install\
 	wicd-cli\
 	xarchiver\
 	xfe\
-	xfce4-power-manager\
 	xli\
 	zathura
 
@@ -265,8 +265,6 @@ cp "${custom_figs}"/profile/profile "${HOME}"/.profile
 cp "${custom_figs}"/vim/vimrc "${HOME}"/.vimrc
 
 cp -r "${custom_figs}"/vim/vim "${HOME}"/.vim
-
-cp -r "${custom_figs}"/xfce4/xfce4 "${HOME}"/.config
 
 cp -r "${custom_figs}"/xfe/xfe "${HOME}"/.config
 

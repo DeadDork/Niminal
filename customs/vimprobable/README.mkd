@@ -1,0 +1,68 @@
+Vimprobable
+===========
+
+Vimprobable -- A Webkit-based WWW browser inspired by the Firefox Vimperator plugin.
+
+Motivation
+----------
+
+Besides a text editor, my most used program is a web browser. While I quite like the Firefox Vimperator plugin, Firefox as a whole is simply too bloated (for instance, it takes 15 seconds to start it on my dinky netbook).
+
+Thankfully, the Vimprobable team has created a browser with much the same basic feature-set as Vimperator, but based on the Webkit layout engine and not much more, making it very light-weight (for instance, it takes 1 - 2 seconds to start on my dinky netbook--wow!).
+
+Patching
+--------
+
+I have modded the Vimprobable vanilla a little bit:
+*	Installs to *HOME/.local*.
+*	Sets the default javascript & plugins to false.
+*	Sets the URI handlers to *st* + *mutt*/*wget*.
+*	Cookies get flushed at exit.
+*	Download destination set to *HOME/Downloads/vimprobable*.
+*	Searches greatly expanded, and defaulted to duckduckgo.
+
+The niminal desktop mask should automatically patch Vimprobable.
+
+In case it doesn't, report the issue on <http://github.com/DeadDork/Niminal>. I will do my best to resolve it ASAP.
+
+Alternatively, you can patch Vimprobable manually:
+
+1.	Change to your open source directory, e.g.
+
+		cd ~/Downloads/open_source/
+
+2.	Make sure that Vimprobable has been cloned.
+
+		ls
+
+	(You should see vimprobable in the output.)
+
+	If Vimprobable has not been cloned, then clone it now.
+
+		git clone git://git.code.sf.net/p/vimprobable/code vimprobable
+
+3.	Change to the vimprobable directory.
+
+		cd vimprobable
+
+4.	Test the niminal Vimprobable patch.
+
+		git apply --check PATH/TO/Niminal/customs/vimprobable/0001-Niminal-Vimprobable-configs.patch
+
+	(Be sure to change *PATH/TO* to the directory path the Niminal git directory is in, e.g. */home/DeadDork/Programming/programming_projects/*.)
+
+5.	If the patch test produced no errors, then run the patch.
+
+		git apply PATH/TO/Niminal/customs/vimprobable/0001-Niminal-Vimprobable-configs.patch
+
+	(Again, be sure to change *PATH/TO* to the directory path the Niminal git directory is in, e.g. */home/DeadDork/Programming/programming_projects/*.)
+
+	Now compile vimprobable
+
+		make clean && make install
+
+	And that's that!
+
+	Enjoy using Vimprobable!
+
+	If the patch test failed, report the error, and I will attempt to resolve it ASAP. More than that, though, is a bit involved for this short step-by-step.
